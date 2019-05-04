@@ -1,0 +1,215 @@
+<layout>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/grad_bg"
+            android:gravity="center"
+            android:padding="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please complete this survey to get the final result"
+                android:id="@+id/text"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                android:textStyle="bold"
+                />
+
+
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/erythema"
+                android:layout_below="@+id/text"
+                android:background="@drawable/et_bg">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:textColorHint="@color/white"
+
+                    android:text="Does the affected area usually get red ?"
+                    android:textSize="17sp"
+                    android:id="@+id/erythema_text"
+
+                    android:textStyle="bold"
+                    />
+
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/erythema_slider"
+                    android:max="4"
+                    android:progress="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/erythema_text"
+                    android:layout_marginBottom="10dp"
+                    android:progressTint="@color/progress_bar_color"
+                    android:thumbTint="@color/progress_bar_thumb_color"
+                    android:progressBackgroundTint="@drawable/background"
+                    android:progressBackgroundTintMode="multiply" />
+
+            </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scaling"
+                android:layout_below="@+id/erythema"
+                android:background="@drawable/et_bg"
+
+                android:layout_marginTop="30dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:textColorHint="@color/white"
+
+                    android:text="Does the affected area usually get red ?"
+                    android:textSize="17sp"
+                    android:id="@+id/scaling_text"
+
+                    android:textStyle="bold"
+                    />
+
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/scaling_slider"
+                    android:max="4"
+                    android:progress="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/scaling_text"
+                    android:layout_marginBottom="10dp"
+                    android:progressTint="@color/progress_bar_color"
+                    android:thumbTint="@color/progress_bar_thumb_color"
+                    android:progressBackgroundTint="@drawable/background"
+                    android:progressBackgroundTintMode="multiply" />
+
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/definite_borders"
+                android:layout_below="@+id/scaling"
+                android:background="@drawable/et_bg"
+
+                android:layout_marginTop="30dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:textColorHint="@color/white"
+
+                    android:text="Does the affected area have definite borders ?"
+                    android:textSize="17sp"
+                    android:id="@+id/borders_text"
+
+                    android:textStyle="bold"
+                    />
+
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/borders_slider"
+                    android:max="4"
+                    android:progress="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/borders_text"
+                    android:layout_marginBottom="10dp"
+                    android:progressTint="@color/progress_bar_color"
+                    android:thumbTint="@color/progress_bar_thumb_color"
+                    android:progressBackgroundTint="@drawable/background"
+                    android:progressBackgroundTintMode="multiply" />
+
+            </RelativeLayout>
+
+
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/btn_bg"
+                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="70dp"
+                android:paddingRight="70dp"
+                android:clickable="true"
+                android:onClick="load"
+                android:id="@+id/btn_survey"
+                android:foreground="?selectableItemBackground"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
+                android:layout_below="@+id/definite_borders"
+                >
+                <TextView
+                    android:id="@+id/signInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit answers"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"/>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"/>
+            </FrameLayout>
+            <View
+                android:id="@+id/revealView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gradStart"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

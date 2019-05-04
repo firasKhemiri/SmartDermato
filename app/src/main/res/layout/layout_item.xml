@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="8dp"
+    android:layout_margin="8dp">
+    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_gravity="center_vertical"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgView_proPic"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/userprofile"
+            app:civ_border_color="@color/gradStop"
+            app:civ_border_width="4dp"
+            />
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/firstname"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="Dr,Oussama Boumaiza"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeStepGranularity="2sp"/>
+            <TextView
+                android:layout_below="@+id/firstname"
+                android:id="@+id/email"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:textStyle="italic"
+                android:text="oussama.boumaiza.1@esprit.tn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeStepGranularity="2sp"/>
+            <TextView
+                android:layout_below="@+id/email"
+                android:id="@+id/phone"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="(+216) 20 950 389"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeStepGranularity="2sp"/>
+            <TextView
+                android:layout_below="@+id/phone"
+                android:id="@+id/address"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|start"
+                android:textAllCaps="true"
+                android:textStyle="normal"
+                android:text="Rue du grand maghreb,Nabeul 8011"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeStepGranularity="2sp"/>
+            <LinearLayout
+                android:layout_below="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical|start"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="Tunisie"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeStepGranularity="2sp"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:id="@+id/btn_subscriber"
+               android:src="@drawable/userfollow"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

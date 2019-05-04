@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:orientation="vertical"
+
+        android:id="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/header"
+
+        app:itemIconTint="@color/gradStart"
+
+        app:menu="@menu/menuplus_item">
+
+    </com.google.android.material.navigation.NavigationView>
+
+
+</LinearLayout>

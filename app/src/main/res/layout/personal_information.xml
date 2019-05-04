@@ -1,0 +1,166 @@
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sexe"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:padding="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Personal Information"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_bg"
+            android:hint="First Name"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/white"
+            android:inputType="textEmailAddress"
+            android:textAllCaps="true"
+            android:id="@+id/f_name"
+            android:padding="15dp"
+            android:textColorHint="@color/white"
+
+            />
+
+        <EditText
+            android:id="@+id/l_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/et_bg"
+            android:fontFamily="sans-serif-light"
+            android:hint="Last Name"
+            android:textAllCaps="true"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_bg"
+            android:hint="Birthday"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:id="@+id/birthday"
+            android:editable="false"
+            android:padding="15dp"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_bg"
+            android:hint="Old"
+            android:visibility="gone"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:id="@+id/old"
+            android:padding="15dp"
+            />
+        <Spinner
+            android:textColorHint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/white"
+            android:id="@+id/sex"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/et_bg"
+
+
+            />
+
+
+        <LinearLayout
+            android:layout_below="@+id/CP"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/et_bg"
+
+            android:id="@+id/c_o_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <com.hbb20.CountryCodePicker
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.55"
+                android:id="@+id/ccp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ccp_defaultNameCode="TN"
+                app:ccp_textSize="18dp"
+                app:ccp_contentColor="@color/white"                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Office Phone Number*"
+                android:background="@color/transparent"
+                android:textColorHint="@color/white"
+                android:inputType="phone"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/white"
+                android:id="@+id/ph_number"
+                android:textSize="15dp"
+                android:layout_weight="0.45"
+                android:padding="15dp"
+                />
+        </LinearLayout>
+
+
+        <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:clickable="true"
+            android:id="@+id/saveInBtn"
+            android:foreground="?selectableItemBackground"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+
+            >
+            <TextView
+                android:id="@+id/hommeInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enregistrer"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+
+                />
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "96246807734",
+    "firebase_url": "https://smartdermato-4341e.firebaseio.com",
+    "project_id": "smartdermato-4341e",
+    "storage_bucket": "smartdermato-4341e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96246807734:android:10b810d8b20e2ef2",
+        "android_client_info": {
+          "package_name": "smartdermato.esprit.tn.smartdermato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96246807734-56u9h5chu3uesgguk9gdj01rvj3k5kj2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smartdermato.esprit.tn.smartdermato",
+            "certificate_hash": "180b0004bcb6044e0bd2bad7284b8cf24d52a960"
+          }
+        },
+        {
+          "client_id": "96246807734-hs8fbf18sv3mqevv5t073a0dmvn2pfqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD660U3Hj-B7ySx1zl3mrbrILIGJLm211A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96246807734-hs8fbf18sv3mqevv5t073a0dmvn2pfqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

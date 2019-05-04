@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:screenOrientation">portrait</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+       <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:statusBarColor">@color/gradStart</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="DialogSlider">
+        <item name="android:windowEnterAnimation">@anim/slider_up</item>
+        <item name="android:windowExitAnimation">@anim/slider_down</item>
+    </style>
+    <style name="MenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+
+
+
+
+</resources>

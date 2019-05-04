@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/bar">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gradStart"
+                    android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/MenuStyle">
+
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <RelativeLayout
+                android:layout_below="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/grad_bg"
+                android:id="@+id/rellay1"
+                android:paddingBottom="20dp"
+                >
+                <RelativeLayout
+                    android:id="@+id/user_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    tools:ignore="UselessParent">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/imgView_proPic"
+                        android:layout_width="185dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_height="185dp"
+                        android:src="@drawable/userprofile"
+                        android:layout_margin="16dp"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="4dp"
+                        android:layout_gravity="center"
+                        />
+
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="Oussama Boumaiza"
+                    android:id="@+id/LN_FN"
+                    android:textSize="32sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginTop="15sp"
+                    />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/rellay2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rellay1"
+                android:orientation="horizontal"
+
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.35"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:background="@color/gradStop">
+                    <RatingBar
+                        android:id="@+id/rating"
+                        android:rating="0"
+                        android:numStars="5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="25sp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textAllCaps="true"
+                            android:textSize="13sp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.65"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:background="@color/gradStart">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.0"
+                            android:id="@+id/note"
+                            android:textSize="22sp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NOTE"
+                            android:textAllCaps="true"
+                            android:textSize="13sp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rellay2"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pfi"
+                    android:layout_below="@id/pid"
+                    >
+
+
+
+                    <TextView
+
+
+                        android:fontFamily="sans-serif-light"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Professional Information"
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+
+                        android:textSize="23sp"
+                        android:textColor="#19AA8B"
+
+                        />
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/pfid"
+                    android:layout_below="@id/pfi"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_centerInParent = "true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Office address"
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rue de grand maghreb"
+                            android:id="@+id/OFA"
+
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City"
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nabeul"
+                            android:id="@+id/City"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Country"
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tunisia"
+                            android:id="@+id/Country"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Postal code"
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8011"
+                            android:id="@+id/CP"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="office phone number"
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(+216) 00 000 000"
+                            android:id="@+id/OFN"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cer"
+                    android:layout_below="@id/pfid"
+                    >
+
+                    <TextView
+
+
+                        android:fontFamily="sans-serif-light"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Certification"
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+
+                        android:textSize="23sp"
+                        android:textColor="#19AA8B"
+
+                        />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_below="@id/cer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/det_cer"
+                    android:layout_centerInParent = "true"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date of Certification "
+                            android:textColor="@color/gradStop"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="03-04-1993"
+                            android:id="@+id/date_certification"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/gradStop" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tx_email"
+                            >
+                            <ImageView
+                                android:visibility="visible"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/certificate"
+                                android:adjustViewBounds = "true"
+                                android:src="@drawable/certificate"
+                                android:scaleType ="centerInside"
+                                android:layout_alignParentRight = "true"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginRight="25dp"
+
+
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Validate"
+                                android:id="@+id/etat"
+                                android:textColor="@color/col2"
+                                android:textSize="25sp"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,96 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#F0F0F0"
+        android:id="@+id/title_lay">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Please answer the questions in the survey"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:layout_marginBottom="8dp"/>
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/survey_lst"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sub_lay"
+        android:layout_below="@id/title_lay"
+>
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F0F0F0"
+        android:id="@+id/sub_lay"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+
+        <FrameLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_survey"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_bg_green"
+            android:clickable="true"
+            android:fontFamily="sans-serif-medium"
+            android:foreground="?selectableItemBackground"
+            android:onClick="load"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:textAllCaps="false"
+            android:textColor="@color/gradStart"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/signInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Submit answers"
+                android:textColor="#000000" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

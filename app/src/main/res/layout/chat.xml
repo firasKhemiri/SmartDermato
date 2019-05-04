@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_recc"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:id="@+id/layout_send"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="150dp"
+            android:layout_weight="1"
+            android:textColorHint="#767676"
+            android:textColor="#000000"
+            android:hint="Ecrire un message"
+            android:text=""
+            android:id="@+id/text_send"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="25dp"
+            android:background="@android:color/transparent"
+            android:textSize="18sp"
+            android:layout_marginTop="9dp"
+            android:paddingBottom="9dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="50dp" />
+
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:paddingTop="2dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:id="@+id/btn_send"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="3dp"
+
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list_of_message"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/layout_send"
+        android:dividerHeight="16dp"
+        android:divider="@color/transparent"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true">
+
+    </ListView>
+</RelativeLayout>

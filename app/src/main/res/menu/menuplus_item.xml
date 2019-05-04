@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/contact"
+        android:icon="@drawable/ic_mail_outline_black_24dp"
+        android:title="Contact" />
+
+    <item
+        android:id="@+id/chat_PM"
+        android:icon="@drawable/ic_chat_black_24dp"
+        android:title="Chat" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_power_settings_new_black_24dp"
+        android:title="LogOut" />
+
+</menu>

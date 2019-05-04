@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="350dp"
+    android:layout_height="200dp"
+    android:background="@drawable/sexe"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vous êtes:"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginTop="20sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <FrameLayout
+            android:layout_weight="1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:clickable="true"
+            android:onClick="sexeHomme"
+            android:id="@+id/hommeInBtn"
+            android:foreground="?selectableItemBackground"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="0dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="2">
+                <ImageView
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:src="@drawable/masculine"
+                    android:id="@+id/male"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/hommeInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Homme"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_weight="1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:clickable="true"
+            android:onClick="sexeFemme"
+            android:id="@+id/FemmeInBtn"
+            android:foreground="?selectableItemBackground"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="2">
+                <ImageView
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:src="@drawable/femenine"
+                    android:id="@+id/women"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/femmeInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Femme"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    />
+
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

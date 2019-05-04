@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:color="@android:color/transparent"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="5dp"
+
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp">
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/question"
+        android:layout_below="@+id/text"
+        android:background="@drawable/et_bg_green">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+
+            android:fontFamily="sans-serif-light"
+            android:textColor="#585757"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="7dp"
+
+            android:text="Does the affected area usually get red ?"
+            android:textSize="17sp"
+            android:id="@+id/question_text"
+
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rad_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_below="@id/question_text">
+
+
+            <RadioButton
+                android:id="@+id/radio_yes"
+                android:layout_width="80dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:paddingLeft="16dp"
+                android:paddingTop="3dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="3dp"
+                android:text="Yes"
+                android:textStyle="bold"
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:layout_marginEnd="5dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_no"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:paddingLeft="16dp"
+                android:paddingTop="3dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="3dp"
+                android:text="No"
+                android:textStyle="bold"
+                android:textColor="@drawable/radio_flat_text_selector" />
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#e6e6e6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gradStart"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/MenuStyle">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/profile_image"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:layout_marginLeft="25dp"
+                android:text="Username"
+                android:textColor="#ffff"
+                android:textStyle="bold"
+                android:layout_marginStart="25dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refresh"
+        android:foregroundGravity="bottom"
+        android:layout_below="@+id/bar_layout"
+        android:layout_above="@+id/layout_send">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view"
+        android:padding="5dp"
+       />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_recc"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:id="@+id/layout_send"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="150dp"
+            android:layout_weight="1"
+            android:textColorHint="#767676"
+            android:textColor="#000000"
+            android:hint="Ecrire un message"
+            android:text=""
+            android:id="@+id/text_send"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="25dp"
+            android:background="@android:color/transparent"
+            android:textSize="18sp"
+            android:layout_marginTop="9dp"
+            android:paddingBottom="9dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="50dp" />
+
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:paddingTop="2dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:id="@+id/btn_send"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="3dp"
+
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
