@@ -8,16 +8,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -25,6 +21,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -92,7 +93,6 @@ public class Activity_Login extends AppCompatActivity {
         rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
         window=getWindow();
 
-        if (android.os.Build.VERSION.SDK_INT >= 19)
         window.setStatusBarColor(Color.parseColor("#19AA8B"));
         window.setNavigationBarColor(Color.parseColor("#19AA8B"));
 
@@ -237,14 +237,9 @@ public class Activity_Login extends AppCompatActivity {
     }
 
     private void nextAction(){
-        new Handler().postDelayed(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void run() {
-
-                fadeOutProgressDialog();
-                deleyedStartNextActivity();
-            }
+        new Handler().postDelayed(() -> {
+            fadeOutProgressDialog();
+            deleyedStartNextActivity();
         }, 5000);
     }
 
@@ -269,7 +264,8 @@ public class Activity_Login extends AppCompatActivity {
                 toastMessage(preferences.getString(getString(R.string.role),""));
                 if(preferences.getString(getString(R.string.role),"").equals("patient"))
                 {
-                     intent = new Intent(Activity_Login.this, CorpActivity.class);
+//                     intent = new Intent(Activity_Login.this, CorpActivity.class);
+                     intent = new Intent(Activity_Login.this, MainActivity.class);
 
                 }
                 else
