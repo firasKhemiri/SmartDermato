@@ -186,8 +186,6 @@ public class AccueilTest extends Fragment {
             }
         });
 
-        Toast.makeText(getActivity(),"Test",Toast.LENGTH_LONG).show();
-
         List<Model> models = new ArrayList<>();
         models.add(new Model(R.drawable.brochure,"19/02/2019","12h:59"));
         models.add(new Model(R.drawable.sticker,"15-02-2019","20h:09"));
