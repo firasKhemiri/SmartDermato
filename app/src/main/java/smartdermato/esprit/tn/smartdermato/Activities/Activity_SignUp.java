@@ -579,8 +579,7 @@ public class Activity_SignUp extends AppCompatActivity {
                     builderSingle.setTitle("Login");
                     builderSingle.setMessage("Verifier votre Username ou Email ");
                     builderSingle.show();
-                    StopAnimBtnN();
-
+                  //  StopAnimBtnN();
 
 
 
