@@ -76,6 +76,8 @@ public class SurveyActivity extends AppCompatActivity {
     private SurveyListBinding mBinding;
     private String imagePath;
     private String imageName = "vide_pic";
+    private int pourcentage;
+    private int type;
     private Intent intent;
     private Dialog myDialog;
     private String dateP;
@@ -98,8 +100,10 @@ public class SurveyActivity extends AppCompatActivity {
         mPreferences = getSharedPreferences("x", Context.MODE_PRIVATE);
         window= getWindow();
         intent = getIntent();
-        imageName = intent.getStringExtra("imageName");
-        imagePath = intent.getStringExtra("imagePath");
+        pourcentage = intent.getIntExtra("pourcentage",0);
+        toastMessage(String.valueOf(pourcentage));
+        type = intent.getIntExtra("type",0);
+      //  imagePath = intent.getStringExtra("imagePath");
         window.setStatusBarColor(Color.parseColor("#17A8C2"));
         animationView = findViewById(R.id.animation_view);
         animationViewRes = findViewById(R.id.animation_view_res);
@@ -143,7 +147,63 @@ public class SurveyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 r.setVisibility(View.GONE);
-                firstAnnimation.setVisibility(View.VISIBLE);
+                if(type == 0)
+                {
+                    all.setBackgroundColor(Color.parseColor("#17A8C2"));
+                    myDialog = new Dialog(SurveyActivity.this);
+
+                    myDialog.setContentView(R.layout.pop_result_analyse);
+
+                    myDialog.setCanceledOnTouchOutside(false);
+                    Button ok = myDialog.findViewById(R.id.ok);
+                    RelativeLayout contentR = myDialog.findViewById(R.id.rall);
+                    contentR.setBackgroundResource(R.drawable.resultat_negative);
+
+                    TextView pourcentageT = myDialog.findViewById(R.id.pourcentaget);
+                    String pourc = String.valueOf(pourcentage);
+                    //PostConsultation(response.substring(3,16) ,pourc);
+                    pourcentageT.setText(String.valueOf(pourcentage)+"%");
+                    //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostConsultation("Not Psoriasis" ,pourc);
+
+                        }
+                    });
+                    Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    myDialog.show();
+
+                }
+                else
+                {
+                    all.setBackgroundColor(Color.parseColor("#17A8C2"));
+                    myDialog = new Dialog(SurveyActivity.this);
+
+                    myDialog.setContentView(R.layout.pop_result_analyse);
+
+                    myDialog.setCanceledOnTouchOutside(false);
+                    Button ok = myDialog.findViewById(R.id.ok);
+                    RelativeLayout contentR = myDialog.findViewById(R.id.rall);
+                    contentR.setBackgroundResource(R.drawable.resultat_positive);
+
+                    TextView pourcentageT = myDialog.findViewById(R.id.pourcentaget);
+                    String pourc = String.valueOf(pourcentage);
+                    //PostConsultation(response.substring(3,16) ,pourc);
+                    pourcentageT.setText(String.valueOf(pourcentage)+"%");
+                    //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostConsultation("Not Psoriasis" ,pourc);
+
+                        }
+                    });
+                    Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    myDialog.show();
+                }
+
+             /*   firstAnnimation.setVisibility(View.VISIBLE);
                 animationView.setVisibility(View.VISIBLE);
                 window.setStatusBarColor(Color.parseColor("#17A8C2"));
 
@@ -152,9 +212,9 @@ public class SurveyActivity extends AppCompatActivity {
                 animationView.loop(true);
                 animationView.playAnimation();
 
-                System.out.println("imagePath " + imagePath);
+                System.out.println("imagePath " + imagePath);*/
 
-                try {
+               /* try {
 
                     File file = new File(imagePath);
                     RequestBody photoContent = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -174,7 +234,7 @@ public class SurveyActivity extends AppCompatActivity {
                 mDialog.show();*/
 
 
-                    uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
+                   /* uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
@@ -219,7 +279,7 @@ public class SurveyActivity extends AppCompatActivity {
                     //mDialog.dismiss();
                     toastMessage("erreur 1....");
 
-                }
+                }*/
             }
         });
 

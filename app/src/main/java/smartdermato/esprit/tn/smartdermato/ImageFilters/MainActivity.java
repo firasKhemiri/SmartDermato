@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
     private RecyclerView thumbListView;
     private ImageView placeHolderImageView;
     private LottieAnimationView animationViewRes,animationView,animationViewResult,animationViewResFailed;
-    private RelativeLayout firstAnnimation,result,r;
+    private RelativeLayout firstAnnimation,result,r,all;
     private String dateP;
     private Window window;
 
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_filter_activity_main);
         window=getWindow();
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
 
         activity = this;
         intent = getIntent();
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         animationViewResFailed = findViewById(R.id.animation_view_res_failed);
         firstAnnimation = findViewById(R.id.first_annimation);
         result = findViewById(R.id.result);
+        all = findViewById(R.id.alla);
 
         r = findViewById(R.id.r);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -215,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         submit.setOnClickListener(v -> {
 
 
-            /*r.setVisibility(View.GONE);
+            r.setVisibility(View.GONE);
             firstAnnimation.setVisibility(View.VISIBLE);
             animationView.setVisibility(View.VISIBLE);
             window.setStatusBarColor(Color.parseColor("#17A8C2"));
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
             //  mBinding.animationView.setBackgroundColor(R.color.gradStart);
             //  mBinding.animationView.setBackgroundColor(R.color.gradStop);
             animationView.loop(true);
-            animationView.playAnimation();*/
+            animationView.playAnimation();
             Uri uri = getImageUri(getApplicationContext(),bitmapFinal);
 
             //toastMessage(imageUri.toString());
@@ -235,11 +237,11 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                 int n = 10000;
                 n = generator.nextInt(n);
                 imageName = "SmartDermatoIMG-" + n + ".png";
-                Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
+               /* Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
                 intent.putExtra("imagePath", imagePath);
                 intent.putExtra("imageName", imageName);
-                startActivityForResult(intent, REQUEST_CODE_2);
-              /*  File file = new File(imagePath);
+                startActivityForResult(intent, REQUEST_CODE_2);*/
+                File file = new File(imagePath);
                 RequestBody photoContent = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                 MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", file.getName(), photoContent);
@@ -248,12 +250,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
 
                 UploadService uploadService = APIClient.getClient().create(UploadService.class);
-*/
 
 
 
 
-            /*    uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
+
+               uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
@@ -291,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
 
                     }
-                });*/
+                });
 
 
             } catch (Exception e) {
@@ -525,28 +527,46 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                         Toast.makeText(getApplicationContext(),"psoriasis",Toast.LENGTH_LONG).show();
                                         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                                         Date date  = new Date();
-                                        dateP = dateFormat.format(date);
-                                        myDialog = new Dialog(MainActivity.this);
+                                        String pourc = response.substring(14,response.length()-6);
 
-                                        myDialog.setContentView(R.layout.pop_result_analyse);
-                                        myDialog.setCanceledOnTouchOutside(false);
-                                        Button ok = myDialog.findViewById(R.id.ok);
+                                        if(Math.round(Double.valueOf(pourc)) < 80)
+                                        {
+                                            Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
+                                            intent.putExtra("pourcentage", Math.round(Double.valueOf(pourc)));
+                                            intent.putExtra("type", 1);
 
-                                        TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
-                                        String pourc = response.substring(14,response.length()-5);
-                                        //PostConsultation(response.substring(3,12) ,pourc);
-                                        pourcentage.setText(String.valueOf(Math.round(Double.valueOf(response.substring(14,response.length()-6))))+"%");
+                                            startActivityForResult(intent, REQUEST_CODE_2);
+                                        }
+                                        else
+                                        {
+                                            all.setBackgroundColor(Color.parseColor("#17A8C2"));
 
-                                        //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
-                                        ok.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                PostConsultation(response.substring(3,12) ,pourc);
+                                            dateP = dateFormat.format(date);
 
-                                            }
-                                        });
-                                        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                        myDialog.show();
+                                            myDialog = new Dialog(MainActivity.this);
+
+                                            myDialog.setContentView(R.layout.pop_result_analyse);
+                                            myDialog.setCanceledOnTouchOutside(false);
+                                            Button ok = myDialog.findViewById(R.id.ok);
+                                            RelativeLayout contentR = myDialog.findViewById(R.id.rall);
+                                            contentR.setBackgroundResource(R.drawable.resultat_positive);
+                                            TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
+
+                                            //PostConsultation(response.substring(3,12) ,pourc);
+                                            pourcentage.setText(String.valueOf(Math.round(Double.valueOf(response.substring(14,response.length()-6))))+"%");
+
+                                            //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                                            ok.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    PostConsultation(response.substring(3,12) ,pourc);
+
+                                                }
+                                            });
+                                            Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                            myDialog.show();
+                                        }
+
                                         // mBinding.textResult.setOnClickListener(new  );
 //                                        textResult.setAnimationListener(new AnimationListener() {
                                           /*  @Override
@@ -569,34 +589,52 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                     else
                                     {
 
+
                                         Toast.makeText(getApplicationContext(),"not psoriasis",Toast.LENGTH_LONG).show();
 
                                         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                                         Date date  = new Date();
-                                        dateP = dateFormat.format(date);
+                                        String pourc = response.substring(18,response.length()-6);
 
-                                        myDialog = new Dialog(MainActivity.this);
+                                        if(Math.round(100 -Double.valueOf(pourc)) > 20)
+                                        {
+                                            Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
 
-                                        myDialog.setContentView(R.layout.pop_result_analyse);
+                                            intent.putExtra("pourcentage", Math.round(100 -Double.valueOf(pourc)));
+                                            intent.putExtra("type", 0);
 
-                                        myDialog.setCanceledOnTouchOutside(false);
-                                        Button ok = myDialog.findViewById(R.id.ok);
+                                            startActivityForResult(intent, REQUEST_CODE_2);
+                                        }
+                                        else
+                                        {
+                                            all.setBackgroundColor(Color.parseColor("#17A8C2"));
 
+                                            dateP = dateFormat.format(date);
 
-                                        TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
-                                        String pourc = response.substring(18,response.length()-5);
-                                        //PostConsultation(response.substring(3,16) ,pourc);
-                                        pourcentage.setText(String.valueOf(100 -Math.round(Double.valueOf(response.substring(18,response.length()-6))))+"%");
-                                        //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
-                                        ok.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                PostConsultation(response.substring(3,16) ,pourc);
+                                            myDialog = new Dialog(MainActivity.this);
 
-                                            }
-                                        });
-                                        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                        myDialog.show();
+                                            myDialog.setContentView(R.layout.pop_result_analyse);
+
+                                            myDialog.setCanceledOnTouchOutside(false);
+                                            Button ok = myDialog.findViewById(R.id.ok);
+                                            RelativeLayout contentR = myDialog.findViewById(R.id.rall);
+                                            contentR.setBackgroundResource(R.drawable.resultat_negative);
+
+                                            TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
+                                            //PostConsultation(response.substring(3,16) ,pourc);
+                                            pourcentage.setText(String.valueOf(100 -Math.round(Double.valueOf(response.substring(18,response.length()-6))))+"%");
+                                            //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                                            ok.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    PostConsultation(response.substring(3,16) ,pourc);
+
+                                                }
+                                            });
+                                            Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                            myDialog.show();
+                                        }
+
                                        // textResult.animateText(response.substring(3,16));
 
                                       /*  mBinding.textResult.setText(response.substring(3,16));

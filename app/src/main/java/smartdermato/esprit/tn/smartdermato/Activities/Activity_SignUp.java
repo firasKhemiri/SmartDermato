@@ -320,6 +320,7 @@ public class Activity_SignUp extends AppCompatActivity {
 
         animateButtonWidth();
         fadeOutTextAndSetProgressDialog();
+        toastMessage(role);
         nextAction();
 
     }
@@ -512,13 +513,7 @@ public class Activity_SignUp extends AppCompatActivity {
         return (int) getResources().getDimension(R.dimen.get_width);
     }
     private void Next(){
-        Intent intent = new Intent(Activity_SignUp.this, ActivityInformation.class);
-        Log.d("putExtra",mBinding.username.getText()+"  "+passwordCrypt+"  "+mBinding.email.getText());
-        intent.putExtra("username",mBinding.username.getText().toString());
-        intent.putExtra("password",passwordCrypt);
-        intent.putExtra("email",mBinding.email.getText().toString());
-        intent.putExtra("certification",pdfName);
-        startActivity(intent);
+
         Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m = p.matcher(mBinding.email.getText());
         if(mBinding.username.getText().toString().equals("admin")||mBinding.username.getText().toString().equals("unknown") || mBinding.username.getText().toString().equals("vide"))
@@ -532,7 +527,7 @@ public class Activity_SignUp extends AppCompatActivity {
 
             return ;
         }
-        if(mBinding.username.getText().length()==0 ||mBinding.password.getText().length()==0||mBinding.email.getText().length()==0||!m.matches())
+         if(mBinding.username.getText().length()==0 ||mBinding.password.getText().length()==0||mBinding.email.getText().length()==0||!m.matches() || !uploaded)
         {
             final AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
             builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
@@ -543,7 +538,7 @@ public class Activity_SignUp extends AppCompatActivity {
 
             return ;
         }
-        if(mBinding.password.getText().length()<6)
+         if(mBinding.password.getText().length()<6)
         {
             final AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
             builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
@@ -554,62 +549,65 @@ public class Activity_SignUp extends AppCompatActivity {
 
             return ;
         }
-        if(!uploaded)
+         if(!uploaded)
         {
             toastMessage("upload your certification please");
             StopAnimBtnN();
             return;
         }
-        try {
-            System.out.println(mBinding.password.getText());
-            passwordCrypt = AESCrypt.encrypt(mBinding.password.getText().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String URL = util.getDomaneName() + "/getbyemail/" + mBinding.email.getText() + "/" + mBinding.username.getText() + "/";
-        System.out.println("URLLLL:  "+ URL);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                System.out.println(response + "NOM");
-
-
-
-                // myDialog.dismiss();
-                final AlertDialog.Builder builderSingle = new AlertDialog.Builder(Activity_SignUp.this);
-                builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
-                builderSingle.setTitle("Login");
-                builderSingle.setMessage("Verifier votre Username ou Email ");
-                builderSingle.show();
-                StopAnimBtnN();
-
-
-
-
-
-
-
-
+            try {
+                System.out.println(mBinding.password.getText());
+                passwordCrypt = AESCrypt.encrypt(mBinding.password.getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Intent intent = new Intent(Activity_SignUp.this, ActivityInformation.class);
-                Log.d("putExtra",mBinding.username.getText()+"  "+passwordCrypt+"  "+mBinding.email.getText());
-                intent.putExtra("username",mBinding.username.getText().toString());
-                intent.putExtra("password",passwordCrypt);
-                intent.putExtra("email",mBinding.email.getText().toString());
-                intent.putExtra("certification",pdfName);
-                startActivity(intent);
+            String URL = util.getDomaneName() + "/getbyemail/" + mBinding.email.getText() + "/" + mBinding.username.getText() + "/";
+            System.out.println("URLLLL:  "+ URL);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    System.out.println(response + "NOM");
 
 
-                return;
-            }
-        });
-        RequestQueue queue = Volley.newRequestQueue(Activity_SignUp.this);
-        queue.add(stringRequest);
+
+                    // myDialog.dismiss();
+                    final AlertDialog.Builder builderSingle = new AlertDialog.Builder(Activity_SignUp.this);
+                    builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
+                    builderSingle.setTitle("Login");
+                    builderSingle.setMessage("Verifier votre Username ou Email ");
+                    builderSingle.show();
+                    StopAnimBtnN();
+
+
+
+
+
+
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Intent intent = new Intent(Activity_SignUp.this, ActivityInformation.class);
+                    Log.d("putExtra",mBinding.username.getText()+"  "+passwordCrypt+"  "+mBinding.email.getText());
+                    intent.putExtra("username",mBinding.username.getText().toString());
+                    intent.putExtra("password",passwordCrypt);
+                    intent.putExtra("email",mBinding.email.getText().toString());
+                    intent.putExtra("certification",pdfName);
+                    startActivity(intent);
+
+
+                    return;
+                }
+            });
+            RequestQueue queue = Volley.newRequestQueue(Activity_SignUp.this);
+            queue.add(stringRequest);
+
+
 
 
 

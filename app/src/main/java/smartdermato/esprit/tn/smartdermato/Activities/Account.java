@@ -11,9 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -121,7 +119,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
     private List<Rating> ratingList;
     private int coff=0;
     private float somme = 0.0f;
-    private TextView note;
+    private TextView note,np;
     private RelativeLayout annimationR,allAcount;
     private LottieAnimationView annimation,OK,Failed;
     private static final String TAG = "Account";
@@ -174,8 +172,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                 note.setText(String.valueOf(somme/coff));
                 ratingBar.setRating(somme/coff);
             }
-            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(Color.parseColor("#F0AF10"), PorterDuff.Mode.SRC_ATOP);
+
             ratingBar.setEnabled(false);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
@@ -216,6 +213,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
         CT = root.findViewById(R.id.City);
         CP = root.findViewById(R.id.CP);
         CD = root.findViewById(R.id.date_certification);
+        np = root.findViewById(R.id.np);
         System.out.println("Date Of Birthday: "+ preferences.getString(getString(R.string.DateOfBirth),""));
         String LastNameSP = preferences.getString(getString(R.string.LastName),"");
         String FirstName = preferences.getString(getString(R.string.FirstName),"");
@@ -268,7 +266,28 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 
 
         }
-            lastName.setText(LastNameSP);
+        if(users.getFirstName().equals("") && users.getLastName().equals("") && users.getRole().equals("patient") )
+        {
+            np.setText(users.getUsername());
+        }
+        else if(users.getFirstName().equals("") && users.getLastName().equals("") && users.getRole().equals("medecin") )
+        {
+            np.setText("Dr "+users.getUsername());
+
+        }
+        else  if(!users.getFirstName().equals("") && !users.getLastName().equals("") && users.getRole().equals("patient") )
+        {
+            np.setText(users.getFirstName()+" "+users.getLastName());
+
+        }
+        else  if(!users.getFirstName().equals("") && !users.getLastName().equals("") && users.getRole().equals("medecin") )
+        {
+            np.setText("Dr "+users.getFirstName()+" "+users.getLastName());
+
+        }
+
+
+        lastName.setText(LastNameSP);
 //        }
 //        if(FirstName.equals("null"))
 //        {
@@ -276,7 +295,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //        }
 //        else
 //        {
-            firstName.setText(FirstName);
+        firstName.setText(FirstName);
 //        }
 //        if(Sexe.equals("null"))
 //        {
@@ -285,7 +304,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //        }
 //        else
 //        {
-            sexe.setText(Sexe);
+        sexe.setText(Sexe);
 
 //        }
 //        if(Phone.equals("null"))
@@ -295,7 +314,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //        }
 //        else
 //        {
-            phone.setText("("+users.getCountryPhoneNumber()+")"+Phone);
+        phone.setText("("+users.getCountryPhoneNumber()+")"+Phone);
 
 //        }
 //
@@ -306,7 +325,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //        }
 //        else
 //        {
-            birthday.setText(Birthday);
+        birthday.setText(Birthday);
 
 //        }
 //        if(CertificatDate.equals("null"))
@@ -337,7 +356,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //            }
 //            else
 //            {
-                OFA.setText(OfficeAdress);
+            OFA.setText(OfficeAdress);
 
 //            }
 //            if(OfficePhoneN.equals("null"))
@@ -347,7 +366,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //            }
 //            else
 //            {
-                OFN.setText("("+users.getCountryOfficeNumber()+")"+OfficePhoneN);
+            OFN.setText("("+users.getCountryOfficeNumber()+")"+OfficePhoneN);
 
 //            }
 //            if(Country.equals("null"))
@@ -357,7 +376,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //            }
 //            else
 //            {
-                CNT.setText(Country);
+            CNT.setText(Country);
 
 //            }
 //            if(City.equals("null"))
@@ -367,7 +386,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //            }
 //            else
 //            {
-                CT.setText(City);
+            CT.setText(City);
 
 //            }
 //
@@ -378,7 +397,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 //            }
 //            else
 //            {
-                CP.setText(CPT);
+            CP.setText(CPT);
             CD.setText(CertificatDate);
 
 //            }
@@ -465,7 +484,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                 toastMessage(uri.toString());
                 imagePath = getRealPathFromURI(uri);
                 System.out.println("imagePath "+imagePath);
-               // user_pic.setImageURI(uri);
+                // user_pic.setImageURI(uri);
                 try {
                     Random generator = new Random();
                     int n = 10000;
@@ -536,12 +555,12 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             System.out.println("erreur...........");
                             toastMessage(t.getMessage());
-                           // mDialog.dismiss();
-                           // prgDialog.dismiss();
+                            // mDialog.dismiss();
+                            // prgDialog.dismiss();
                             annimation.pauseAnimation();
                             annimation.setVisibility(View.GONE);
                             Failed.setVisibility(View.VISIBLE);
-                           // Failed.loop(true);
+                            // Failed.loop(true);
                             Failed.playAnimation();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -561,12 +580,12 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 
 
                 }catch (Exception e){
-                   // mDialog.dismiss();
+                    // mDialog.dismiss();
                     toastMessage("erreur 1....");
                     annimation.pauseAnimation();
                     annimation.setVisibility(View.GONE);
                     Failed.setVisibility(View.VISIBLE);
-                   // Failed.loop(true);
+                    // Failed.loop(true);
                     Failed.playAnimation();
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -598,20 +617,20 @@ public class Account  extends Fragment implements OnCountryPickerListener {
         cursor.close();
         return result;
     }
-private static void  verifyStoragePermitions(Activity activity)
-{
-    int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    if(permission != PackageManager.PERMISSION_GRANTED)
+    private static void  verifyStoragePermitions(Activity activity)
     {
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(permission != PackageManager.PERMISSION_GRANTED)
+        {
 
-                ActivityCompat.requestPermissions(
-                        activity,
-                        PERMISSION_STORAGE,
-                        REQUEST_EXTERNAL_STORAGE
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSION_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
 
-        );
+            );
+        }
     }
-}
     public void ShowPopupPersonalInformation(final Users users) {
         myDialog = new Dialog(getActivity());
         myDialog.setContentView(R.layout.personal_information);
@@ -641,7 +660,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //        }
 //        else
 //        {
-            fN.setText(users.getFirstName());
+        fN.setText(users.getFirstName());
 
 //        }
 //        if(users.getLastName().equals("null"))
@@ -650,7 +669,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //        }
 //        else
 //        {
-            lN.setText(users.getLastName());
+        lN.setText(users.getLastName());
 //        }
 //        if(users.getDateOfBirth().equals("null"))
 //        {
@@ -658,7 +677,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //        }
 //        else
 //        {
-            b.setText(users.getDateOfBirth());
+        b.setText(users.getDateOfBirth());
 //        }
 //        if(users.getPhoneNumber().equals("null"))
 //        {
@@ -667,13 +686,13 @@ private static void  verifyStoragePermitions(Activity activity)
 //        else
 //        {
         toastMessage(users.getCountryPhoneNumber()+users.getPhoneNumber());
-       // ccp.setDefaultCountryUsingPhoneCode(Integer.valueOf(users.getCountryPhoneNumber().substring(1,users.getCountryPhoneNumber().length())));
+        // ccp.setDefaultCountryUsingPhoneCode(Integer.valueOf(users.getCountryPhoneNumber().substring(1,users.getCountryPhoneNumber().length())));
         ccp.setFullNumber(users.getCountryPhoneNumber()+users.getPhoneNumber());
 
-       // ph.setText(users.getPhoneNumber());
+        // ph.setText(users.getPhoneNumber());
 //        }
 
-        
+
         if(users.getSexe().equals(""))
         {
             s.setSelection(0);
@@ -682,7 +701,7 @@ private static void  verifyStoragePermitions(Activity activity)
         {
             s.setSelection(1);
         }
-        else 
+        else
         {
             s.setSelection(2);
 
@@ -770,60 +789,60 @@ private static void  verifyStoragePermitions(Activity activity)
                 myDialog2.show();
             }
         });
-        
 
-       save.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               toastMessage(String.valueOf(ccp.isValidFullNumber()));
-               if(fN.getText().length() == 0 && lN.getText().length() == 0 && b.getText().length() == 0 && s.getSelectedItem().equals("Sexe") )
-               {
-                   toastMessage("Check your field please");
-               }
-               else if (ph.getText().length()!= 0)
 
-               {
-                   if( ! ccp.isValidFullNumber())
-                   {
-                       toastMessage("Check your Phone Number please");
-
-                   }
-                   else
-                   {
-                       users.setFirstName(fN.getText().toString());
-                       users.setLastName(lN.getText().toString());
-                       users.setDateOfBirth(b.getText().toString());
-                       if(!s.getSelectedItem().equals("Sexe"))
-                       {
-                           users.setSexe(s.getSelectedItem().toString());
-
-                       }
-                       users.setCountryPhoneNumber(ccp.getSelectedCountryCodeWithPlus());
-                       users.setPhoneNumber(ph.getText().toString());
-
-                       putUser(users,"popup");
-
-                   }
-               }
-                  else
-               {
-                users.setFirstName(fN.getText().toString());
-                users.setLastName(lN.getText().toString());
-                users.setDateOfBirth(b.getText().toString());
-                if(!s.getSelectedItem().equals("Sexe"))
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toastMessage(String.valueOf(ccp.isValidFullNumber()));
+                if(fN.getText().length() == 0 && lN.getText().length() == 0 && b.getText().length() == 0 && s.getSelectedItem().equals("Sexe") )
                 {
-                    users.setSexe(s.getSelectedItem().toString());
+                    toastMessage("Check your field please");
+                }
+                else if (ph.getText().length()!= 0)
+
+                {
+                    if( ! ccp.isValidFullNumber())
+                    {
+                        toastMessage("Check your Phone Number please");
+
+                    }
+                    else
+                    {
+                        users.setFirstName(fN.getText().toString());
+                        users.setLastName(lN.getText().toString());
+                        users.setDateOfBirth(b.getText().toString());
+                        if(!s.getSelectedItem().equals("Sexe"))
+                        {
+                            users.setSexe(s.getSelectedItem().toString());
+
+                        }
+                        users.setCountryPhoneNumber(ccp.getSelectedCountryCodeWithPlus());
+                        users.setPhoneNumber(ph.getText().toString());
+
+                        putUser(users,"popup");
+
+                    }
+                }
+                else
+                {
+                    users.setFirstName(fN.getText().toString());
+                    users.setLastName(lN.getText().toString());
+                    users.setDateOfBirth(b.getText().toString());
+                    if(!s.getSelectedItem().equals("Sexe"))
+                    {
+                        users.setSexe(s.getSelectedItem().toString());
+
+                    }
+                    users.setCountryPhoneNumber(ccp.getSelectedCountryCodeWithPlus());
+                    users.setPhoneNumber(ph.getText().toString());
+
+                    putUser(users,"popup");
 
                 }
-                   users.setCountryPhoneNumber(ccp.getSelectedCountryCodeWithPlus());
-                   users.setPhoneNumber(ph.getText().toString());
 
-                putUser(users,"popup");
-
-               }
-
-           }
-       });
+            }
+        });
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -836,16 +855,16 @@ private static void  verifyStoragePermitions(Activity activity)
         myDialog.show();
     }
     public void ShowPopupAccountInformation(){
-      editEmail.setVisibility(View.VISIBLE);
-      editPassword.setVisibility(View.VISIBLE);
-      accountInformation.setVisibility(View.GONE);
-      accountInformationclose.setVisibility(View.VISIBLE);
+        editEmail.setVisibility(View.VISIBLE);
+        editPassword.setVisibility(View.VISIBLE);
+        accountInformation.setVisibility(View.GONE);
+        accountInformationclose.setVisibility(View.VISIBLE);
     }
     public void ShowPopupAccountInformationClose(){
-      editEmail.setVisibility(View.GONE);
-      editPassword.setVisibility(View.GONE);
-      accountInformation.setVisibility(View.VISIBLE);
-      accountInformationclose.setVisibility(View.GONE);
+        editEmail.setVisibility(View.GONE);
+        editPassword.setVisibility(View.GONE);
+        accountInformation.setVisibility(View.VISIBLE);
+        accountInformationclose.setVisibility(View.GONE);
     }
     public void ShowPopupEditEmail(final Users users) {
         myDialog = new Dialog(getActivity());
@@ -1044,7 +1063,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //        }
 //        else
 //        {
-       // ccpO.setDefaultCountryUsingPhoneCode(Integer.valueOf(users.getCountryOfficeNumber().substring(1,users.getCountryOfficeNumber().length())));
+        // ccpO.setDefaultCountryUsingPhoneCode(Integer.valueOf(users.getCountryOfficeNumber().substring(1,users.getCountryOfficeNumber().length())));
         ccpO.setFullNumber(users.getCountryOfficeNumber()+users.getCountryOfficeNumber());
 
         //   OPH.setText(users.getOfficeNumber());
@@ -1182,7 +1201,7 @@ private static void  verifyStoragePermitions(Activity activity)
 
 
                             if(type.equals("popup"))
-                            myDialog.dismiss();
+                                myDialog.dismiss();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -1194,7 +1213,7 @@ private static void  verifyStoragePermitions(Activity activity)
                         annimation.pauseAnimation();
                         annimation.setVisibility(View.GONE);
                         Failed.setVisibility(View.VISIBLE);
-                       // Failed.loop(true);
+                        // Failed.loop(true);
                         Failed.playAnimation();
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -1226,25 +1245,25 @@ private static void  verifyStoragePermitions(Activity activity)
 //        if (users.getLastName().equals("null")) {
 //            lastName.setText("");
 //        } else {
-            lastName.setText(users.getLastName());
+        lastName.setText(users.getLastName());
 //        }
 //        if (users.getFirstName().equals("null")) {
 //            firstName.setText("");
 //        } else {
-            firstName.setText(users.getFirstName());
+        firstName.setText(users.getFirstName());
 //        }
 //        if (users.getSexe().equals("null")) {
 //            sexe.setText("");
 //
 //        } else {
-            sexe.setText(users.getSexe());
+        sexe.setText(users.getSexe());
 
 //        }
 //        if (users.getPhoneNumber().equals("null")) {
 //            phone.setText("");
 //
 //        } else {
-            phone.setText("("+users.getCountryPhoneNumber()+")"+users.getPhoneNumber());
+        phone.setText("("+users.getCountryPhoneNumber()+")"+users.getPhoneNumber());
 
 //        }
 //
@@ -1252,7 +1271,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //            birthday.setText("");
 //
 //        } else {
-            birthday.setText(users.getDateOfBirth());
+        birthday.setText(users.getDateOfBirth());
 
 //        }
         if(!users.getUser_pic().equals("vide_pic"))
@@ -1273,28 +1292,28 @@ private static void  verifyStoragePermitions(Activity activity)
 //                OFA.setText("");
 //
 //            } else {
-                OFA.setText(users.getOfficeAddess());
+            OFA.setText(users.getOfficeAddess());
 
 //            }
 //            if (users.getPhoneNumber().equals("null")) {
 //                OFN.setText("");
 //
 //            } else {
-                OFN.setText("("+users.getCountryOfficeNumber()+")"+users.getOfficeNumber());
+            OFN.setText("("+users.getCountryOfficeNumber()+")"+users.getOfficeNumber());
 
 //            }
 //            if (users.getCountry().equals("null")) {
 //                CNT.setText("");
 //
 //            } else {
-                CNT.setText(users.getCountry());
+            CNT.setText(users.getCountry());
 
 //            }
 //            if (users.getCity().equals("null")) {
 //                CT.setText("");
 //
 //            } else {
-                CT.setText(users.getCity());
+            CT.setText(users.getCity());
 
 //            }
 //
@@ -1302,7 +1321,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //                CP.setText("");
 //
 //            } else {
-                CP.setText(users.getPostalCode());
+            CP.setText(users.getPostalCode());
 
 //            }
 //            if(users.getCertificatDate().equals("null"))
@@ -1312,7 +1331,7 @@ private static void  verifyStoragePermitions(Activity activity)
 //            }
 //            else
 //            {
-                CD.setText(users.getCertificatDate());
+            CD.setText(users.getCertificatDate());
 
 //            }
         }
@@ -1381,7 +1400,7 @@ private static void  verifyStoragePermitions(Activity activity)
                 }
                 notification.setContentText("Upload finished")
                         .setProgress(0,0,false)
-                .setOngoing(false);
+                        .setOngoing(false);
                 notificationManager.notify(2,notification.build());
                 prgDialog.dismiss();
             }
@@ -1396,7 +1415,7 @@ private static void  verifyStoragePermitions(Activity activity)
     @Override
     public void onSelectCountry(Country country) {
         imageCountry.setImageResource(country.getFlag());
-       imageCountry.setVisibility(View.VISIBLE);
+        imageCountry.setVisibility(View.VISIBLE);
         CT.setText(country.getName());
 
     }
@@ -1425,11 +1444,11 @@ private static void  verifyStoragePermitions(Activity activity)
                                 // JSONObject o = response;
 
                                 //JSONObject Sender = o.get("sender");
-                               Rating rating = new Rating();
-                               rating.setPationId(o.getInt("pationId"));
-                               rating.setMedcinId(o.getInt("medecinId"));
-                               rating.setNote(Float.valueOf(o.getString("note")));
-                               ratingList.add(rating);
+                                Rating rating = new Rating();
+                                rating.setPationId(o.getInt("pationId"));
+                                rating.setMedcinId(o.getInt("medecinId"));
+                                rating.setNote(Float.valueOf(o.getString("note")));
+                                ratingList.add(rating);
                             }
 
 //                            System.out.println("database get: "+database.getAllUsers());
