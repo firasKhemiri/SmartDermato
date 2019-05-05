@@ -7,19 +7,20 @@
 
     android:layout_width="350dp"
     android:layout_height="200dp"
-    android:background="@drawable/sexe"
+    android:background="@drawable/et_bg_green_white"
     android:padding="5dp"
     android:layout_gravity="center"
     >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Vous êtes:"
+        android:text="Your gender ?"
         android:textSize="32sp"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/color1"
         android:fontFamily="sans-serif-light"
         android:layout_marginTop="20sp"
+        android:textStyle="bold"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_bg_green"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
@@ -47,7 +48,7 @@
             android:layout_marginRight="0dp"
             >
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="2">
@@ -64,13 +65,14 @@
                     android:id="@+id/hommeInText"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Homme"
+                    android:text="Male"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="12sp"
                     android:autoSizeMaxTextSize="100sp"
                     android:autoSizeStepGranularity="2sp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/color1"
+                    android:textStyle="bold"
                     android:textSize="20sp"
                     />
 
@@ -87,7 +89,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_bg_green"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
@@ -106,7 +108,7 @@
                 <ImageView
                     android:padding="10dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
+                    android:layout_width="80dp"
                     android:layout_height="70dp"
                     android:src="@drawable/femenine"
                     android:id="@+id/women"
@@ -116,14 +118,15 @@
                     android:id="@+id/femmeInText"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Femme"
+                    android:text="Female"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="12sp"
                     android:autoSizeMaxTextSize="100sp"
                     android:autoSizeStepGranularity="2sp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/color1"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     />
 
             </LinearLayout>

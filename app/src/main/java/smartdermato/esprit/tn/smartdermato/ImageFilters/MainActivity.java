@@ -81,7 +81,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import smartdermato.esprit.tn.smartdermato.Activities.MenuActivity;
-import smartdermato.esprit.tn.smartdermato.Activities.SurveyActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Service.APIClient;
 import smartdermato.esprit.tn.smartdermato.Service.UploadService;

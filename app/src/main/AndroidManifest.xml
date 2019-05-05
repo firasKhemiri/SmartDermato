@@ -46,9 +46,6 @@
         <activity android:name=".Activities.ShowProfile" />
 
 
-        <activity android:name=".Activities.SurveyActivity" />
-
-
         <activity android:name=".ImageFilters.MainActivity" />
 
 
