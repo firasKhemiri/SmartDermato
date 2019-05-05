@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,19 +26,23 @@ public class SurveyMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private String host;
 
-    private static final int FIRST_TYPE=0;
-    private static final int SLIDER_TYPE=1;
-    private static final int RADIO_TYPE=2;
+    public static final int FIRST_TYPE=0;
+    public static final int SLIDER_TYPE=1;
+    public static final int RADIO_TYPE=2;
+
+
+    private int result;
 
 
     public static final String TAG = "Comment";
 
 
 
-    private class FirstTypeViewHolder extends RecyclerView.ViewHolder {
+    public class FirstTypeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView question;
-        RadioButton radYes,radNo;
+        public TextView question;
+        public RadioButton radYes,radNo;
+        public RadioGroup radGroup;
 
 
         FirstTypeViewHolder(View itemView) {
@@ -45,15 +51,16 @@ public class SurveyMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerVie
             this.question = itemView.findViewById(R.id.question_text);
             this.radYes = itemView.findViewById(R.id.radio_yes);
             this.radNo = itemView.findViewById(R.id.radio_no);
+            this.radGroup = itemView.findViewById(R.id.rad_group);
         }
     }
 
 
-    private class RadioTypeViewHolder extends RecyclerView.ViewHolder {
+    public class RadioTypeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView question;
-        RadioButton radYes,radNo;
-
+        public TextView question;
+        public RadioButton radYes,radNo;
+        public RadioGroup radGroup;
 
         RadioTypeViewHolder(View itemView) {
             super(itemView);
@@ -61,10 +68,12 @@ public class SurveyMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerVie
             this.question = itemView.findViewById(R.id.question_text);
             this.radYes = itemView.findViewById(R.id.radio_yes);
             this.radNo = itemView.findViewById(R.id.radio_no);
+
+            this.radGroup = itemView.findViewById(R.id.rad_group);
         }
     }
 
-    private class SliderTypeViewHolder extends RecyclerView.ViewHolder {
+    public class SliderTypeViewHolder extends RecyclerView.ViewHolder {
 
         TextView question;
         AppCompatSeekBar slider;
@@ -128,28 +137,97 @@ public class SurveyMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerVie
         Question object = dataSet.get(listPosition);
 
         if (object != null) {
+
+            Question q = dataSet.get(listPosition);
+
             if (object.getType() == 0) {
+
+
+
                 ((FirstTypeViewHolder) holder).question.setText(object.getQuestion());
-//                ((FirstTypeViewHolder) holder).slider
+
+                ((FirstTypeViewHolder) holder).radGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+                {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch(checkedId){
+                            case R.id.radio_no:
+                                // do operations specific to this selection
+
+                                q.setResponse(0);
+                                dataSet.set(listPosition,q);
+                            case R.id.radio_yes:
+                                // do operations specific to this selection
+
+                                q.setResponse(1);
+                                dataSet.set(listPosition,q);
+                        }
+                    }
+                });
+
             }
 
             else if (object.getType() == 1) {
+
                 ((SliderTypeViewHolder) holder).question.setText(object.getQuestion());
-//                ((SliderTypeViewHolder) holder).likes.setText(String.valueOf(object.getNum_likes()));
+                ((SliderTypeViewHolder) holder).slider.setProgress(0);
+                ((SliderTypeViewHolder) holder).slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        q.setResponse(progress);
+                        dataSet.set(listPosition,q);
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
             }
 
             else {
-                ((RadioTypeViewHolder) holder).question.setText(object.getQuestion());
-//                ((RadioTypeViewHolder) holder).radNo.setText(object.getUsername());
-//                ((RadioTypeViewHolder) holder).radYes.setText(String.valueOf(object.getNum_likes()));
 
+                ((RadioTypeViewHolder) holder).question.setText(object.getQuestion());
+
+
+
+                ((RadioTypeViewHolder) holder).radGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+                {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch(checkedId){
+                            case R.id.radio_no:
+                                q.setResponse(0);
+                                dataSet.set(listPosition,q);
+
+                            case R.id.radio_yes:
+                                q.setResponse(1);
+                                dataSet.set(listPosition,q);
+                        }
+                    }
+                });
             }
         }
+
+
     }
 
     @Override
     public int getItemCount() {
         return dataSet.size();
     }
+
+
+
+    public int getResult(int pos) {
+        return dataSet.get(pos).getResponse();
+    }
+
+
+
 
 }

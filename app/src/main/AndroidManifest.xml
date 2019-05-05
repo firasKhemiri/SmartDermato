@@ -30,7 +30,7 @@
         android:appComponentFactory="whateverString"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".Activities.Activity_Login">
+        <activity android:name=".Activities.Activity_Loginx">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

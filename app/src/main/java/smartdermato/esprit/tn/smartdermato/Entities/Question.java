@@ -14,10 +14,11 @@ public class Question {
     public Question() {
     }
 
-    public Question(int id, String question, int type) {
+    public Question(int id, String question, int type,int response) {
         this.id = id;
         this.question = question;
         this.type = type;
+        this.response = type;
     }
 
     public int getId() {

@@ -1,0 +1,94 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:maxHeight="250dp"
+            app:srcCompat="@drawable/brochure"
+            android:id="@+id/photup"
+            android:visibility="gone" />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/post_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            cardview:cardCornerRadius="0dp"
+            cardview:cardUseCompatPadding="true"
+            android:layout_marginBottom="15dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nam_post"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="Ecrivez quelque chose"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/pic_change"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/pic_change"
+                    android:layout_marginEnd="20dp"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/details_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            cardview:cardCornerRadius="0dp"
+            cardview:cardUseCompatPadding="true"
+            android:layout_marginBottom="10dp"/>
+
+
+        <Button
+            android:text="Create post"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/valider"
+            android:layout_gravity="center"
+
+            android:textSize="17sp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/gradStart"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/btn_bg_green" />
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
