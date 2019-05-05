@@ -7,7 +7,7 @@
 
     android:layout_width="350dp"
     android:layout_height="200dp"
-    android:background="@drawable/sexe"
+    android:background="@drawable/btn_bg_green_white"
     android:padding="5dp"
     android:layout_gravity="center"
     >
@@ -17,9 +17,10 @@
         android:text="Vous êtes:"
         android:textSize="32sp"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_text_color"
         android:fontFamily="sans-serif-light"
         android:layout_marginTop="20sp"
+        android:textStyle="bold"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_bg_green"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
@@ -70,7 +71,7 @@
                     android:autoSizeMaxTextSize="100sp"
                     android:autoSizeStepGranularity="2sp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/dark_text_color"
                     android:textSize="20sp"
                     />
 
@@ -87,7 +88,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_bg_green"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
@@ -122,7 +123,7 @@
                     android:autoSizeMaxTextSize="100sp"
                     android:autoSizeStepGranularity="2sp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/dark_text_color"
                     android:textSize="20sp"
                     />
 

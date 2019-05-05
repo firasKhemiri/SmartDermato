@@ -207,14 +207,12 @@ public class AccueilTest extends Fragment {
         HomeMultiViewTypeAdapter adapterAccueil = new HomeMultiViewTypeAdapter(items, getActivity());
         recyclerView.setAdapter(adapterAccueil);
 
-
-
         adapterAccueil.notifyDataSetChanged();
-
-
 
         return root;
     }
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void ShowPopup() {
         Dialog myDialog = new Dialog(getActivity());
@@ -265,8 +263,6 @@ public class AccueilTest extends Fragment {
         Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
-
-
 
 
     private void getPoP()
@@ -335,6 +331,8 @@ public class AccueilTest extends Fragment {
         ShowPopup();
 
     }
+
+
     private void rotate(View view){
         System.out.println("------------------------------------"+rotate);
         if(rotate == 0 && Sexe.equals("Homme")){
@@ -439,7 +437,6 @@ public class AccueilTest extends Fragment {
             ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
             ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
-
         }
         else if(rotate == 1 && Sexe.equals("Femme")) {
             ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#4819AA8B"));
@@ -449,8 +446,6 @@ public class AccueilTest extends Fragment {
             ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
             ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
-
-
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -492,10 +487,9 @@ public class AccueilTest extends Fragment {
             ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
             ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
-
-
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void legs(View view) {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};

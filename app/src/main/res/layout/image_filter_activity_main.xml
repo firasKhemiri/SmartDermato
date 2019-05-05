@@ -1,57 +1,82 @@
 <RelativeLayout android:id="@+id/r"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/thumb_background_color"
-                tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/btn_bg_white"
+    >
 
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/sub_lay"
+        android:layout_above="@+id/label">
     <ImageView
         android:id="@+id/place_holder_imageview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:background="@color/placeholder_background"
-        android:scaleType="fitStart"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/brochure"
+        android:layout_centerInParent="true"
+
         />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1250px"
-        android:padding="8dp"
-        android:textColor="#3CBCDB"
+        android:layout_above="@+id/seekbar"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/dark_text_color"
+        android:textStyle="bold"
+        android:text="Contrast:"
         android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
 
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1400px"/>
+        android:layout_above="@+id/label1"
+        android:layout_marginBottom="20dp"
+        android:progressTint="@color/gradStart"
+        android:thumbTint="#EB7D7D"/>
+
     <TextView
         android:id="@+id/label1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1450px"
-        android:textColor="#3CBCDB"
-        android:padding="8dp"
+        android:layout_above="@+id/seekbar1"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/dark_text_color"
+        android:text="Brightness:"
+        android:textStyle="bold"
         android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
     <SeekBar
         android:id="@+id/seekbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1600px"/>
+        android:layout_above="@id/recycler_lay"
+        android:layout_marginBottom="10dp"
+        android:progressTint="@color/gradStart"
+        android:thumbTint="#EB7D7D"/>
 
 
 
     <RelativeLayout
 
+        android:id="@+id/recycler_lay"
         android:layout_width="match_parent"
         android:layout_height="@dimen/recycler_size"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/thumb_background_color">
+        android:background="@color/transparent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/thumbnails"
@@ -64,13 +89,29 @@
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Upload"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fff"
+        android:id="@+id/sub_lay">
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Upload"
+            android:background="@drawable/et_bg_green"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0.5dp"/>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/date"
-                android:textColor="#574F4F"
+                android:textColor="@color/dark_text_color"
                 android:layout_toEndOf="@id/date_img"
                 android:layout_below="@id/image"
                 android:layout_marginStart="2dp"
@@ -84,7 +84,7 @@
 
             <TextView
                 android:id="@+id/result"
-                android:textColor="#574F4F"
+                android:textColor="@color/dark_text_color"
                 android:layout_toEndOf="@id/result_img"
                 android:layout_below="@id/date_img"
                 android:layout_marginTop="1dp"

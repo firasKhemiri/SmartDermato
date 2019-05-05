@@ -3,6 +3,7 @@ package smartdermato.esprit.tn.smartdermato.ImageFilters;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,13 +15,16 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +35,7 @@ import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -53,6 +58,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import okhttp3.MediaType;
@@ -61,6 +67,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import smartdermato.esprit.tn.smartdermato.Activities.SurveyActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Service.APIClient;
 import smartdermato.esprit.tn.smartdermato.Service.UploadService;
@@ -90,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSION_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+
+    private LottieAnimationView animationViewRes,animationView,animationViewResult,animationViewResFailed;
+    private RelativeLayout firstAnnimation,result,allCorp;
+    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +175,20 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
             imagePath = getRealPathFromURI(uri);
             System.out.println("imagePath " + imagePath);
 
+
+
+//            ShowPopup();
+
+          //  firstAnnimation.setVisibility(View.VISIBLE);
+    /*        animationView.setVisibility(View.VISIBLE);
+            //  mBinding.animationView.setBackgroundColor(R.color.gradStart);
+            //  mBinding.animationView.setBackgroundColor(R.color.gradStop);
+            animationView.loop(true);
+            animationView.playAnimation();
+
+*/
             try {
+
                 Random generator = new Random();
                 int n = 10000;
                 n = generator.nextInt(n);
@@ -174,9 +198,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
                 MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", file.getName(), photoContent);
                 RequestBody description = RequestBody.create(MediaType.parse("text/plain"), imageName);
-
-
-
                 UploadService uploadService = APIClient.getClient().create(UploadService.class);
 
 
@@ -202,26 +223,26 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println("erreur...........");
                         toastMessage(t.getMessage());
-                        //mDialog.dismiss();
-                        // prgDialog.dismiss();
-//                            animationView.pauseAnimation();
-//                            animationView.setVisibility(View.GONE);
-//                            animationViewResFailed.setVisibility(View.VISIBLE);
-                        //mBinding.animationViewResFailed.loop(true);
-//
-//                            animationViewResFailed.playAnimation();
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    firstAnnimation.setVisibility(View.GONE);
-//                                    animationViewResFailed.pauseAnimation();
-//                                    animationViewResFailed.setVisibility(View.GONE);
-//                                    allCorp.setVisibility(View.VISIBLE);
+//                        mDialog.dismiss();
+//                         prgDialog.dismiss();
+                            animationView.pauseAnimation();
+                            animationView.setVisibility(View.GONE);
+                            animationViewResFailed.setVisibility(View.VISIBLE);
+//                        mBinding.animationViewResFailed.loop(true);
+
+                            animationViewResFailed.playAnimation();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    firstAnnimation.setVisibility(View.GONE);
+                                    animationViewResFailed.pauseAnimation();
+                                    animationViewResFailed.setVisibility(View.GONE);
+                                    allCorp.setVisibility(View.VISIBLE);
 //                                    clean();
-//
-//
-//                                }
-//                            }, 2000);
+
+
+                                }
+                            }, 2000);
 
 
                     }
@@ -475,6 +496,8 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
                                     }
 
+                                    Intent i = new Intent(getApplicationContext(), SurveyActivity.class);
+                                    startActivity(i);
 
 
                                 }
@@ -572,6 +595,20 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    public void ShowPopup() {
+        myDialog = new Dialog(Objects.requireNonNull(getApplication()));
+        myDialog.setContentView(R.layout.loading_annimation);
+        myDialog.setCanceledOnTouchOutside(false);
+        animationView = myDialog.findViewById(R.id.animation_view);
+    /*    animationViewRes = myDialog.findViewById(R.id.animation_view_res);
+        animationViewResult = myDialog.findViewById(R.id.animation_view_result);
+        animationViewResFailed = myDialog.findViewById(R.id.animation_view_res_failed);
+        firstAnnimation = myDialog.findViewById(R.id.first_annimation);
+*/
+        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
     }
 }
 

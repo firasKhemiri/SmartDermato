@@ -79,9 +79,6 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-
-
-
         RequestOptions optionsImg = new RequestOptions()
                 .fitCenter()
                 .placeholder(R.drawable.brochure).dontAnimate()

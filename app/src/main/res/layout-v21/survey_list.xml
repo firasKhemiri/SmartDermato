@@ -17,7 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:text="Please answer the questions in the survey"
+        android:text="Please answer the questions
+
+
+         in the survey"
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -62,7 +65,6 @@
             android:clickable="true"
             android:fontFamily="sans-serif-medium"
             android:foreground="?selectableItemBackground"
-            android:onClick="load"
             android:paddingLeft="70dp"
             android:paddingRight="70dp"
             android:textAllCaps="false"

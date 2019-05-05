@@ -28,4 +28,6 @@
     <color name="progress_bar_color">#FFDE3A</color>
     <color name="progress_bar_thumb_color">#a40100</color>
 
+    <color name="dark_text_color">#574F4F</color>
+
 </resources>
