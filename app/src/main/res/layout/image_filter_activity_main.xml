@@ -1,9 +1,122 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/first_annimation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/getCol">
+        <com.airbnb.lottie.LottieAnimationView
+            android:visibility="gone"
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/autoconnectloading"/>
+        <!--app:lottie_loop="true"-->
+        <!--app:lottie_autoPlay="true"-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:visibility="gone"
+            android:id="@+id/animation_view_res"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/checkmark"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:id="@+id/animation_view_res_failed"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:lottie_rawRes="@raw/failedmark"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/result"
+        android:layout_centerVertical="true"
+        android:background="@color/gradStop">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view_result"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+
+            app:lottie_rawRes="@raw/loading"/>
+        <com.hanks.htextview.typer.TyperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@+id/animation_view_result"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:charIncrease="1"
+            android:lineSpacingMultiplier="1.5"
+            android:id="@+id/text_result"
+            android:textColor="@color/gradStart"
+            android:gravity="center"
+            app:typerSpeed="300"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            />
+
+
+        <com.hanks.htextview.typer.TyperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/text_result"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:charIncrease="1"
+            android:lineSpacingMultiplier="1.5"
+            android:id="@+id/poucentage"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            app:typerSpeed="200"/>
+        <!--<TextView
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/animation_view_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:text=""
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:textColor="@color/gradStart"/>
+        <TextView
+            android:layout_below="@id/text_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/poucentage"
+            android:text=""
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            />-->
+    </RelativeLayout>
+
+
 <RelativeLayout android:id="@+id/r"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/thumb_background_color"
+                android:background="@color/white"
                 tools:context=".MainActivity">
 
 
@@ -12,65 +125,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:background="@color/placeholder_background"
+        android:background="@color/white"
         android:scaleType="fitStart"
         />
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1250px"
-        android:padding="8dp"
-        android:textColor="#3CBCDB"
-        android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
-
-    <SeekBar
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1400px"/>
-    <TextView
-        android:id="@+id/label1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1450px"
-        android:textColor="#3CBCDB"
-        android:padding="8dp"
-        android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
-    <SeekBar
-        android:id="@+id/seekbar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1600px"/>
-
-
-
     <RelativeLayout
-
         android:layout_width="match_parent"
-        android:layout_height="@dimen/recycler_size"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/thumb_background_color">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/thumbnails"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/thumbnail_vertical_padding"
-            android:layout_marginTop="@dimen/thumbnail_vertical_padding"
-            android:clipToPadding="false"/>
+            android:padding="8dp"
+            android:textColor="#3CBCDB"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
 
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_below="@id/label"/>
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#3CBCDB"
+            android:padding="8dp"
+            android:layout_below="@+id/seekbar"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
+        <SeekBar
+            android:id="@+id/seekbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/label1"
+            android:layout_marginBottom="20dp"/>
+
+
+
+        <RelativeLayout
+            android:id="@+id/filters_content"
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_size"
+            android:layout_below="@id/seekbar1"
+            android:layout_alignParentLeft="true"
+            android:background="@color/thumb_background_color">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/thumbnails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/thumbnail_vertical_padding"
+                android:layout_marginTop="@dimen/thumbnail_vertical_padding"
+                android:clipToPadding="false"/>
+
+        </RelativeLayout>
+
+
+        <Button
+            android:layout_below="@+id/filters_content"
+            android:id="@+id/btn_submit"
+            android:textColor="@color/getCol2"
+            android:background="@drawable/btn_bg_green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Next"
+            android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Upload"/>
-
+</RelativeLayout>
 </RelativeLayout>

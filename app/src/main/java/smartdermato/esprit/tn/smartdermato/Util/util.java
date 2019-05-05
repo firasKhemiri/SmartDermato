@@ -5,7 +5,7 @@ public class util {
     private static String domaneName ;
 
     public static String getDomaneName() {
-        return "http://438d5969.ngrok.io";
+        return "http://"+"438d5969.ngrok.io";
     }
 
 

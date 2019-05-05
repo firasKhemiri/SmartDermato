@@ -3,8 +3,10 @@ package smartdermato.esprit.tn.smartdermato.ImageFilters;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,13 +16,19 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +39,7 @@ import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -42,17 +51,26 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.zomato.photofilters.FilterPack;
 import com.zomato.photofilters.imageprocessors.Filter;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import okhttp3.MediaType;
@@ -61,6 +79,9 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import smartdermato.esprit.tn.smartdermato.Activities.MenuActivity;
+import smartdermato.esprit.tn.smartdermato.Activities.SurveyActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Service.APIClient;
 import smartdermato.esprit.tn.smartdermato.Service.UploadService;
@@ -74,12 +95,23 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
     private Activity activity;
     private RecyclerView thumbListView;
     private ImageView placeHolderImageView;
+    private LottieAnimationView animationViewRes,animationView,animationViewResult,animationViewResFailed;
+    private RelativeLayout firstAnnimation,result,r;
+    private String dateP;
+    private Window window;
+
+    private Map<String, Object> params = new HashMap<String, Object>();
     SeekBar seekbar, seekbar1;
     TextView textView, textView1;
-  //  int drawable;
+    private SharedPreferences mPreferences;
+    private Dialog myDialog, myDialogSexe;
+
+    //  int drawable;
+  private static final String TAG = "MainActivity";
 
     Bitmap bitmap;
     Bitmap bitmapFinal;
+    private Intent intent;
 
     private Button submit;
 
@@ -88,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
     private final int IMG_RESULT = 1;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private final static int REQUEST_CODE_2 = 2;
+
     private static final String[] PERMISSION_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
@@ -95,8 +129,20 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_filter_activity_main);
+        window=getWindow();
+
         activity = this;
-        camera();
+        intent = getIntent();
+        //imageName = intent.getStringExtra("imageName");
+        Uri imageUri = intent.getData();
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        initUIWidgets();
+       // camera();
     //    drawable = R.drawable.dog;
     }
 
@@ -108,6 +154,16 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         seekbar1 = findViewById(R.id.seekbar1);
         thumbListView = findViewById(R.id.thumbnails);
         placeHolderImageView = findViewById(R.id.place_holder_imageview);
+        animationView = findViewById(R.id.animation_view);
+        animationViewRes = findViewById(R.id.animation_view_res);
+        animationViewResult = findViewById(R.id.animation_view_result);
+        animationViewResFailed = findViewById(R.id.animation_view_res_failed);
+        firstAnnimation = findViewById(R.id.first_annimation);
+        result = findViewById(R.id.result);
+
+        r = findViewById(R.id.r);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mPreferences = getSharedPreferences("x", Context.MODE_PRIVATE);
        // placeHolderImageView.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(this.getApplicationContext().getResources(), drawable), 640, 640, false));
         placeHolderImageView.setImageBitmap(bitmap);
         initHorizontalList();
@@ -158,6 +214,16 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
         submit.setOnClickListener(v -> {
 
+
+            /*r.setVisibility(View.GONE);
+            firstAnnimation.setVisibility(View.VISIBLE);
+            animationView.setVisibility(View.VISIBLE);
+            window.setStatusBarColor(Color.parseColor("#17A8C2"));
+
+            //  mBinding.animationView.setBackgroundColor(R.color.gradStart);
+            //  mBinding.animationView.setBackgroundColor(R.color.gradStop);
+            animationView.loop(true);
+            animationView.playAnimation();*/
             Uri uri = getImageUri(getApplicationContext(),bitmapFinal);
 
             //toastMessage(imageUri.toString());
@@ -169,7 +235,11 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                 int n = 10000;
                 n = generator.nextInt(n);
                 imageName = "SmartDermatoIMG-" + n + ".png";
-                File file = new File(imagePath);
+                Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
+                intent.putExtra("imagePath", imagePath);
+                intent.putExtra("imageName", imageName);
+                startActivityForResult(intent, REQUEST_CODE_2);
+              /*  File file = new File(imagePath);
                 RequestBody photoContent = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
                 MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", file.getName(), photoContent);
@@ -178,16 +248,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
 
                 UploadService uploadService = APIClient.getClient().create(UploadService.class);
+*/
 
 
 
-               /* mDialog = new ProgressDialog(this);
-                mDialog.setMessage("Please Wait...");
-                mDialog.setCanceledOnTouchOutside(false);
-                mDialog.show();*/
 
-
-                uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
+            /*    uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
@@ -202,30 +268,30 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println("erreur...........");
                         toastMessage(t.getMessage());
-                        //mDialog.dismiss();
-                        // prgDialog.dismiss();
-//                            animationView.pauseAnimation();
-//                            animationView.setVisibility(View.GONE);
-//                            animationViewResFailed.setVisibility(View.VISIBLE);
+                        animationView.pauseAnimation();
+                        animationView.setVisibility(View.GONE);
+                        animationViewResFailed.setVisibility(View.VISIBLE);
                         //mBinding.animationViewResFailed.loop(true);
-//
-//                            animationViewResFailed.playAnimation();
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    firstAnnimation.setVisibility(View.GONE);
-//                                    animationViewResFailed.pauseAnimation();
-//                                    animationViewResFailed.setVisibility(View.GONE);
-//                                    allCorp.setVisibility(View.VISIBLE);
-//                                    clean();
-//
-//
-//                                }
+
+                        animationViewResFailed.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                firstAnnimation.setVisibility(View.GONE);
+                                animationViewResFailed.pauseAnimation();
+                                animationViewResFailed.setVisibility(View.GONE);
+                                r.setVisibility(View.VISIBLE);
+
+
+
+                            }
+                        }, 2000);
+
 //                            }, 2000);
 
 
                     }
-                });
+                });*/
 
 
             } catch (Exception e) {
@@ -419,6 +485,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
 
                         try {
 
+                            animationView.pauseAnimation();
+                            animationView.setVisibility(View.GONE);
+                            animationViewRes.setVisibility(View.VISIBLE);
+                            //mBinding.animationViewRes.loop(true);
+
+                            animationViewRes.playAnimation();
 //                            animationView.pauseAnimation();
 //                            animationView.setVisibility(View.GONE);
 //                            animationViewRes.setVisibility(View.VISIBLE);
@@ -429,6 +501,13 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                  //  animationViewRes.setVisibility(View.GONE);
+                                    firstAnnimation.setVisibility(View.GONE);
+                                    //result.setVisibility(View.VISIBLE);
+                                    //window.setStatusBarColor(Color.parseColor("#57717A"));
+
+                                    //mBinding.animationViewResult.loop(true);
+                                    //animationViewResult.playAnimation();
 //                                    animationViewRes.setVisibility(View.GONE);
 //                                    firstAnnimation.setVisibility(View.GONE);
 //                                    result.setVisibility(View.VISIBLE);
@@ -444,7 +523,30 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                     {
 
                                         Toast.makeText(getApplicationContext(),"psoriasis",Toast.LENGTH_LONG).show();
+                                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                                        Date date  = new Date();
+                                        dateP = dateFormat.format(date);
+                                        myDialog = new Dialog(MainActivity.this);
 
+                                        myDialog.setContentView(R.layout.pop_result_analyse);
+                                        myDialog.setCanceledOnTouchOutside(false);
+                                        Button ok = myDialog.findViewById(R.id.ok);
+
+                                        TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
+                                        String pourc = response.substring(14,response.length()-5);
+                                        //PostConsultation(response.substring(3,12) ,pourc);
+                                        pourcentage.setText(String.valueOf(Math.round(Double.valueOf(response.substring(14,response.length()-6))))+"%");
+
+                                        //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                                        ok.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                PostConsultation(response.substring(3,12) ,pourc);
+
+                                            }
+                                        });
+                                        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        myDialog.show();
                                         // mBinding.textResult.setOnClickListener(new  );
 //                                        textResult.setAnimationListener(new AnimationListener() {
                                           /*  @Override
@@ -468,6 +570,33 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                     {
 
                                         Toast.makeText(getApplicationContext(),"not psoriasis",Toast.LENGTH_LONG).show();
+
+                                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                                        Date date  = new Date();
+                                        dateP = dateFormat.format(date);
+
+                                        myDialog = new Dialog(MainActivity.this);
+
+                                        myDialog.setContentView(R.layout.pop_result_analyse);
+
+                                        myDialog.setCanceledOnTouchOutside(false);
+                                        Button ok = myDialog.findViewById(R.id.ok);
+
+
+                                        TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
+                                        String pourc = response.substring(18,response.length()-5);
+                                        //PostConsultation(response.substring(3,16) ,pourc);
+                                        pourcentage.setText(String.valueOf(100 -Math.round(Double.valueOf(response.substring(18,response.length()-6))))+"%");
+                                        //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
+                                        ok.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                PostConsultation(response.substring(3,16) ,pourc);
+
+                                            }
+                                        });
+                                        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        myDialog.show();
                                        // textResult.animateText(response.substring(3,16));
 
                                       /*  mBinding.textResult.setText(response.substring(3,16));
@@ -517,19 +646,19 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 toastMessage(message);
-             /*   animationView.pauseAnimation();
+                animationView.pauseAnimation();
                 animationView.setVisibility(View.GONE);
                 animationViewResFailed.setVisibility(View.VISIBLE);
                 // mBinding.animationViewResFailed.loop(true);
-                animationViewResFailed.playAnimation();*/
+                animationViewResFailed.playAnimation();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                       /* firstAnnimation.setVisibility(View.GONE);
+                        firstAnnimation.setVisibility(View.GONE);
                         animationViewResFailed.pauseAnimation();
                         animationViewResFailed.setVisibility(View.GONE);
-                        allCorp.setVisibility(View.VISIBLE);
-                        clean();*/
+                        r.setVisibility(View.VISIBLE);
+
 
 
 
@@ -573,6 +702,90 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+    private void PostConsultation(String type ,String porcentage) {
+
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        final String URI = util.getDomaneName()+"/api/Consultations";
+        System.out.println(dateP.substring(0,10));
+        System.out.println(dateP.substring(11,16));
+        params.put("imageName",imageName);
+        params.put("date",dateP);
+        params.put("typeC",type);
+        params.put("pourcentageC",porcentage);
+        params.put("patient",mPreferences.getInt(getString(R.string.Id),0));
+
+
+        //  params.put("")
+        Log.d(TAG,"Json"+new JSONObject(params));
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response+" respoce!!!!++++");
+                        try {
+//
+                            toastMessage("Merci :)");
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    startActivity(new Intent(MainActivity.this, smartdermato.esprit.tn.smartdermato.MainActivity.class));
+                                }
+                            },200);
+
+
+
+
+
+
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG,"Error: "+error +"\nmessage"+error.getMessage());
+                        Toast.makeText(MainActivity.this, "Erreur Services",
+                                Toast.LENGTH_SHORT).show();
+                        toastMessage(error.toString());
+                        animationView.pauseAnimation();
+                        animationView.setVisibility(View.GONE);
+                        animationViewResFailed.setVisibility(View.VISIBLE);
+                        // mBinding.animationViewResFailed.loop(true);
+                        animationViewResFailed.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                firstAnnimation.setVisibility(View.GONE);
+                                animationViewResFailed.pauseAnimation();
+                                animationViewResFailed.setVisibility(View.GONE);
+                                r.setVisibility(View.VISIBLE);
+                                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+
+
+
+
+                            }
+                        }, 2000);
+
+                        return ;
+
+                    }
+                });
+
+
+
+
+
+        queue.add(stringRequest);
+    }
+
 }
 
 

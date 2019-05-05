@@ -4,9 +4,10 @@ public class Chats {
     private int id;
     private int sender;
     private int receiver;
-    private int imageName;
+    private String imageName;
     private String message;
     private boolean isseen;
+    private  int idCon;
 
     public Chats(int sender, int receiver, String message, boolean isseen) {
         this.sender = sender;
@@ -58,12 +59,20 @@ public class Chats {
         this.isseen = isseen;
     }
 
-    public int getImageName() {
+    public String getImageName() {
         return imageName;
     }
 
-    public void setImageName(int imageName) {
+    public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public int getIdCon() {
+        return idCon;
+    }
+
+    public void setIdCon(int idCon) {
+        this.idCon = idCon;
     }
 
     @Override
@@ -72,9 +81,10 @@ public class Chats {
                 "id=" + id +
                 ", sender=" + sender +
                 ", receiver=" + receiver +
-                ", imageName=" + imageName +
+                ", imageName='" + imageName + '\'' +
                 ", message='" + message + '\'' +
                 ", isseen=" + isseen +
+                ", idCon=" + idCon +
                 '}';
     }
 }

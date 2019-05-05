@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -64,7 +65,7 @@ public class UsersFragment extends Fragment {
             public void onRefresh() {
                 getFollow();
 //                readUsers();
-                    refresh.setRefreshing(false);
+                refresh.setRefreshing(false);
             }
         });
         user_firebases = new ArrayList<>();
@@ -130,7 +131,7 @@ public class UsersFragment extends Fragment {
                                 }
                             }
 
-                            userAdapter = new UserAdapter(getContext(),user_firebases,false,"Users","",0);
+                            userAdapter = new UserAdapter(getContext(),user_firebases,false,"Users","","vide",0);
                             recyclerView.setAdapter(userAdapter);
                             userAdapter.notifyDataSetChanged();
 

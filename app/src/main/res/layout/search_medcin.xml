@@ -15,7 +15,7 @@
         <com.mancj.materialsearchbar.MaterialSearchBar
             android:id="@+id/search_bar"
             app:mt_placeholder="Search Doctor Contact... "
-            app:mt_placeholderColor="@color/gradStart"
+            app:mt_placeholderColor="@color/light_grey"
             android:layout_centerInParent="true"
             app:mt_speechMode="false"
             app:mt_hint="Search doctor contact"

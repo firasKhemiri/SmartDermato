@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -65,7 +68,16 @@ public class Fragment_Chat_PM extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
         mPreferences= getActivity().getSharedPreferences("x", Context.MODE_PRIVATE);
-
+        Toolbar toolbar = root.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 //        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         username = root.findViewById(R.id.username);
@@ -249,5 +261,6 @@ public class Fragment_Chat_PM extends Fragment {
             return titles.get(position);
         }
     }
+
 
 }

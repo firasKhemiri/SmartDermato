@@ -77,6 +77,8 @@ public class CorpActivity extends AppCompatActivity {
     private Window window;
 
     private final  int IMG_RESULT= 1;
+    private final static int REQUEST_CODE_2 = 2;
+
     ProgressDialog prgDialog,mDialog;
     private String imagePath;
     private String imageName = "vide_pic";
@@ -99,6 +101,7 @@ public class CorpActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         prgDialog = new ProgressDialog(this);
         window=getWindow();
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
 
         if(mPreferences.getString(getString(R.string.SexePop),"").equals("Femme")){
             Sexe = mPreferences.getString(getString(R.string.SexePop),"");
@@ -196,7 +199,7 @@ public class CorpActivity extends AppCompatActivity {
     public void head(View view){
         String arrayName[]={"Visage","Oreille","Cou","Cuir chevelu"};
         if(rotate == 0 && Sexe.equals("Homme")){
-            mBinding.headAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.headAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -205,7 +208,7 @@ public class CorpActivity extends AppCompatActivity {
             camera();
         }
         else if(rotate == 1 && Sexe.equals("Homme")) {
-            mBinding.headAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.headAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -214,7 +217,7 @@ public class CorpActivity extends AppCompatActivity {
             camera();
 
         }else   if(rotate == 0 && Sexe.equals("Femme")){
-            mBinding.headFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.headFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -223,7 +226,7 @@ public class CorpActivity extends AppCompatActivity {
             camera();
         }
         else if(rotate == 1 && Sexe.equals("Femme")) {
-            mBinding.headFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.headFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -238,7 +241,7 @@ public class CorpActivity extends AppCompatActivity {
     public void body(View view){
         String arrayName[]={"Visage","Oreille","Cou","Cuir chevelu"};
         if(rotate == 0 && Sexe.equals("Homme")){
-            mBinding.bodyAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.bodyAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.headAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -248,7 +251,7 @@ public class CorpActivity extends AppCompatActivity {
 
         }
         else if(rotate == 1 && Sexe.equals("Homme")) {
-            mBinding.bodyAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.bodyAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.headAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -258,7 +261,7 @@ public class CorpActivity extends AppCompatActivity {
 
 
         }else if(rotate == 0 && Sexe.equals("Femme")){
-            mBinding.bodyFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.bodyFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -268,7 +271,7 @@ public class CorpActivity extends AppCompatActivity {
 
         }
         else if(rotate == 1 && Sexe.equals("Femme")) {
-            mBinding.bodyFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.bodyFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -286,7 +289,7 @@ public class CorpActivity extends AppCompatActivity {
         if (rotate == 0 && Sexe.equals("Homme")) {
             mBinding.bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.basinAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.basinAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.LegsAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -295,7 +298,7 @@ public class CorpActivity extends AppCompatActivity {
         } else  if (rotate == 1 && Sexe.equals("Homme")) {
             mBinding.bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.basinAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.basinAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.LegsAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -305,7 +308,7 @@ public class CorpActivity extends AppCompatActivity {
         }else   if (rotate == 0 && Sexe.equals("Femme")) {
             mBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.basinFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.basinFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -314,7 +317,7 @@ public class CorpActivity extends AppCompatActivity {
         } else  if (rotate == 1 && Sexe.equals("Femme")) {
             mBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.basinFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.basinFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -332,7 +335,7 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.basinAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.LegsAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.LegsAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
         } else  if (rotate == 1 && Sexe.equals("Homme")) {
@@ -341,7 +344,7 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.basinAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.LegsAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.LegsAr.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
 
@@ -351,7 +354,7 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.LegsFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.LegsFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
         } else  if (rotate == 1 && Sexe.equals("Femme")) {
@@ -360,7 +363,7 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.LegsFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.LegsFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
 
@@ -374,8 +377,8 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.handLeftAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            mBinding.handRightAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.handLeftAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            mBinding.handRightAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
@@ -383,8 +386,8 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.handLeftAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            mBinding.handRightAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.handLeftAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            mBinding.handRightAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.LegsAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
@@ -393,8 +396,8 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.handLeftFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            mBinding.handRightFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.handLeftFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            mBinding.handRightFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
@@ -402,8 +405,8 @@ public class CorpActivity extends AppCompatActivity {
             mBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
             mBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-            mBinding.handLeftFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            mBinding.handRightFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            mBinding.handLeftFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            mBinding.handRightFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             mBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
@@ -509,8 +512,14 @@ public class CorpActivity extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
+                Intent i = new Intent(this, smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity.class);
+                i.setData( data.getData());
+
+                //   i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //   i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(i, REQUEST_CODE_2);
                // mBinding.animationView.setAnimation(String.valueOf(R.raw.loading));
-                window.setStatusBarColor(Color.parseColor("#19AA8B"));
+             /*   window.setStatusBarColor(Color.parseColor("#19AA8B"));
 
                 mBinding.allCorp.setVisibility(View.GONE);
                 mBinding.rellay2.setVisibility(View.GONE);
@@ -536,7 +545,7 @@ public class CorpActivity extends AppCompatActivity {
 
                     MultipartBody.Part photo = MultipartBody.Part.createFormData("photo",file.getName(),photoContent);
                     RequestBody description = RequestBody.create(MediaType.parse("text/plain"),imageName);
-                    UploadService uploadService = APIClient.getClient().create(UploadService.class);
+                    UploadService uploadService = APIClient.getClient().create(UploadService.class);*/
 
 
 
@@ -546,7 +555,7 @@ public class CorpActivity extends AppCompatActivity {
                     mDialog.show();*/
 
 
-                    uploadService.Upload(photo,description).enqueue(new Callback<ResponseBody>() {
+                   /* uploadService.Upload(photo,description).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                             if(response.isSuccessful())
@@ -594,37 +603,16 @@ public class CorpActivity extends AppCompatActivity {
                     mDialog.dismiss();
                     toastMessage("erreur 1....");
 
-                }
+                }*/
 
             }
             else {
-                mBinding.bodyAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.headAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.basinAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handRightAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.LegsAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.bodyAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.headAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.basinAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handRightAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.LegsAv.setColorFilter(Color.parseColor("#0057717A"));
-
-                mBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-                mBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+               clean();
 
             }
+        }
+        if (requestCode == REQUEST_CODE_2) {
+            clean();
         }
     }
     private String getRealPathFromURI(Uri contentUri)

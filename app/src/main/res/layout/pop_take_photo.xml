@@ -15,6 +15,88 @@
         android:id="@+id/all"
 
         >
+        <RelativeLayout android:id="@+id/r"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/thumb_background_color"
+            android:visibility="gone"
+            >
+
+
+            <ImageView
+                android:id="@+id/place_holder_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:background="@color/placeholder_background"
+                android:scaleType="fitStart"
+                />
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1050px"
+                android:padding="8dp"
+                android:textColor="#3CBCDB"
+                android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1200px"/>
+            <TextView
+                android:id="@+id/label1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1250px"
+                android:textColor="#3CBCDB"
+                android:padding="8dp"
+                android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
+            <SeekBar
+                android:id="@+id/seekbar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1400px"
+                android:layout_marginBottom="20dp"/>
+
+
+
+            <RelativeLayout
+                android:id="@+id/filters_content"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recycler_size"
+                android:layout_below="@id/seekbar1"
+                android:layout_alignParentLeft="true"
+                android:background="@color/thumb_background_color">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/thumbnails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/thumbnail_vertical_padding"
+                    android:layout_marginTop="@dimen/thumbnail_vertical_padding"
+                    android:clipToPadding="false"/>
+
+            </RelativeLayout>
+
+
+            <Button
+                android:layout_below="@+id/filters_content"
+                android:id="@+id/btn_submit"
+                android:textColor="@color/getCol2"
+                android:background="@drawable/btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Upload"/>
+
+        </RelativeLayout>
+
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/first_annimation"
@@ -26,7 +108,7 @@
                 android:id="@+id/animation_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_rawRes="@raw/loadingplay"/>
+                app:lottie_rawRes="@raw/autoconnectloading"/>
             <!--app:lottie_loop="true"-->
             <!--app:lottie_autoPlay="true"-->
             <com.airbnb.lottie.LottieAnimationView
@@ -57,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
 
-                app:lottie_rawRes="@raw/data"/>
+                app:lottie_rawRes="@raw/loading"/>
             <com.hanks.htextview.typer.TyperTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,446 +201,446 @@
                 />-->
         </RelativeLayout>
 
-    <RelativeLayout
+        <RelativeLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        android:id="@+id/all_corp"
-        android:visibility="visible"
-        >
+            android:id="@+id/all_corp"
+            android:visibility="visible"
+            >
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/btn"
-            android:foreground="?selectableItemBackground"
-
-
-            android:padding="5dp"
-            tools:ignore="RtlCompat">
-
-            <ImageView
-                android:id="@+id/btn_roate_av"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_rotate_left_black_24dp"
-                android:tint="#6b6a64"
-                android:onClick="rotate"
-                />
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/btn"
+                android:foreground="?selectableItemBackground"
 
 
-
-
-        </FrameLayout>
-        <RelativeLayout
-
-            android:id="@+id/corp_homme_av"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingTop="50dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="30dp"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/head_av"
-                android:layout_width="150dp"
-                android:layout_height="111dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-1dp"
-                app:srcCompat="@drawable/rasav"
-                />
-
-
-            <ImageView
-                android:id="@+id/hand_left_av"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_av"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="-8dp"
-                app:srcCompat="@drawable/yedav"
-                tools:ignore="RtlCompat" />
-
-            <RelativeLayout
-                android:id="@+id/corp_av"
-                android:layout_width="132dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/head_av"
-                android:layout_centerHorizontal="true"
-
-
-                >
+                android:padding="5dp"
+                tools:ignore="RtlCompat">
 
                 <ImageView
-                    android:id="@+id/body_av"
+                    android:id="@+id/btn_roate_av"
                     android:layout_width="wrap_content"
-                    android:layout_height="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_rotate_left_black_24dp"
+                    android:tint="#6b6a64"
+                    android:onClick="rotate"
+                    />
+
+
+
+
+            </FrameLayout>
+            <RelativeLayout
+
+                android:id="@+id/corp_homme_av"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="50dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/head_av"
+                    android:layout_width="150dp"
+                    android:layout_height="111dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-1dp"
+                    app:srcCompat="@drawable/rasav"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/hand_left_av"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_av"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleX="1.01"
-                    android:scaleY="1.07"
-                    app:srcCompat="@drawable/bdenav" />
+                    android:layout_marginStart="-8dp"
+                    app:srcCompat="@drawable/yedav"
+                    tools:ignore="RtlCompat" />
 
-                <ImageView
-                    android:id="@+id/basin_av"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:layout_below="@id/body_av"
-                    android:layout_marginTop="-1dp"
-                    android:scaleType="fitXY"
-                    android:scaleX="1.01"
-                    android:scaleY="1.14"
-                    app:srcCompat="@drawable/westav" />
-
-                <ImageView
-                    android:id="@+id/Legs_av"
-                    android:layout_width="135dp"
+                <RelativeLayout
+                    android:id="@+id/corp_av"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/basin_av"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="-6dp"
-                    android:layout_marginBottom="4dp"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/sakinav" />
+                    android:layout_below="@id/head_av"
+                    android:layout_centerHorizontal="true"
+
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/body_av"
+                        android:layout_width="wrap_content"
+                        android:layout_height="165dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleX="1.01"
+                        android:scaleY="1.07"
+                        app:srcCompat="@drawable/bdenav" />
+
+                    <ImageView
+                        android:id="@+id/basin_av"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/body_av"
+                        android:layout_marginTop="-1dp"
+                        android:scaleType="fitXY"
+                        android:scaleX="1.01"
+                        android:scaleY="1.14"
+                        app:srcCompat="@drawable/westav" />
+
+                    <ImageView
+                        android:id="@+id/Legs_av"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/basin_av"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="-6dp"
+                        android:layout_marginBottom="4dp"
+                        android:scaleType="fitStart"
+                        app:srcCompat="@drawable/sakinav" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/hand_right_av"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_av"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="-7dp"
+                    app:srcCompat="@drawable/yedd"
+                    tools:ignore="ContentDescription,DuplicateIds" />
+
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/hand_right_av"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_av"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="-7dp"
-                app:srcCompat="@drawable/yedd"
-                tools:ignore="ContentDescription,DuplicateIds" />
+            <RelativeLayout
 
-        </RelativeLayout>
+                android:id="@+id/corp_homme_ar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="60dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
+                android:visibility="gone">
 
-        <RelativeLayout
+                <ImageView
+                    android:id="@+id/head_ar"
+                    android:layout_width="150dp"
+                    android:layout_height="111dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-1dp"
+                    app:srcCompat="@drawable/ras" />
 
-            android:id="@+id/corp_homme_ar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingTop="60dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="30dp"
-            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/head_ar"
-                android:layout_width="150dp"
-                android:layout_height="111dp"
+                <ImageView
+                    android:id="@+id/hand_left_ar"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_ar"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="-7dp"
+                    app:srcCompat="@drawable/yed" />
+
+                <RelativeLayout
+                    android:id="@+id/corp_ar"
+                    android:layout_width="132dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/head_ar"
+                    android:layout_centerHorizontal="true"
+
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/body_ar"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="165dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleX="1.01"
+                        android:scaleY="1.07"
+                        app:srcCompat="@drawable/bden" />
+
+                    <ImageView
+                        android:id="@+id/basin_ar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/body_ar"
+                        android:layout_marginTop="0dp"
+                        android:scaleType="fitXY"
+                        android:scaleX="1.02"
+                        android:scaleY="1.14"
+                        app:srcCompat="@drawable/west" />
+
+                    <ImageView
+                        android:id="@+id/Legs_ar"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/basin_ar"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/sakin"
+                        tools:ignore="NotSibling" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/hand_right_ar"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_ar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="-6dp"
+                    app:srcCompat="@drawable/yedd" />
+
+            </RelativeLayout>
+            <RelativeLayout
+
+                android:id="@+id/corp_femme_av"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="60dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/head_f_av"
+                    android:layout_width="150dp"
+                    android:layout_height="111dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="head"
+                    android:layout_marginBottom="-1dp"
+
+                    app:srcCompat="@drawable/rassf" />
+
+
+                <ImageView
+                    android:id="@+id/hand_left_f_av"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_f_av"
+                    android:onClick="hand"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="25dp"
+                    android:paddingTop="3dp"
+                    app:srcCompat="@drawable/yedf" />
+
+                <RelativeLayout
+                    android:id="@+id/corp_f_av"
+                    android:layout_width="132dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/head_f_av"
+                    android:layout_centerHorizontal="true"
+
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/body_f_av"
+                        android:onClick="body"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="165dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleX="1.05"
+                        android:scaleY="1.07"
+                        app:srcCompat="@drawable/bdenf" />
+
+                    <ImageView
+                        android:id="@+id/basin_f_av"
+                        android:onClick="basin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/body_f_av"
+                        android:layout_marginTop="5dp"
+                        android:scaleType="fitXY"
+                        android:scaleX="1.0"
+                        android:scaleY="1.02"
+                        app:srcCompat="@drawable/westf" />
+
+                    <ImageView
+                        android:id="@+id/Legs_f_av"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/basin_f_av"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="-1dp"
+                        android:onClick="legs"
+                        android:scaleX="0.97"
+
+                        app:srcCompat="@drawable/sakinf"
+                        tools:ignore="NotSibling" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/hand_right_f_av"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:onClick="hand"
+
+                    android:layout_below="@+id/head_f_av"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="25dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginRight="3dp"
+                    app:srcCompat="@drawable/yeddf" />
+
+            </RelativeLayout>
+            <RelativeLayout
+
+                android:id="@+id/corp_femme_ar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="60dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/head_f_ar"
+                    android:layout_width="150dp"
+                    android:layout_height="111dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-1dp"
+                    android:onClick="head"
+
+                    app:srcCompat="@drawable/rassfar" />
+
+
+                <ImageView
+                    android:id="@+id/hand_left_f_ar"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/head_f_ar"
+                    android:onClick="hand"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="25dp"
+                    android:paddingTop="3dp"
+                    app:srcCompat="@drawable/yedfar" />
+
+                <RelativeLayout
+                    android:id="@+id/corp_f_ar"
+                    android:layout_width="132dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/head_f_ar"
+                    android:layout_centerHorizontal="true"
+
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/body_f_ar"
+                        android:onClick="body"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="165dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleX="1.05"
+                        android:scaleY="1.07"
+                        app:srcCompat="@drawable/bdenfar" />
+
+                    <ImageView
+                        android:id="@+id/basin_f_ar"
+                        android:onClick="basin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/body_f_ar"
+                        android:layout_marginTop="5dp"
+                        android:scaleType="fitXY"
+                        android:scaleX="1.01"
+                        android:scaleY="1.02"
+                        app:srcCompat="@drawable/westfar" />
+
+                    <ImageView
+                        android:id="@+id/Legs_f_ar"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/basin_f_ar"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="-2dp"
+                        android:onClick="legs"
+                        app:srcCompat="@drawable/sakinfar"
+                        tools:ignore="NotSibling" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/hand_right_f_ar"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:onClick="hand"
+
+                    android:layout_below="@+id/head_f_ar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="25dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginRight="3dp"
+                    app:srcCompat="@drawable/yeddfar" />
+
+            </RelativeLayout>
+
+
+
+
+
+            <TextView
+
+                android:id="@+id/titre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-1dp"
-                app:srcCompat="@drawable/ras" />
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="sans-serif-light"
+                android:text="SELECTIONNER UNE PARTIE DU CORPS"
+                android:textColor="@color/white"
+                android:textSize="17dp"
 
-
-            <ImageView
-                android:id="@+id/hand_left_ar"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_ar"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="-7dp"
-                app:srcCompat="@drawable/yed" />
-
-            <RelativeLayout
-                android:id="@+id/corp_ar"
-                android:layout_width="132dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/head_ar"
-                android:layout_centerHorizontal="true"
-
-
-                >
-
-                <ImageView
-                    android:id="@+id/body_ar"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="165dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleX="1.01"
-                    android:scaleY="1.07"
-                    app:srcCompat="@drawable/bden" />
-
-                <ImageView
-                    android:id="@+id/basin_ar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:layout_below="@id/body_ar"
-                    android:layout_marginTop="0dp"
-                    android:scaleType="fitXY"
-                    android:scaleX="1.02"
-                    android:scaleY="1.14"
-                    app:srcCompat="@drawable/west" />
-
-                <ImageView
-                    android:id="@+id/Legs_ar"
-                    android:layout_width="135dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/basin_ar"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitStart"
-                    android:layout_marginTop="-1dp"
-                    app:srcCompat="@drawable/sakin"
-                    tools:ignore="NotSibling" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/hand_right_ar"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_ar"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="-6dp"
-                app:srcCompat="@drawable/yedd" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
-        <RelativeLayout
-
-            android:id="@+id/corp_femme_av"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingTop="60dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="30dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/head_f_av"
-                android:layout_width="150dp"
-                android:layout_height="111dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:onClick="head"
-                android:layout_marginBottom="-1dp"
-
-                app:srcCompat="@drawable/rassf" />
-
-
-            <ImageView
-                android:id="@+id/hand_left_f_av"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_f_av"
-                android:onClick="hand"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="25dp"
-                android:paddingTop="3dp"
-                app:srcCompat="@drawable/yedf" />
-
-            <RelativeLayout
-                android:id="@+id/corp_f_av"
-                android:layout_width="132dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/head_f_av"
-                android:layout_centerHorizontal="true"
-
-
-                >
-
-                <ImageView
-                    android:id="@+id/body_f_av"
-                    android:onClick="body"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="165dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleX="1.05"
-                    android:scaleY="1.07"
-                    app:srcCompat="@drawable/bdenf" />
-
-                <ImageView
-                    android:id="@+id/basin_f_av"
-                    android:onClick="basin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:layout_below="@id/body_f_av"
-                    android:layout_marginTop="5dp"
-                    android:scaleType="fitXY"
-                    android:scaleX="1.0"
-                    android:scaleY="1.02"
-                    app:srcCompat="@drawable/westf" />
-
-                <ImageView
-                    android:id="@+id/Legs_f_av"
-                    android:layout_width="135dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/basin_f_av"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitStart"
-                    android:layout_marginTop="-1dp"
-                    android:onClick="legs"
-                    android:scaleX="0.97"
-
-                    app:srcCompat="@drawable/sakinf"
-                    tools:ignore="NotSibling" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/hand_right_f_av"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:onClick="hand"
-
-                android:layout_below="@+id/head_f_av"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="25dp"
-                android:paddingTop="3dp"
-                android:layout_marginRight="3dp"
-                app:srcCompat="@drawable/yeddf" />
-
-        </RelativeLayout>
-        <RelativeLayout
-
-            android:id="@+id/corp_femme_ar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingTop="60dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="30dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/head_f_ar"
-                android:layout_width="150dp"
-                android:layout_height="111dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-1dp"
-                android:onClick="head"
-
-                app:srcCompat="@drawable/rassfar" />
-
-
-            <ImageView
-                android:id="@+id/hand_left_f_ar"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/head_f_ar"
-                android:onClick="hand"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="25dp"
-                android:paddingTop="3dp"
-                app:srcCompat="@drawable/yedfar" />
-
-            <RelativeLayout
-                android:id="@+id/corp_f_ar"
-                android:layout_width="132dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/head_f_ar"
-                android:layout_centerHorizontal="true"
-
-
-                >
-
-                <ImageView
-                    android:id="@+id/body_f_ar"
-                    android:onClick="body"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="165dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleX="1.05"
-                    android:scaleY="1.07"
-                    app:srcCompat="@drawable/bdenfar" />
-
-                <ImageView
-                    android:id="@+id/basin_f_ar"
-                    android:onClick="basin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:layout_below="@id/body_f_ar"
-                    android:layout_marginTop="5dp"
-                    android:scaleType="fitXY"
-                    android:scaleX="1.01"
-                    android:scaleY="1.02"
-                    app:srcCompat="@drawable/westfar" />
-
-                <ImageView
-                    android:id="@+id/Legs_f_ar"
-                    android:layout_width="135dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/basin_f_ar"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitStart"
-                    android:layout_marginTop="-2dp"
-                    android:onClick="legs"
-                    app:srcCompat="@drawable/sakinfar"
-                    tools:ignore="NotSibling" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/hand_right_f_ar"
-                android:layout_width="120dp"
-                android:layout_height="250dp"
-                android:onClick="hand"
-
-                android:layout_below="@+id/head_f_ar"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="25dp"
-                android:paddingTop="3dp"
-                android:layout_marginRight="3dp"
-                app:srcCompat="@drawable/yeddfar" />
-
-        </RelativeLayout>
-
-
-
-
-
-        <TextView
-
-            android:id="@+id/titre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="6dp"
-            android:fontFamily="sans-serif-light"
-            android:text="SELECTIONNER UNE PARTIE DU CORPS"
-            android:textColor="@color/white"
-            android:textSize="17dp"
-
-            android:textStyle="bold" />
-
-    </RelativeLayout>
     </LinearLayout>
 </layout>
 

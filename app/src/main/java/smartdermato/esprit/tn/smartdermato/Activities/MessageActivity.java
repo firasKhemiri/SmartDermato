@@ -10,12 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +18,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -58,6 +59,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import smartdermato.esprit.tn.smartdermato.Adapter.MessageAsapter;
 import smartdermato.esprit.tn.smartdermato.Entities.Chats;
 import smartdermato.esprit.tn.smartdermato.Entities.Subscriber;
+import smartdermato.esprit.tn.smartdermato.MainActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Util.util;
 
@@ -97,7 +99,7 @@ public class MessageActivity extends PeekViewActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         window=this.getWindow();
-        window.setStatusBarColor(Color.parseColor("#19AA8B"));
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         mPreferences= getSharedPreferences("x", Context.MODE_PRIVATE);
         subscribers = new ArrayList<>();
@@ -113,7 +115,16 @@ public class MessageActivity extends PeekViewActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MessageActivity.this,Activity_Chat_PM.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                if(mPreferences.getString(getString(R.string.role),"").equals("patient"))
+                {
+                    startActivity(new Intent(MessageActivity.this,Activity_Chat_PM.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                }
+                else
+                {
+                    startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                }
             }
         });
         refresh = findViewById(R.id.refresh);
@@ -126,21 +137,21 @@ public class MessageActivity extends PeekViewActivity {
                 refresh.setRefreshing(false);
             }
         });
-     //   apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        //   apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.getRecycledViewPool().clear();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
         layout_send = findViewById(R.id.layout_send);
         intent = getIntent();
-         userid =  intent.getIntExtra("user_firebase_id",0);
+        userid =  intent.getIntExtra("user_firebase_id",0);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         text_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +218,7 @@ public class MessageActivity extends PeekViewActivity {
         {
             //Toast.makeText(MessageActivity.this,"in runnable",Toast.LENGTH_SHORT).show();
 
-                refresh();
+            refresh();
             seenMessage(userid);
 
 
@@ -243,9 +254,11 @@ public class MessageActivity extends PeekViewActivity {
                                 chats.setId(o.getInt("id"));
                                 chats.setIsseen(o.getBoolean("isseen"));
                                 chats.setMessage(o.getString("message"));
-                                chats.setImageName(o.getInt("imageName"));
+                                chats.setImageName(o.getString("imageName"));
                                 chats.setSender(o.getInt("sender"));
                                 chats.setReceiver(o.getInt("receiver"));
+                                chats.setIdCon(o.getInt("idConsultationP"));
+
 
                                 System.out.println(chats);
 
@@ -257,6 +270,8 @@ public class MessageActivity extends PeekViewActivity {
                                     hashMap.put("message",chats.getMessage());
                                     hashMap.put("id",chats.getId());
                                     hashMap.put("imageName",chats.getImageName());
+                                    hashMap.put("idConsultationP",chats.getIdCon());
+
                                     RequestQueue queue = Volley.newRequestQueue(MessageActivity.this);
                                     final String URI = util.getDomaneName()+"/api/Chats/"+chats.getId();
                                     Log.d(TAG,"Json"+new JSONObject(hashMap));
@@ -273,13 +288,14 @@ public class MessageActivity extends PeekViewActivity {
 
                                                         chatsF.setSender(response.getInt("sender"));
                                                         chatsF.setReceiver(response.getInt("receiver"));
+                                                        chatsF.setIdCon(response.getInt("idConsultationP"));
 
                                                         System.out.println(chatsF);
-                                                            int index = mchat.indexOf(chats);
+                                                        int index = mchat.indexOf(chats);
 
-                                                           mchat.remove(chats);
+                                                        mchat.remove(chats);
                                                         System.out.println("chatF: "+chatsF);
-                                                           mchat.add(index,chatsF);
+                                                        mchat.add(index,chatsF);
                                                         readMessages(mPreferences.getInt(getString(R.string.Id),0),userid,mPreferences.getString(getString(R.string.user_pic),""));
 
 
@@ -383,8 +399,10 @@ public class MessageActivity extends PeekViewActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
         hashMap.put("message",message);
-        hashMap.put("imageName",0);
+        hashMap.put("imageName","vide");
         hashMap.put("isseen",false);
+        hashMap.put("idConsultationP",0);
+
         RequestQueue queue = Volley.newRequestQueue(this);
         final String URI = util.getDomaneName()+"/api/Chats";
         Log.d(TAG,"Json"+new JSONObject(params));
@@ -401,10 +419,11 @@ public class MessageActivity extends PeekViewActivity {
                             chats.setSender(response.getInt("sender"));
                             chats.setReceiver(response.getInt("receiver"));
                             chats.setId(response.getInt("id"));
-                            chats.setImageName(response.getInt("imageName"));
+                            chats.setImageName(response.getString("imageName"));
+                            chats.setIdCon(response.getInt("idConsultationP"));
                             GetToken(chats);
                             refresh();
-                           // readMessages(mPreferences.getInt(getString(R.string.Id),0),userid,mPreferences.getString(getString(R.string.user_pic),""));
+                            // readMessages(mPreferences.getInt(getString(R.string.Id),0),userid,mPreferences.getString(getString(R.string.user_pic),""));
 
 
 
@@ -504,14 +523,14 @@ public class MessageActivity extends PeekViewActivity {
 
 
 
-                                    username.setText(response.getString("Username"));
-                                    if(response.getString("ProfilePic").equals("vide_pic")){
-                                        profile_image.setImageResource(R.drawable.userprofile);
-                                    }
-                                    else {
-                                        Picasso.with(MessageActivity.this)
-                                                .load(util.getDomaneName()+"/Content/Images/"+response.getString("ProfilePic")).into(profile_image);
-                                    }
+                            username.setText(response.getString("Username"));
+                            if(response.getString("ProfilePic").equals("vide_pic")){
+                                profile_image.setImageResource(R.drawable.userprofile);
+                            }
+                            else {
+                                Picasso.with(MessageActivity.this)
+                                        .load(util.getDomaneName()+"/Content/Images/"+response.getString("ProfilePic")).into(profile_image);
+                            }
 
 
                         } catch (Exception e) {
@@ -578,7 +597,7 @@ public class MessageActivity extends PeekViewActivity {
 
                                 if(o.getString("log").equals("IN") && o.getInt("userToken") == chats.getReceiver())
                                 {
-                                   allToken.add(o.getString("token"));
+                                    allToken.add(o.getString("token"));
                                 }
 
                             }
@@ -688,7 +707,7 @@ public class MessageActivity extends PeekViewActivity {
 
                         try {
                             if (!mchat.isEmpty())
-                            mchat.clear();
+                                mchat.clear();
 
                             Boolean isseen = false;
                             //  System.out.println(o.toString()+" respoce!!!!++++");
@@ -698,53 +717,55 @@ public class MessageActivity extends PeekViewActivity {
                             for (int i = 0; i < array.length(); i++) {
 
 
-                                    JSONObject o = array.getJSONObject(i);
-                                    // JSONObject o = response;
+                                JSONObject o = array.getJSONObject(i);
+                                // JSONObject o = response;
 
-                                    //JSONObject Sender = o.get("sender");
-                                    Chats chats = new Chats();
-                                    chats.setId(o.getInt("id"));
-                                    chats.setIsseen(o.getBoolean("isseen"));
-                                    chats.setMessage(o.getString("message"));
-                                    chats.setSender(o.getInt("sender"));
-                                    chats.setReceiver(o.getInt("receiver"));
-                                    chats.setImageName(o.getInt("imageName"));
+                                //JSONObject Sender = o.get("sender");
+                                Chats chats = new Chats();
+                                chats.setId(o.getInt("id"));
+                                chats.setIsseen(o.getBoolean("isseen"));
+                                chats.setMessage(o.getString("message"));
+                                chats.setSender(o.getInt("sender"));
+                                chats.setReceiver(o.getInt("receiver"));
+                                chats.setImageName(o.getString("imageName"));
+                                chats.setIdCon(o.getInt("idConsultationP"));
+
 
 //
-                                    System.out.println(chats);
+                                System.out.println(chats);
 
-                                    if (chats.getReceiver() == mPreferences.getInt(getString(R.string.Id), 0) && chats.getSender() == userid ||
-                                            chats.getReceiver() == userid && chats.getSender() == mPreferences.getInt(getString(R.string.Id), 0)) {
-                                        System.out.println("indexOf  "+ (mchat.indexOf(chats)));
-                                        System.out.println("isseen   "+isseen);
-                                        System.out.println("getisseen  "+chats.isIsseen());
-                                        if(chats.isIsseen() && i == array.length())
-                                        {
-                                            isseen = true;
-                                        }
+                                if (chats.getReceiver() == mPreferences.getInt(getString(R.string.Id), 0) && chats.getSender() == userid ||
+                                        chats.getReceiver() == userid && chats.getSender() == mPreferences.getInt(getString(R.string.Id), 0)) {
+                                    System.out.println("indexOf  "+ (mchat.indexOf(chats)));
+                                    System.out.println("isseen   "+isseen);
+                                    System.out.println("getisseen  "+chats.isIsseen());
+                                    if(chats.isIsseen() && i == array.length())
+                                    {
+                                        isseen = true;
+                                    }
 
-                                        if(mchat.indexOf(chats)<0)
-                                        {
-                                            mchat.add(chats);
-
-                                        }
+                                    if(mchat.indexOf(chats)<0)
+                                    {
+                                        mchat.add(chats);
 
                                     }
 
                                 }
+
+                            }
                             System.out.println(isseen);
                             System.out.println(sizeliste);
                             System.out.println(array.length());
                             System.out.println(sizeliste != array.length());
-                                if(sizeliste != array.length() ){
-                                    sizeliste = array.length();
+                            if(sizeliste != array.length() ){
+                                sizeliste = array.length();
 //                                    messageAsapter = new MessageAsapter(MessageActivity.this, mchat, img);
 ////                                    recyclerView.setAdapter(messageAsapter);
 ////                                    messageAsapter.notifyDataSetChanged();
-                                    getimage();
+                                getimage();
 
 
-                                }
+                            }
 
 
 
@@ -800,7 +821,7 @@ public class MessageActivity extends PeekViewActivity {
 
                         try {
                             if (!mchat.isEmpty())
-                            mchat.clear();
+                                mchat.clear();
                             //  System.out.println(o.toString()+" respoce!!!!++++");
 
                             JSONArray array = new JSONArray(response);
@@ -818,7 +839,9 @@ public class MessageActivity extends PeekViewActivity {
                                 chats.setMessage(o.getString("message"));
                                 chats.setSender(o.getInt("sender"));
                                 chats.setReceiver(o.getInt("receiver"));
-                                chats.setImageName(o.getInt("imageName"));
+                                chats.setImageName(o.getString("imageName"));
+                                chats.setIdCon(o.getInt("idConsultationP"));
+
                                 if (chats.getReceiver()== myid && chats.getSender() == userid ||
                                         chats.getReceiver()== userid && chats.getSender() == myid ) {
                                     mchat.add(chats);
@@ -901,71 +924,71 @@ public class MessageActivity extends PeekViewActivity {
     private void getimage()
     {
 
-            final String URL = util.getDomaneName() + "/api/Users/" +userid;
-            System.out.println("URLLLL:  "+ URL);
+        final String URL = util.getDomaneName() + "/api/Users/" +userid;
+        System.out.println("URLLLL:  "+ URL);
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            System.out.println(response+" respoce!!!!++++");
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response+" respoce!!!!++++");
 
-                            try {
+                        try {
 
-                                //  System.out.println(o.toString()+" respoce!!!!++++");
-
-
-                                JSONObject o = response;
+                            //  System.out.println(o.toString()+" respoce!!!!++++");
 
 
-                                System.out.println(o.getString("ProfilePic"));
+                            JSONObject o = response;
 
 
-                                messageAsapter = new MessageAsapter(MessageActivity.this,mchat,o.getString("ProfilePic"));
-                                recyclerView.setAdapter(messageAsapter);
-                                messageAsapter.notifyDataSetChanged();
+                            System.out.println(o.getString("ProfilePic"));
 
 
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            messageAsapter = new MessageAsapter(MessageActivity.this,mchat,o.getString("ProfilePic"));
+                            recyclerView.setAdapter(messageAsapter);
+                            messageAsapter.notifyDataSetChanged();
 
 
 
-
-
-
-
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    String message = null;
-                    if (error instanceof NetworkError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (error instanceof ServerError) {
-                        message = "The server could not be found. Please try again after some time!!";
-                    } else if (error instanceof AuthFailureError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (error instanceof ParseError) {
-                        message = "Parsing error! Please try again after some time!!";
-                    } else if (error instanceof NoConnectionError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (error instanceof TimeoutError) {
-                        message = "Connection TimeOut! Please check your internet connection.";
+
+
+
+
+
+
+
+
                     }
-                    ;
-                    return;
-
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
                 }
-            });
+                ;
+                return;
 
-            RequestQueue queue = Volley.newRequestQueue(MessageActivity.this);
-            queue.add(stringRequest);
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(MessageActivity.this);
+        queue.add(stringRequest);
 
 
 
@@ -1176,11 +1199,11 @@ public class MessageActivity extends PeekViewActivity {
 //        }
 //    };
 
-//Start
+    //Start
     @Override
     protected void onStart() {
         super.onStart();
-      //  handler.postDelayed(runnable, 1000);
+        //  handler.postDelayed(runnable, 1000);
 
     }
 }

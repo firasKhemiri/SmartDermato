@@ -30,14 +30,14 @@
         android:appComponentFactory="whateverString"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.Activity_Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Activity_Login" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Activities.ActivityInformation" />
         <activity android:name=".Activities.CorpActivity" />
         <activity android:name=".Activities.Activity_SignUp" />

@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         app:headerLayout="@layout/header"
 
-        app:itemIconTint="@color/gradStart"
+        app:itemIconTint="@color/getCol2"
 
         app:menu="@menu/menuplus_item">
 

@@ -14,13 +14,13 @@
             android:id="@+id/first_annimation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gradStart">
+            android:background="@color/getCol">
             <com.airbnb.lottie.LottieAnimationView
                 android:visibility="gone"
                 android:id="@+id/animation_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_rawRes="@raw/loadingplay"/>
+                app:lottie_rawRes="@raw/autoconnectloading"/>
             <!--app:lottie_loop="true"-->
             <!--app:lottie_autoPlay="true"-->
             <com.airbnb.lottie.LottieAnimationView
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
 
-                app:lottie_rawRes="@raw/data"/>
+                app:lottie_rawRes="@raw/loading"/>
             <com.hanks.htextview.typer.TyperTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 app:typerSpeed="300"
                 android:textSize="50dp"
                 android:textStyle="bold"
-              />
+                />
 
 
             <com.hanks.htextview.typer.TyperTextView
@@ -150,6 +150,7 @@
 
 
             </FrameLayout>
+
             <RelativeLayout
 
                 android:id="@+id/corp_homme_av"
@@ -157,7 +158,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="20dp"
-                android:paddingTop="50dp"
+                android:paddingTop="80dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="30dp"
                 android:visibility="visible">
@@ -168,9 +169,8 @@
                     android:layout_height="111dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="-1dp"
-                    app:srcCompat="@drawable/rasav"
                     android:onClick="head"
-                    />
+                    app:srcCompat="@drawable/rasav" />
 
 
                 <ImageView
@@ -178,10 +178,10 @@
                     android:layout_width="120dp"
                     android:layout_height="250dp"
                     android:layout_below="@+id/head_av"
-                    android:onClick="hand"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_marginStart="10dp"
+                    android:onClick="hand"
                     app:srcCompat="@drawable/yedav"
                     tools:ignore="RtlCompat" />
 
@@ -197,12 +197,12 @@
 
                     <ImageView
                         android:id="@+id/body_av"
-                        android:onClick="body"
                         android:layout_width="wrap_content"
                         android:layout_height="165dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
+                        android:onClick="body"
                         android:scaleX="1.01"
                         android:scaleY="1.07"
                         app:srcCompat="@drawable/bdenav" />
@@ -213,26 +213,26 @@
                         android:layout_height="80dp"
                         android:layout_below="@id/body_av"
                         android:layout_marginTop="-2dp"
-                        android:scaleType="fitXY"
-                        android:scaleX="1.01"
-                        android:scaleY="1.14"
                         android:onClick="basin"
+                        android:scaleType="fitXY"
+                        android:scaleX="1.0"
+                        android:scaleY="1.14"
                         app:srcCompat="@drawable/westav" />
 
                     <ImageView
-                        android:foregroundGravity="center"
-                        android:layout_centerHorizontal="true"
                         android:id="@+id/Legs_av"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/basin_av"
                         android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="-2dp"
                         android:layout_marginBottom="0dp"
+                        android:foregroundGravity="center"
                         android:onClick="legs"
-                        android:scaleX="1.09"
-
                         android:scaleType="fitStart"
+
+                        android:scaleX="1.09"
                         app:srcCompat="@drawable/sakinav" />
                 </RelativeLayout>
 
@@ -245,8 +245,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="35dp"
-                    app:srcCompat="@drawable/yedd"
                     android:onClick="hand"
+                    app:srcCompat="@drawable/yedd"
                     tools:ignore="ContentDescription,DuplicateIds" />
 
             </RelativeLayout>
@@ -258,7 +258,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="20dp"
-                android:paddingTop="60dp"
+                android:paddingTop="80dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="30dp"
                 android:visibility="gone">
@@ -354,7 +354,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="20dp"
-                android:paddingTop="60dp"
+                android:paddingTop="80dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="30dp"
                 android:visibility="gone">
@@ -456,7 +456,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="20dp"
-                android:paddingTop="60dp"
+                android:paddingTop="80dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="30dp"
                 android:visibility="gone">
@@ -552,23 +552,32 @@
 
 
 
-
-            <TextView
-
-                android:id="@+id/titre"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/getCol"
+                android:gravity="center"
+                android:id="@+id/txt"
+                >
+                <TextView
 
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="sans-serif-light"
-                android:text="SELECTIONNER UNE PARTIE DU CORPS"
-                android:textColor="#807a7a"
-                android:textSize="17dp"
+                    android:id="@+id/titre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                android:textStyle="bold" />
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="SELECTIONNER UNE PARTIE DU CORPS"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
         <RelativeLayout
@@ -588,7 +597,7 @@
                 android:fontFamily="sans-serif"
                 android:text="Skip"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/getCol2"
                 />
 
             <Button
@@ -602,7 +611,7 @@
 
                 android:text="Skip"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/getCol2" />
 
         </RelativeLayout>
 

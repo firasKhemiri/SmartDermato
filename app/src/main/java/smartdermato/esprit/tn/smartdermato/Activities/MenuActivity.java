@@ -79,7 +79,7 @@ public class MenuActivity extends Fragment implements NavigationView.OnNavigatio
 
         getDRS();
         setFragmentV4(new AccueilTest());
-      window.setStatusBarColor(Color.parseColor("#19AA8B"));
+      window.setStatusBarColor(Color.parseColor("#17A8C2"));
 //
 //        window.setNavigationBarColor(Color.parseColor("#e4e4e4"));
 

@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -53,18 +54,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private List<Users> mUser_firebases;
     private boolean ischat;
     private String from,dateTime;
-    private int image;
+    private String image;
     private List<Subscriber> subscribers;
     private SharedPreferences mPreferences;
+    private int idCon;
     private static final String TAG = "UserAdapter";
 
-    public UserAdapter(Context mContext,List<Users> mUser_firebases,boolean ischat,String from,String dateTime,int image){
+    public UserAdapter(Context mContext,List<Users> mUser_firebases,boolean ischat,String from,String dateTime,String image,int idCon){
         this.mContext = mContext;
         this.mUser_firebases = mUser_firebases;
         this.ischat = ischat;
         this.from = from;
         this.dateTime = dateTime;
         this.image = image;
+        this.idCon = idCon;
 
         System.out.println("image: "+image);
     }
@@ -81,7 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-       // final User_Firebase user_firebase =mUser_firebases.get(i);
+        // final User_Firebase user_firebase =mUser_firebases.get(i);
         final Users user_firebase =mUser_firebases.get(i);
         System.out.println(user_firebase);
         viewHolder.username.setText(user_firebase.getUsername());
@@ -103,35 +106,35 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 public void onClick(View v) {
 
 
-                        for (Subscriber subscriber : subscribers)
+                    for (Subscriber subscriber : subscribers)
+                    {
+
+                        System.out.println("for subscribe: "+subscriber);
+                        if(subscriber.getMedceinId() == mPreferences.getInt(mContext.getString(R.string.Id),0) && subscriber.getPationId() == user_firebase.getId())
                         {
-
-                            System.out.println("for subscribe: "+subscriber);
-                            if(subscriber.getMedceinId() == mPreferences.getInt(mContext.getString(R.string.Id),0) && subscriber.getPationId() == user_firebase.getId())
+                            System.out.println("for subscribe2: "+subscriber);
+                            if(subscriber.getEtat() == 2)
                             {
-                                System.out.println("for subscribe2: "+subscriber);
-                                if(subscriber.getEtat() == 2)
-                                {
-                                    Subscriber subscriber0 = new Subscriber();
-                                    subscriber0.setPationId(subscriber.getPationId());
-                                    subscriber0.setMedceinId(subscriber.getMedceinId());
-                                    subscriber0.setEtat(1);
+                                Subscriber subscriber0 = new Subscriber();
+                                subscriber0.setPationId(subscriber.getPationId());
+                                subscriber0.setMedceinId(subscriber.getMedceinId());
+                                subscriber0.setEtat(1);
 
-                                    putFollow(subscriber,subscriber0,viewHolder);
-                                    break;
-                                }
-                                else
-                                {
-
-                                    Subscriber subscriber0 = new Subscriber();
-                                    subscriber0.setPationId(subscriber.getPationId());
-                                    subscriber0.setMedceinId(subscriber.getMedceinId());
-                                    subscriber0.setEtat(2);
-
-                                    putFollow(subscriber,subscriber0,viewHolder);
-                                    break;
-                                }
+                                putFollow(subscriber,subscriber0,viewHolder);
+                                break;
                             }
+                            else
+                            {
+
+                                Subscriber subscriber0 = new Subscriber();
+                                subscriber0.setPationId(subscriber.getPationId());
+                                subscriber0.setMedceinId(subscriber.getMedceinId());
+                                subscriber0.setEtat(2);
+
+                                putFollow(subscriber,subscriber0,viewHolder);
+                                break;
+                            }
+                        }
 
 
                     }
@@ -280,7 +283,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                                 }
                                 else if (subscriber.getEtat() == 1 && subscriber.getMedceinId() == mPreferences.getInt(mContext.getString(R.string.Id),0) && subscriber.getPationId() == idM)
-                                    {
+                                {
                                     searchViewHolder.block.setBackgroundResource(R.drawable.userblock2);
 
 
@@ -345,7 +348,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         }
     }
-    private void sendMessage(int sender , final int receiver , String message,int imageName ){
+    private void sendMessage(int sender , final int receiver , String message,String imageName ){
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("sender",sender);
@@ -353,6 +356,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         hashMap.put("message",message);
         hashMap.put("imageName",imageName);
         hashMap.put("isseen",false);
+        hashMap.put("idConsultationP",idCon);
         RequestQueue queue = Volley.newRequestQueue(mContext);
         final String URI = util.getDomaneName()+"/api/Chats";
         Log.d(TAG,"Json"+new JSONObject(hashMap));

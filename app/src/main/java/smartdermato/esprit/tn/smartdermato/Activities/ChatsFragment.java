@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -68,8 +69,8 @@ public class ChatsFragment extends Fragment {
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-            readChats();
-            refresh.setRefreshing(false);
+                readChats();
+                refresh.setRefreshing(false);
             }
         });
         final String URL = util.getDomaneName() + "/api/Chats/";
@@ -91,13 +92,13 @@ public class ChatsFragment extends Fragment {
 
 
                                 JSONObject o = array.getJSONObject(i);
-                               // JSONObject o = response;
+                                // JSONObject o = response;
                                 Chats chats = new Chats();
                                 chats.setId(o.getInt("id"));
                                 chats.setIsseen(o.getBoolean("isseen"));
                                 chats.setMessage(o.getString("message"));
-                                    chats.setSender(o.getInt("sender"));
-                                    chats.setReceiver(o.getInt("receiver"));
+                                chats.setSender(o.getInt("sender"));
+                                chats.setReceiver(o.getInt("receiver"));
 //                                JSONArray Receiver = o.getJSONArray("receiver");
 //                                for(int j = 0;j < Receiver.length(); i++){
 //                                    JSONObject w = Receiver.getJSONObject(i);
@@ -214,7 +215,7 @@ public class ChatsFragment extends Fragment {
         return view;
 
     }
-//    private void updateToken(String token){
+    //    private void updateToken(String token){
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
 //        Token token1 = new Token();
 //        reference.child(fuser.getUid()).setValue(token1);
@@ -288,7 +289,7 @@ public class ChatsFragment extends Fragment {
 
 
 
-                        userAdapter = new UserAdapter(getContext(),users,true,"Chats","",0);
+                        userAdapter = new UserAdapter(getContext(),users,true,"Chats","","vide",0);
                         recyclerView.setAdapter(userAdapter);
                         userAdapter.notifyDataSetChanged();
 

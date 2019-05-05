@@ -66,7 +66,9 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -77,7 +79,10 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import smartdermato.esprit.tn.smartdermato.Adapter.AdapterAccueil;
+import smartdermato.esprit.tn.smartdermato.Adapter.AdapterHome;
 import smartdermato.esprit.tn.smartdermato.Adapter.HomeMultiViewTypeAdapter;
+import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.FeedItem;
 import smartdermato.esprit.tn.smartdermato.Entities.Model;
 import smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity;
@@ -96,10 +101,15 @@ public class AccueilTest extends Fragment {
     private ViewPager viewPager;
     private Dialog myDialogSexe;
     private ImageView btnRoateAv,headAv,bodyAv,basinAv,handLeftAv,handRightAv,LegsAv,headAr,bodyAr,basinAr,handLeftAr,handRightAr,LegsAr;
+    private ImageView btnRoateFAv,headFAv,bodyFAv,basinFAv,handLeftFAv,handRightFAv,LegsFAv,headFAr,bodyFAr,basinFAr,handLeftFAr,handRightFAr,LegsFAr;
+    private String dateP;
+    private Map<String, Object> params = new HashMap<String, Object>();
     private RelativeLayout corpHommeAv,corpHommeAr,corpFemmeAv,corpFemmeAr;
     private String Sexe = "Homme";
     private int rotate = 0;
     private final  int IMG_RESULT= 1;
+    private final static int REQUEST_CODE_2 = 2;
+
     private String imageName = "vide_pic";
     private SharedPreferences mPreferences;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -110,10 +120,13 @@ public class AccueilTest extends Fragment {
     private static final String[] PERMISSION_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private SharedPreferences.Editor editor;
-
+    private List<Consultation> consultationList;
+    private AdapterHome adapterAccueil;
     private static final int RequestCode = 746;
     private static final int NumberOfImagesToSelect = 1;
     private static final String TAG = "Accueil";
+    
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
@@ -125,6 +138,12 @@ public class AccueilTest extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
+        consultationList = new ArrayList<>();
+
+        adapterAccueil = new AdapterHome(consultationList,getActivity());
+
+        recyclerView.setAdapter(adapterAccueil);
+        adapterAccueil.notifyDataSetChanged();
 
 
 
@@ -239,6 +258,18 @@ public class AccueilTest extends Fragment {
         handRightAr = myDialog.findViewById(R.id.hand_right_ar);
         LegsAv = myDialog.findViewById(R.id.Legs_av);
         LegsAr = myDialog.findViewById(R.id.Legs_ar);
+        headFAv = (ImageView) myDialog.findViewById(R.id.head_f_av);
+        headFAr = (ImageView) myDialog.findViewById(R.id.head_f_ar);
+        bodyFAv = (ImageView) myDialog.findViewById(R.id.body_f_av);
+        bodyFAr = (ImageView) myDialog.findViewById(R.id.body_f_ar);
+        basinFAv = (ImageView) myDialog.findViewById(R.id.basin_f_av);
+        basinFAr = (ImageView) myDialog.findViewById(R.id.basin_f_ar);
+        handLeftFAv = (ImageView) myDialog.findViewById(R.id.hand_left_f_av);
+        handLeftFAr = (ImageView) myDialog.findViewById(R.id.hand_left_f_ar);
+        handRightFAv = (ImageView) myDialog.findViewById(R.id.hand_right_f_av);
+        handRightFAr = (ImageView) myDialog.findViewById(R.id.hand_right_f_ar);
+        LegsFAv = (ImageView) myDialog.findViewById(R.id.Legs_f_av);
+        LegsFAr = (ImageView) myDialog.findViewById(R.id.Legs_f_ar);
         animationView = myDialog.findViewById(R.id.animation_view);
         animationViewRes = myDialog.findViewById(R.id.animation_view_res);
         animationViewResult = myDialog.findViewById(R.id.animation_view_result);
@@ -264,6 +295,18 @@ public class AccueilTest extends Fragment {
         handRightAr.setOnClickListener(this::hand);
         LegsAv.setOnClickListener(this::legs);
         LegsAr.setOnClickListener(this::legs);
+        headFAv.setOnClickListener(this::head);
+        headFAr.setOnClickListener(this::head);
+        bodyFAv.setOnClickListener(v -> body());
+        bodyFAr.setOnClickListener(v -> body());
+        basinFAv.setOnClickListener(this::basin);
+        basinFAr.setOnClickListener(this::basin);
+        handLeftFAv.setOnClickListener(this::hand);
+        handLeftFAr.setOnClickListener(this::hand);
+        handRightFAv.setOnClickListener(this::hand);
+        handRightFAr.setOnClickListener(this::hand);
+        LegsFAv.setOnClickListener(this::legs);
+        LegsFAr.setOnClickListener(this::legs);
         Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
@@ -373,7 +416,7 @@ public class AccueilTest extends Fragment {
     private void head(View view){
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
         if(rotate == 0 && Sexe.equals("Homme")){
-            headAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            headAv.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -382,7 +425,7 @@ public class AccueilTest extends Fragment {
             camera();
         }
         else if(rotate == 1 && Sexe.equals("Homme")) {
-            headAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            headAr.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -391,21 +434,21 @@ public class AccueilTest extends Fragment {
             camera();
 
         }else   if(rotate == 0 && Sexe.equals("Femme")){
-            ptpBinding.headFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+            headFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
         }
         else if(rotate == 1 && Sexe.equals("Femme")) {
-            ptpBinding.headFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+            headFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
         }
@@ -414,7 +457,7 @@ public class AccueilTest extends Fragment {
     private void body(){
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
         if(rotate == 0 && Sexe.equals("Homme")){
-            bodyAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            bodyAv.setColorFilter(Color.parseColor("#90F0AF10"));
             headAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -424,7 +467,7 @@ public class AccueilTest extends Fragment {
 
         }
         else if(rotate == 1 && Sexe.equals("Homme")) {
-            bodyAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            bodyAr.setColorFilter(Color.parseColor("#90F0AF10"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -434,22 +477,22 @@ public class AccueilTest extends Fragment {
 
 
         }else if(rotate == 0 && Sexe.equals("Femme")){
-            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
         }
         else if(rotate == 1 && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
 
@@ -461,7 +504,7 @@ public class AccueilTest extends Fragment {
         if (rotate == 0 && Sexe.equals("Homme")) {
             bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             headAv.setColorFilter(Color.parseColor("#0057717A"));
-            basinAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            basinAv.setColorFilter(Color.parseColor("#90F0AF10"));
             handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
             handRightAv.setColorFilter(Color.parseColor("#0057717A"));
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -470,7 +513,7 @@ public class AccueilTest extends Fragment {
         } else  if (rotate == 1 && Sexe.equals("Homme")) {
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
-            basinAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            basinAr.setColorFilter(Color.parseColor("#90F0AF10"));
             handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
             handRightAr.setColorFilter(Color.parseColor("#0057717A"));
             LegsAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -478,21 +521,21 @@ public class AccueilTest extends Fragment {
 
 
         }else   if (rotate == 0 && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
         } else  if (rotate == 1 && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
 
@@ -507,7 +550,7 @@ public class AccueilTest extends Fragment {
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
             handRightAv.setColorFilter(Color.parseColor("#0057717A"));
-            LegsAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            LegsAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
         } else  if (rotate == 1 && Sexe.equals("Homme")) {
@@ -516,26 +559,26 @@ public class AccueilTest extends Fragment {
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
             handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
             handRightAr.setColorFilter(Color.parseColor("#0057717A"));
-            LegsAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            LegsAr.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
 
         }else  if (rotate == 0 && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
         } else  if (rotate == 1 && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+            LegsFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
 
@@ -549,8 +592,8 @@ public class AccueilTest extends Fragment {
             bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             headAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
-            handLeftAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            handRightAv.setColorFilter(Color.parseColor("#4819AA8B"));
+            handLeftAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            handRightAv.setColorFilter(Color.parseColor("#90F0AF10"));
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
@@ -558,28 +601,28 @@ public class AccueilTest extends Fragment {
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
-            handLeftAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            handRightAr.setColorFilter(Color.parseColor("#4819AA8B"));
+            handLeftAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            handRightAr.setColorFilter(Color.parseColor("#90F0AF10"));
             LegsAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
 
         } else  if (rotate == 0  && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            handRightFAv.setColorFilter(Color.parseColor("#90F0AF10"));
+            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
         } else if (rotate == 1  && Sexe.equals("Femme")) {
-            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#4819AA8B"));
-            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+            handLeftFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            handRightFAr.setColorFilter(Color.parseColor("#90F0AF10"));
+            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
 
@@ -591,10 +634,12 @@ public class AccueilTest extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void camera(){
 
-        Intent i = new Intent(getContext(), MainActivity.class);
-        //   i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        //   i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_PICK);
+        Intent result = Intent.createChooser(intent, getText(R.string.choose_file));
+        startActivityForResult(result, IMG_RESULT);
 
     }
 
@@ -866,6 +911,20 @@ public class AccueilTest extends Fragment {
         handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
         handRightAv.setColorFilter(Color.parseColor("#0057717A"));
         LegsAv.setColorFilter(Color.parseColor("#0057717A"));
+
+
+        bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+        headFAr.setColorFilter(Color.parseColor("#0057717A"));
+        basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+        handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+        handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+        LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+        bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+        headFAv.setColorFilter(Color.parseColor("#0057717A"));
+        basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+        handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+        handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+        LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
     }
 
 
@@ -887,9 +946,14 @@ public class AccueilTest extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMG_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
-
-
                 Intent i = new Intent(getContext(), MainActivity.class);
+                i.setData( data.getData());
+
+                //   i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //   i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(i, REQUEST_CODE_2);
+
+               /* Intent i = new Intent(getContext(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
              //   i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
@@ -934,7 +998,7 @@ public class AccueilTest extends Fragment {
                     mDialog.show();*/
 
 
-                    uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
+                  /*  uploadService.Upload(photo, description).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
@@ -979,21 +1043,10 @@ public class AccueilTest extends Fragment {
                     //mDialog.dismiss();
                     toastMessage("erreur 1....");
 
-                }
+                }*/
 
             } else {
-                bodyAr.setColorFilter(Color.parseColor("#0057717A"));
-                headAr.setColorFilter(Color.parseColor("#0057717A"));
-                basinAr.setColorFilter(Color.parseColor("#0057717A"));
-                handLeftAr.setColorFilter(Color.parseColor("#0057717A"));
-                handRightAr.setColorFilter(Color.parseColor("#0057717A"));
-                LegsAr.setColorFilter(Color.parseColor("#0057717A"));
-                bodyAv.setColorFilter(Color.parseColor("#0057717A"));
-                headAv.setColorFilter(Color.parseColor("#0057717A"));
-                basinAv.setColorFilter(Color.parseColor("#0057717A"));
-                handLeftAv.setColorFilter(Color.parseColor("#0057717A"));
-                handRightAv.setColorFilter(Color.parseColor("#0057717A"));
-                LegsAv.setColorFilter(Color.parseColor("#0057717A"));
+                clean();
             }
 
       /*  if (resultCode == Activity.RESULT_OK && requestCode == RequestCode) {
@@ -1012,18 +1065,18 @@ public class AccueilTest extends Fragment {
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
 
 
-//            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
 
 
         }else {
@@ -1041,22 +1094,26 @@ public class AccueilTest extends Fragment {
             handRightAv.setColorFilter(Color.parseColor("#0057717A"));
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
 
-//            ptpBinding.bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.headFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.basinFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.headFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.basinFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
-//            ptpBinding.LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            headFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            basinFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            handLeftFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            handRightFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            LegsFAr.setColorFilter(Color.parseColor("#0057717A"));
+//            bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            headFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            basinFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            handLeftFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
+//            LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
 
         }*/
         }
-    }
+        if (requestCode == REQUEST_CODE_2) {
+            clean();
+        }
+
+        }
     private String getRealPathFromURI(Uri contentUri)
     {
         String[] proj = {MediaStore.Images.Media.DATA};

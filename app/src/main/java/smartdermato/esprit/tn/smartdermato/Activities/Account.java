@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -172,7 +174,8 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                 note.setText(String.valueOf(somme/coff));
                 ratingBar.setRating(somme/coff);
             }
-
+            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.parseColor("#F0AF10"), PorterDuff.Mode.SRC_ATOP);
             ratingBar.setEnabled(false);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override

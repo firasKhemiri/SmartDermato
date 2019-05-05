@@ -108,7 +108,7 @@ public class MenuMedecinActivity extends Fragment implements NavigationView.OnNa
 ////        frameLayout = (FrameLayout) root.findViewById(R.id.main_fram);
 
         setFragmentV4( new Fragment_Chat_PM());
-        window.setStatusBarColor(Color.parseColor("#19AA8B"));
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
 //
 //        window.setNavigationBarColor(Color.parseColor("#e4e4e4"));
 

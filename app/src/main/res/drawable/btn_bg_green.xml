@@ -9,6 +9,6 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/gradStart" />
+        android:color="@color/getCol2" />
 
 </shape>

@@ -85,7 +85,7 @@ public class Activity_Chat_PM extends AppCompatActivity{
             }
         });
         window=this.getWindow();
-        window.setStatusBarColor(Color.parseColor("#19AA8B"));
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         mPreferences= getSharedPreferences("x", Context.MODE_PRIVATE);

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import smartdermato.esprit.tn.smartdermato.Activities.MenuActivity;
+import smartdermato.esprit.tn.smartdermato.Activities.MenuMedecinActivity;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -22,19 +23,19 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("x", Context.MODE_PRIVATE);
         toastMessage(preferences.getString(getString(R.string.role),""));
-//
-//        if(preferences.getString(getString(R.string.role),"").equals("patient"))
-//        {
-//            setFragment(new MenuActivity());
-//
-//        }
-//        else
-//        {
-//            setFragment(new MenuMedecinActivity());
-//
-//        }
 
-        setFragment(new MenuActivity());
+       if(preferences.getString(getString(R.string.role),"").equals("patient"))
+       {
+           setFragment(new MenuActivity());
+
+      }
+     else
+       {
+          setFragment(new MenuMedecinActivity());
+
+        }
+
+//        setFragment(new MenuActivity());
 
     }
     public void toastMessage(String message){

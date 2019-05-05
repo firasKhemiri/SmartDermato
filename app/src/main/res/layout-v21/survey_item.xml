@@ -81,18 +81,18 @@
 
             <RadioButton
                 android:id="@+id/radio_no"
-                android:gravity="center"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
+                android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingTop="3dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="3dp"
                 android:text="No"
-                android:textStyle="bold"
-                android:textColor="@drawable/radio_flat_text_selector" />
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:textStyle="bold" />
 
         </RadioGroup>
 

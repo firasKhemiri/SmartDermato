@@ -23,15 +23,15 @@
 
         android:id="@+id/message_content"
         >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_message"
-        android:text="hello"
-        android:textSize="18sp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_message"
+            android:text="hello"
+            android:textSize="18sp"
 
-        android:textColor="@color/white"
-       />
+            android:textColor="@color/white"
+            />
         <androidx.cardview.widget.CardView
             android:layout_below="@+id/show_message"
             android:id="@+id/card_view_image"
@@ -41,20 +41,20 @@
             android:layout_margin="5dp"
             android:elevation="10dp"
             android:visibility="gone">
-        <ImageView
-            android:layout_below="@+id/show_message"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/show_imag"
-            android:scaleType="fitXY"
+            <ImageView
+                android:layout_below="@+id/show_message"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/show_imag"
+                android:scaleType="fitXY"
 
-            />
+                />
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_seen"
-      android:visibility="gone"
+        android:visibility="gone"
         android:layout_below="@+id/message_content"/>
 </RelativeLayout>

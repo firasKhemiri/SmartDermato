@@ -24,7 +24,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gradStart"
+                    android:background="@drawable/grad_bg"
                     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:popupTheme="@style/MenuStyle">
 
@@ -83,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rellay1"
                 android:orientation="horizontal"
-
+                android:background="@drawable/grad_bg"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:gravity="center"
-                    android:background="@color/gradStop">
+                    >
                     <RatingBar
                         android:id="@+id/rating"
                         android:rating="0"
@@ -129,7 +129,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:gravity="center"
-                    android:background="@color/gradStart">
+                    >
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                         android:layout_marginTop="10dp"
 
                         android:textSize="23sp"
-                        android:textColor="#19AA8B"
+                        android:textColor="@color/getCol2"
 
                         />
                 </RelativeLayout>
@@ -361,7 +361,7 @@
                         android:layout_marginTop="10dp"
 
                         android:textSize="23sp"
-                        android:textColor="#19AA8B"
+                        android:textColor="@color/getCol2"
 
                         />
                 </RelativeLayout>

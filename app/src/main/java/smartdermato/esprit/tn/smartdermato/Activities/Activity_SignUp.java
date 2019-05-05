@@ -110,8 +110,8 @@ public class Activity_SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         window=getWindow();
-        window.setStatusBarColor(Color.parseColor("#19AA8B"));
-        window.setNavigationBarColor(Color.parseColor("#19AA8B"));
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
+        window.setNavigationBarColor(Color.parseColor("#17A8C2"));
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_signup);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         prgDialog = new ProgressDialog(this);

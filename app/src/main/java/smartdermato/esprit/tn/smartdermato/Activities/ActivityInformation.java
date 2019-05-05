@@ -93,8 +93,8 @@ public class ActivityInformation extends AppCompatActivity implements OnCountryP
         window=getWindow();
 
         if (android.os.Build.VERSION.SDK_INT >= 19)
-            window.setStatusBarColor(Color.parseColor("#19AA8B"));
-        window.setNavigationBarColor(Color.parseColor("#19AA8B"));
+            window.setStatusBarColor(Color.parseColor("#17A8C2"));
+        window.setNavigationBarColor(Color.parseColor("#17A8C2"));
 
         lastName = (EditText)findViewById(R.id.f_name);
         firstName = (EditText) findViewById(R.id.l_name);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#23A7D8</color>
+    <color name="colorPrimary">#F0AF10</color>
     <color name="colorPrimaryDark">#19AA8B</color>
     <color name="colorPrimaryDark2">#23A7D8</color>
-    <color name="colorAccent">#19AA8B</color>
+    <color name="colorAccent">#17A8C2</color>
 
     <color name="gradStart">#19AA8B</color>
     <color name="gradStop">#57717A</color>
@@ -27,5 +27,10 @@
 
     <color name="progress_bar_color">#FFDE3A</color>
     <color name="progress_bar_thumb_color">#a40100</color>
+    <color name="red">#F44336</color>
+    <color name="vert">#4CAF50</color>
+
+    <color name="getCol">#17A8C2</color>
+    <color name="getCol2">#F0AF10</color>
 
 </resources>

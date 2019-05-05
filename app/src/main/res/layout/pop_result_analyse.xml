@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="250dp"
+    android:id="@+id/rall"
+    android:layout_gravity="center"
+    android:background="@drawable/gradstart"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/txt"
+        android:text="The percentage that you have psoriasis is"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textStyle=""
+        android:textSize="38dp" />
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="20%"
+        android:id="@+id/pourcentaget"
+        android:textSize="45dp"
+        android:textStyle="italic"
+        android:textColor="@color/getCol2"
+        android:layout_below="@+id/txt"
+        android:fontFamily="sans-serif-light"
+
+        />
+
+    <Button
+
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pourcentaget"
+        android:background="@drawable/btn_bg"
+        android:text="OK"
+        android:id="@+id/ok"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="normal" />
+
+
+
+
+</RelativeLayout>

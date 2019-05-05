@@ -93,8 +93,8 @@ public class Activity_Login extends AppCompatActivity {
         window=getWindow();
 
         if (android.os.Build.VERSION.SDK_INT >= 19)
-        window.setStatusBarColor(Color.parseColor("#19AA8B"));
-        window.setNavigationBarColor(Color.parseColor("#19AA8B"));
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
+        window.setNavigationBarColor(Color.parseColor("#17A8C2"));
 
         handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);

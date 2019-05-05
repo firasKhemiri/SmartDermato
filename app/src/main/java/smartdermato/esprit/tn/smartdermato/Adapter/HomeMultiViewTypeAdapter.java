@@ -2,6 +2,8 @@ package smartdermato.esprit.tn.smartdermato.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,24 +17,43 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.FeedItem;
 import smartdermato.esprit.tn.smartdermato.Entities.Model;
 import smartdermato.esprit.tn.smartdermato.R;
+import smartdermato.esprit.tn.smartdermato.Util.util;
 
 
 public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<FeedItem> dataSet;
     private Context mContext;
+    private SharedPreferences mPreferences;
 
     private String host;
 
@@ -55,7 +76,7 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
         private RecyclerView recyclerView;
         private LinearLayoutManager manager;
 
-        private List<Model> models;
+        private List<Consultation> models;
 
         FirstTypeViewHolder(View itemView) {
             super(itemView);
@@ -76,7 +97,8 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
 
         TextTypeViewHolder(View itemView) {
             super(itemView);
-
+            mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            mPreferences = mContext.getSharedPreferences("x", Context.MODE_PRIVATE);
             this.txtType = itemView.findViewById(R.id.postname);
             this.username = itemView.findViewById(R.id.username);
             this.addLike = itemView.findViewById(R.id.add_like);
@@ -528,13 +550,14 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
 
 
             ((FirstTypeViewHolder) holder).models = new ArrayList<>();
-            ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.brochure, "19/02/2019", "12h:59"));
+         /*   ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.brochure, "19/02/2019", "12h:59"));
             ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.sticker, "15-02-2019", "20h:09"));
             ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.poster, "19/01/2019", "10h:50"));
-            ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.namecard, "02-12-2018", "00h:00"));
+            ((FirstTypeViewHolder) holder).models.add(new Model(R.drawable.namecard, "02-12-2018", "00h:00"));*/
             ((FirstTypeViewHolder) holder).adapterAccueil = new AdapterHome(((FirstTypeViewHolder) holder).models, mContext);
             ((FirstTypeViewHolder) holder).recyclerView.setAdapter(((FirstTypeViewHolder) holder).adapterAccueil);
             ((FirstTypeViewHolder) holder).adapterAccueil.notifyDataSetChanged();
+            getConsultation((FirstTypeViewHolder) holder);
 
         }
 
@@ -669,6 +692,89 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 */
+        public void getConsultation( RecyclerView.ViewHolder holder)
+        {
+            final String URL = util.getDomaneName() + "/api/Consultations";
+            System.out.println("URLLLL:  "+ URL);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
+                    System.out.println("Consultation: "+response );
+                    try {
+
+                        if (response.length() == 0 ) {
+
+                            final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(mContext);
+                            builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
+                            builderSingle.setTitle("Home");
+                            builderSingle.setMessage("Vide");
+                            builderSingle.show();
+
+                        } else {
+
+                            if(((FirstTypeViewHolder) holder).models.size()>0)
+                                ((FirstTypeViewHolder) holder).models.clear();
+                            JSONArray array = new JSONArray(response);
+                            for (int i = array.length() - 1; i >= 0; i--) {
+
+
+                                JSONObject o = array.getJSONObject(i);
+                                Consultation consultation = new Consultation();
+                                consultation.setId(o.getInt("id"));
+                                consultation.setDateC(o.getString("date"));
+                                consultation.setImagePath(o.getString("imageName"));
+                                consultation.setIdUser(o.getInt("patient"));
+                                consultation.setType(o.getString("typeC"));
+                                consultation.setPourcentage(o.getString("pourcentageC"));
+                                if(consultation.getIdUser() == mPreferences.getInt(mContext.getString(R.string.Id),0))
+                                {
+                                    ((FirstTypeViewHolder) holder).models.add(consultation);
+                                    ((FirstTypeViewHolder) holder).adapterAccueil.notifyDataSetChanged();
+
+
+                                }
+                            }
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String message = null;
+                    if (error instanceof NetworkError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ServerError) {
+                        message = "The server could not be found. Please try again after some time!!";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ParseError) {
+                        message = "Parsing error! Please try again after some time!!";
+                    } else if (error instanceof NoConnectionError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof TimeoutError) {
+                        message = "Connection TimeOut! Please check your internet connection.";
+                    }
+                    final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(mContext);
+                    builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
+                    builderSingle.setTitle("Login");
+                    builderSingle.setMessage(message);
+                    builderSingle.show();
+                    return;
+
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(mContext);
+            queue.add(stringRequest);
+
+
+        }
 
 }
