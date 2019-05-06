@@ -328,6 +328,7 @@ ratingList = new ArrayList<>();
                             mBinding.CP.setText(Users.getPostalCode());
                             mBinding.OFN.setText("("+Users.getCountryOfficeNumber()+")"+Users.getOfficeNumber());
                             mBinding.dateCertification.setText(Users.getCertificatDate());
+                            mBinding.LNFN.setText("Dr. "+Users.getFirstName()+" "+Users.getLastName());
 
 
 

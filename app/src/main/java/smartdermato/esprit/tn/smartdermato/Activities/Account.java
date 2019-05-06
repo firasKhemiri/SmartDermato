@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -139,6 +141,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 
         preferences = getActivity().getSharedPreferences("x", Context.MODE_PRIVATE);
         editor = preferences.edit();
+
         bar_rating = root.findViewById(R.id.rellay2);
         annimationR = root.findViewById(R.id.annimation_profile);
         annimation = root.findViewById(R.id.animation_view_res);
@@ -148,39 +151,10 @@ public class Account  extends Fragment implements OnCountryPickerListener {
 
         if(preferences.getString(getString(R.string.role),"").equals("medecin"))
         {
-            getRating();
+            ratingList = new ArrayList<>();
+            getRating(root);
             System.out.println(ratingList);
-            for (Rating rating : ratingList)
-            {
-                if(rating.getMedcinId() == preferences.getInt(getString(R.string.Id),0))
-                {
-                    somme = somme + rating.getNote();
-                    coff++;
-                }
-            }
-            note = root.findViewById(R.id.note);
 
-            prgDialog = new ProgressDialog(getActivity());
-            ratingBar = root.findViewById(R.id.rating);
-            if(somme == 0.0f && coff == 0)
-            {
-                note.setText(String.valueOf(0.0f));
-                ratingBar.setRating(0.0F);
-            }
-            else
-            {
-                note.setText(String.valueOf(somme/coff));
-                ratingBar.setRating(somme/coff);
-            }
-
-            ratingBar.setEnabled(false);
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    toastMessage(String.valueOf(rating));
-
-                }
-            });
         }
         else
         {
@@ -272,7 +246,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
         }
         else if(users.getFirstName().equals("") && users.getLastName().equals("") && users.getRole().equals("medecin") )
         {
-            np.setText("Dr "+users.getUsername());
+            np.setText("Dr. "+users.getUsername());
 
         }
         else  if(!users.getFirstName().equals("") && !users.getLastName().equals("") && users.getRole().equals("patient") )
@@ -282,7 +256,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
         }
         else  if(!users.getFirstName().equals("") && !users.getLastName().equals("") && users.getRole().equals("medecin") )
         {
-            np.setText("Dr "+users.getFirstName()+" "+users.getLastName());
+            np.setText("Dr. "+users.getFirstName()+" "+users.getLastName());
 
         }
 
@@ -456,6 +430,7 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                 startActivityForResult(result,IMG_RESULT);
             }
         });
+
         return root;
     }
     Handler handler = new Handler(){
@@ -1419,11 +1394,10 @@ public class Account  extends Fragment implements OnCountryPickerListener {
         CT.setText(country.getName());
 
     }
-    public void getRating()
+    public void getRating(View root)
     {
         final String URL = util.getDomaneName() + "/api/Ratings/";
         System.out.println("URLLLL:  "+ URL);
-        ratingList = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -1448,8 +1422,40 @@ public class Account  extends Fragment implements OnCountryPickerListener {
                                 rating.setPationId(o.getInt("pationId"));
                                 rating.setMedcinId(o.getInt("medecinId"));
                                 rating.setNote(Float.valueOf(o.getString("note")));
-                                ratingList.add(rating);
+                                if(rating.getMedcinId() == preferences.getInt(getString(R.string.Id),0)){
+                                    ratingList.add(rating);
+                                    somme = somme + rating.getNote();
+                                    coff++;
+                                }
+
                             }
+
+                            toastMessage(String.valueOf(somme)+"   "+String.valueOf(coff));
+                            note = root.findViewById(R.id.note);
+
+                            prgDialog = new ProgressDialog(getActivity());
+                            ratingBar = root.findViewById(R.id.rating);
+                            if(somme == 0.0f && coff == 0)
+                            {
+                                note.setText(String.valueOf(0.0f));
+                                ratingBar.setRating(0.0F);
+                            }
+                            else
+                            {
+                                note.setText(String.valueOf(somme/coff));
+                                ratingBar.setRating(somme/coff);
+                            }
+                            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+                            stars.getDrawable(2).setColorFilter(Color.parseColor("#F0AF10"), PorterDuff.Mode.SRC_ATOP);
+
+                            ratingBar.setEnabled(false);
+                            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                                @Override
+                                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                                    toastMessage(String.valueOf(rating));
+
+                                }
+                            });
 
 //                            System.out.println("database get: "+database.getAllUsers());
 
