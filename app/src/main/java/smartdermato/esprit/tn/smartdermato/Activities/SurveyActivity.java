@@ -1,19 +1,13 @@
 package smartdermato.esprit.tn.smartdermato.Activities;
 
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -35,17 +29,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
 import smartdermato.esprit.tn.smartdermato.Adapter.SurveyMultiViewTypeAdapter;
 import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.Question;
-import smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Util.util;
 
@@ -152,6 +142,40 @@ public class SurveyActivity extends AppCompatActivity {
                     System.out.println("pos: " + i + "test rad: " + adapterAccueil.getResult(i));
                     data = data + adapterAccueil.getResult(i)+", ";
                     System.out.println(data);
+
+                    if (i ==10)
+                    {
+                        data = data + adapterAccueil.getResult(i)+", " + adapterAccueil.getResult(i)+", " + adapterAccueil.getResult(i)+", ";
+                    }
+
+                    if (i == 18)
+                    {
+                        data = data + adapterAccueil.getResult(10)+", " + adapterAccueil.getResult(10)+", " + adapterAccueil.getResult(10)+", " +adapterAccueil.getResult(10)+", ";
+                    }
+
+                    if (i==23)
+                    {
+                        data = data + adapterAccueil.getResult(10)+", ";
+                    }
+
+
+                    if (i==25)
+                    {
+                        data = data + adapterAccueil.getResult(10)+", "+ data + adapterAccueil.getResult(10)+", ";
+                    }
+
+                    if (i==31)
+                    {
+                        data = data + adapterAccueil.getResult(10)+", ";
+                    }
+
+
+                    if (i==33)
+                    {
+                        data = data + adapterAccueil.getResult(10)+", ";
+                    }
+
+
 
                 }
                 Random rand = new Random();
