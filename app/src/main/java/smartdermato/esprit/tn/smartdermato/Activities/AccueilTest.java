@@ -197,6 +197,9 @@ public class AccueilTest extends Fragment {
         FeedItem item3 = new FeedItem(3, "test", 10, false, false, "", "tester", "", 10, 10, "23");
         FeedItem item4 = new FeedItem(4, "test", 10, true, true, "", "tester", "", 12, 10, "23");
 
+
+        getPubs();
+
         /*items.add(item1);
         items.add(item2);
         items.add(item3);
@@ -1107,6 +1110,7 @@ public class AccueilTest extends Fragment {
                 System.out.println("Consultation: "+response );
                 try {
 
+                    ArrayList<FeedItem> items = new ArrayList<>();
                     if (response.length() == 0 ) {
 
                         final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()));
@@ -1118,9 +1122,7 @@ public class AccueilTest extends Fragment {
                     } else {
 
                         JSONArray array = new JSONArray(response);
-                        for (int i = array.length() - 1; i >= 0; i--) {
-
-                            FeedItem item1 = new FeedItem(1, "test", 10, false, false, "", "tester", "", 10, 10, "23");
+                        for (int i = array.length()-1; i >= 0; i--) {
 
                             JSONObject o = array.getJSONObject(i);
                             FeedItem pub = new FeedItem();
@@ -1136,10 +1138,11 @@ public class AccueilTest extends Fragment {
                             pub.setIdme(o.getInt("createur"));
                             pub.setPhotoprof("");
                             pub.setUsername("tester");
+
+                            items.add(pub);
                         }
 
 
-                        ArrayList<FeedItem> items = new ArrayList<>();
                         HomeMultiViewTypeAdapter adapterAccueil = new HomeMultiViewTypeAdapter(items, getActivity());
                         recyclerView.setAdapter(adapterAccueil);
 

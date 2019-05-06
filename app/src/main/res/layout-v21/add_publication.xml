@@ -43,7 +43,7 @@
                     android:id="@+id/nam_post"
                     android:layout_marginStart="10dp"
                     android:background="@null"
-                    android:hint="Ecrivez quelque chose"
+                    android:hint="Write a post"
                     android:textSize="20sp"
                     android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
