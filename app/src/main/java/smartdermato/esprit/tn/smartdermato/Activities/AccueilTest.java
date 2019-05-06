@@ -1136,8 +1136,8 @@ public class AccueilTest extends Fragment {
 
                             pub.setUser_id(o.getInt("createur"));
                             pub.setIdme(o.getInt("createur"));
-                            pub.setPhotoprof("");
-                            pub.setUsername("tester");
+                            pub.setPhotoprof(o.getString("user_image"));
+                            pub.setUsername(o.getString("nom_user"));
 
                             items.add(pub);
                         }
