@@ -81,6 +81,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import smartdermato.esprit.tn.smartdermato.Activities.MenuActivity;
+import smartdermato.esprit.tn.smartdermato.Activities.SurveyActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Service.APIClient;
 import smartdermato.esprit.tn.smartdermato.Service.UploadService;
@@ -528,7 +529,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                         Date date  = new Date();
                                         String pourc = response.substring(14,response.length()-6);
 
-                                        if(Math.round(Double.valueOf(pourc)) < 80)
+                                        if(Math.round(Double.valueOf(pourc)) > 80)
                                         {
                                             Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
                                             intent.putExtra("pourcentage", Math.round(Double.valueOf(pourc)));
@@ -547,6 +548,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                             myDialog.setContentView(R.layout.pop_result_analyse);
                                             myDialog.setCanceledOnTouchOutside(false);
                                             Button ok = myDialog.findViewById(R.id.ok);
+
                                             RelativeLayout contentR = myDialog.findViewById(R.id.rall);
                                             contentR.setBackgroundResource(R.drawable.resultat_positive);
                                             TextView pourcentage = myDialog.findViewById(R.id.pourcentaget);
@@ -558,6 +560,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                             ok.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
+                                                    ok.setEnabled(false);
                                                     PostConsultation(response.substring(3,12) ,pourc);
 
                                                 }
@@ -626,6 +629,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                             ok.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
+                                                    ok.setEnabled(false);
                                                     PostConsultation(response.substring(3,16) ,pourc);
 
                                                 }

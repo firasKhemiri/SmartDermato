@@ -1,7 +1,9 @@
 package smartdermato.esprit.tn.smartdermato.Activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -13,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import smartdermato.esprit.tn.smartdermato.Adapter.SurveyMultiViewTypeAdapter;
+import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.Question;
 import smartdermato.esprit.tn.smartdermato.R;
 
 public class SurveyActivity extends AppCompatActivity {
+    private Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,9 @@ public class SurveyActivity extends AppCompatActivity {
         setContentView(R.layout.survey_list);
 
         FrameLayout submit = findViewById(R.id.btn_survey);
+        window=getWindow();
+
+        window.setStatusBarColor(Color.parseColor("#17A8C2"));
 
 
         RecyclerView recyclerView = findViewById(R.id.survey_lst);
@@ -100,7 +107,7 @@ public class SurveyActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 int size = Objects.requireNonNull(recyclerView.getAdapter()).getItemCount();
-
+                Consultation consultation = new Consultation();
                 for (int i = 0; i < size; i++) {
                     int type = recyclerView.getAdapter().getItemViewType(i);
 
@@ -109,6 +116,29 @@ public class SurveyActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"pos: "+i+ "test rad: "+adapterAccueil.getResult(i),Toast.LENGTH_SHORT).show();
                     System.out.println("pos: "+i+ "test rad: "+adapterAccueil.getResult(i));
 
+
+                    consultation.setQ1(adapterAccueil.getResult(1));
+                    consultation.setQ2(adapterAccueil.getResult(2));
+                    consultation.setQ3(adapterAccueil.getResult(3));
+                    consultation.setQ4(adapterAccueil.getResult(4));
+                    consultation.setQ5(adapterAccueil.getResult(5));
+                    consultation.setQ6(adapterAccueil.getResult(6));
+                    consultation.setQ7(adapterAccueil.getResult(7));
+                    consultation.setQ8(adapterAccueil.getResult(8));
+                    consultation.setQ9(adapterAccueil.getResult(9));
+                    consultation.setQ10(adapterAccueil.getResult(10));
+                    consultation.setQ11(adapterAccueil.getResult(11));
+                    consultation.setQ12(adapterAccueil.getResult(12));
+                    consultation.setQ13(adapterAccueil.getResult(13));
+                    consultation.setQ14(adapterAccueil.getResult(14));
+                    consultation.setQ15(adapterAccueil.getResult(15));
+                    consultation.setQ16(adapterAccueil.getResult(16));
+                    consultation.setQ17(adapterAccueil.getResult(17));
+                    consultation.setQ18(adapterAccueil.getResult(18));
+                    consultation.setQ19(adapterAccueil.getResult(19));
+                    consultation.setQ20(adapterAccueil.getResult(20));
+                    consultation.setQ21(adapterAccueil.getResult(21));
+                    consultation.setQ22(adapterAccueil.getResult(22));
                    /* if (type == SurveyMultiViewTypeAdapter.FIRST_TYPE) {
 
                         View view = Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(i)).itemView;

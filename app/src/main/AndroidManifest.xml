@@ -44,6 +44,7 @@
         <activity android:name=".Activities.Activity_Chat_PM" />
         <activity android:name=".Activities.MessageActivity" />
         <activity android:name=".Activities.ShowProfile" />
+        <activity android:name=".Activities.SurveyActivity" />
 
 
         <activity android:name=".ImageFilters.MainActivity" />
