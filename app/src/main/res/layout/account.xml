@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/user_img"
                         android:layout_centerHorizontal="true"
-                        android:text="Oussama Boumaiza"
+                        android:text=""
                         android:textSize="32sp"
                         android:id="@+id/np"
                         android:textColor="@color/white"
