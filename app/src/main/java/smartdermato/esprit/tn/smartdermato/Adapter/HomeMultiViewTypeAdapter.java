@@ -44,7 +44,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.FeedItem;
-import smartdermato.esprit.tn.smartdermato.Entities.Model;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Util.util;
 
@@ -731,7 +730,6 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
                                 {
                                     ((FirstTypeViewHolder) holder).models.add(consultation);
                                     ((FirstTypeViewHolder) holder).adapterAccueil.notifyDataSetChanged();
-
 
                                 }
                             }

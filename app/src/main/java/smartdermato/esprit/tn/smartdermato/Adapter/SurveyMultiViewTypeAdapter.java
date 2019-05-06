@@ -169,7 +169,7 @@ public class SurveyMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerVie
             else if (object.getType() == 1) {
 
                 ((SliderTypeViewHolder) holder).question.setText(object.getQuestion());
-                ((SliderTypeViewHolder) holder).slider.setProgress(0);
+            //    ((SliderTypeViewHolder) holder).slider.setProgress(0);
                 ((SliderTypeViewHolder) holder).slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

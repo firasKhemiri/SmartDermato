@@ -1,10 +1,59 @@
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grad_bg"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/MenuStyle">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                android:text="Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/valider"
+                android:layout_gravity="center"
+                android:layout_alignParentEnd="true"
+
+                android:textSize="17sp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/getCol2"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/et_bg_green_white"
+                android:layout_marginTop="3dp"
+                />
+
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <androidx.core.widget.NestedScrollView
     xmlns:cardview="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
 
 
     <LinearLayout
@@ -51,12 +100,13 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/pic_change"
-                    android:layout_width="43dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_menu_black_24dp"
+                    android:background="@drawable/fab_add"
                     android:layout_marginEnd="20dp"
                     android:layout_centerVertical="true"
+                    android:backgroundTint="@color/getCol2"
                     />
 
             </RelativeLayout>
@@ -74,22 +124,12 @@
             android:layout_marginBottom="10dp"/>
 
 
-        <Button
-            android:text="Valider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/valider"
-            android:layout_gravity="center"
-            android:layout_alignParentEnd="true"
 
-            android:textSize="17sp"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/getCol2"
-            android:layout_marginBottom="7dp"
-            android:background="@drawable/btn_bg_green" />
 
     </LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
