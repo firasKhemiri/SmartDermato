@@ -86,6 +86,7 @@ public class Activity_SignUp extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private ValueAnimator anim;
+    public static boolean isDoctor = false;
     private String role="patient";
     private int widthOriginal = 0;
     private Map<String,Object> params = new HashMap<String, Object>();
@@ -121,14 +122,17 @@ public class Activity_SignUp extends AppCompatActivity {
 
     }
     public void uploadPDF(View view)
-    {
+    {/*
         Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select PDF"), PDF_RESULT);
+        */
+        DialogueDiplomeOcr DOCR = new DialogueDiplomeOcr();
+        DOCR.show(getSupportFragmentManager(), "import diplome");
     }
 
-    @Override
+  /*  @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -242,6 +246,7 @@ public class Activity_SignUp extends AppCompatActivity {
             }
         }
     }
+    */
     public static String getFilePathFromURI(Context context, Uri contentUri) throws IOException {
         //copy file and send new file path
         String fileName = getFileName(contentUri);
@@ -280,13 +285,13 @@ public class Activity_SignUp extends AppCompatActivity {
 //        String selectionMimeType = MediaStore.Files.FileColumns.MIME_TYPE + "=?";
 //        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("pdf");
 //        String[] proj = new String[]{ mimeType };
+//        cursor.close();
 //       // String[] proj = {MediaStore.Files.FileColumns.MINE};
 //        CursorLoader loader = new CursorLoader(getApplicationContext(),contentUri,proj,null,null,null);
 //        Cursor cursor = loader.loadInBackground();
 //        int column_index = (int) cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE);
 //        cursor.moveToNext();
 //        String result = cursor.getString(column_index);
-//        cursor.close();
 //        return result;
 //    }
 
@@ -302,7 +307,13 @@ public class Activity_SignUp extends AppCompatActivity {
                     mBinding.Next.setVisibility(View.VISIBLE);
                     mBinding.signInBtn.setVisibility(View.GONE);
                   //  mBinding.Next.setEnabled(false);
-                    role = "medecin";
+                    if (isDoctor) {
+                        role = "medecin";
+                    }
+                    else {
+                        role = "patient";
+                    }
+
                 }
                 else {
                     mBinding.uploadCertification.setVisibility(View.GONE);
