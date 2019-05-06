@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -569,13 +570,13 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
                     ((TextTypeViewHolder) holder).username.setText(object.getUsername());
                     ((TextTypeViewHolder) holder).likes.setText(String.valueOf(object.getNum_likes()));
 
-               /* Services s = new Services();
+                util s = new util();
                 try {
                     ((TextTypeViewHolder) holder).date.setText(s.convertDate(object.getDate()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-*/
+
 
 
                     FeedItem item = dataSet.get(listPosition);
@@ -623,13 +624,12 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
 
 
 
-             /*   Services s = new Services();
-                try {
-                    ((ImageTypeViewHolder) holder).date.setText(s.convertDate(object.getDate()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-*/
+                    util s = new util();
+                    try {
+                        ((ImageTypeViewHolder) holder).date.setText(s.convertDate(object.getDate()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                     FeedItem item = dataSet.get(listPosition);
                     if (item.isLiked())

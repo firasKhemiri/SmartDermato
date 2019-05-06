@@ -55,7 +55,7 @@
             android:layout_marginBottom="10dp"
             android:progressTint="@color/gradStart"
             android:thumbTint="#EB7D7D"/>
-        
+
     </RelativeLayout>
 
 </RelativeLayout>
