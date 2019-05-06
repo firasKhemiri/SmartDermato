@@ -1,26 +1,61 @@
 package smartdermato.esprit.tn.smartdermato.Activities;
 
+import android.annotation.TargetApi;
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
+import java.util.Random;
 
 import smartdermato.esprit.tn.smartdermato.Adapter.SurveyMultiViewTypeAdapter;
 import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.Question;
+import smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity;
 import smartdermato.esprit.tn.smartdermato.R;
+import smartdermato.esprit.tn.smartdermato.Util.util;
 
 public class SurveyActivity extends AppCompatActivity {
     private Window window;
+    private String data;
+    private String type;
+    private  int pourcentage;
+    private String imageName;
+    private  Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,14 +143,20 @@ public class SurveyActivity extends AppCompatActivity {
 
                 int size = Objects.requireNonNull(recyclerView.getAdapter()).getItemCount();
                 Consultation consultation = new Consultation();
+                data = "\"[";
                 for (int i = 0; i < size; i++) {
                     int type = recyclerView.getAdapter().getItemViewType(i);
 
 
+                    Toast.makeText(getApplicationContext(), "pos: " + i + "test rad: " + adapterAccueil.getResult(i), Toast.LENGTH_SHORT).show();
+                    System.out.println("pos: " + i + "test rad: " + adapterAccueil.getResult(i));
+                    data = data + adapterAccueil.getResult(i)+", ";
+                    System.out.println(data);
 
-                    Toast.makeText(getApplicationContext(),"pos: "+i+ "test rad: "+adapterAccueil.getResult(i),Toast.LENGTH_SHORT).show();
-                    System.out.println("pos: "+i+ "test rad: "+adapterAccueil.getResult(i));
-
+                }
+                Random rand = new Random();
+                int n = rand.nextInt(100);
+                data = data + n + "]\"";
 
                     consultation.setQ1(adapterAccueil.getResult(1));
                     consultation.setQ2(adapterAccueil.getResult(2));
@@ -138,7 +179,9 @@ public class SurveyActivity extends AppCompatActivity {
                     consultation.setQ19(adapterAccueil.getResult(19));
                     consultation.setQ20(adapterAccueil.getResult(20));
                     consultation.setQ21(adapterAccueil.getResult(21));
-                    consultation.setQ22(adapterAccueil.getResult(22));
+
+                AnalyserQuestions();
+                   // consultation.setQ22(adapterAccueil.getResult(22));
                    /* if (type == SurveyMultiViewTypeAdapter.FIRST_TYPE) {
 
                         View view = Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(i)).itemView;
@@ -166,11 +209,91 @@ public class SurveyActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"test slider: "+slider.getProgress(),Toast.LENGTH_LONG).show();
                     }*/
 
-                }
+
 
             }
         });
     }
+    public void AnalyserQuestions()
+    {
+        String x = "\"[2, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 18]\"";
+        final String URL = util.getDomaneName() + "/api/AnalyseQ/"+x+"/";
+        System.out.println("URLLLL:  "+ URL);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response+" responce Analyse !!!!++++");
+
+
+
+
+                                    //   JSONArray array = new JSONArray(response);
+
+                                    System.out.println(response);
+                                    toastMessage(response);
+
+
+
+
+                            }
+                            }
+
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                toastMessage(message);
+
+                return;
+
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        stringRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+
+
+
+        queue.add(stringRequest);
+
+        // queue.add(stringRequest);
+    }
+
+public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        }
 
 
 

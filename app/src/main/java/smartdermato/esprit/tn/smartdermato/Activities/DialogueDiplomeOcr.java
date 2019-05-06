@@ -269,7 +269,7 @@ setDictDoctorligne();
         }
     }
 
-    public StringBuilder getTextFromImage(View v)
+   public StringBuilder getTextFromImage(View v)
     {
 
 

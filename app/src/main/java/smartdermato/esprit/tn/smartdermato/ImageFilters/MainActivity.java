@@ -528,11 +528,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                         Date date  = new Date();
                                         String pourc = response.substring(14,response.length()-6);
 
-                                        if(Math.round(Double.valueOf(pourc)) > 80)
+                                        if(Math.round(Double.valueOf(pourc)) < 80)
                                         {
                                             Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
                                             intent.putExtra("pourcentage", Math.round(Double.valueOf(pourc)));
-                                            intent.putExtra("type", 1);
+                                            intent.putExtra("type", response.substring(3,12) );
+                                            intent.putExtra("imageName",imageName);
 
                                             startActivityForResult(intent, REQUEST_CODE_2);
                                         }
@@ -602,7 +603,8 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                             Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
 
                                             intent.putExtra("pourcentage", Math.round(100 -Double.valueOf(pourc)));
-                                            intent.putExtra("type", 0);
+                                            intent.putExtra("type", response.substring(3,16) );
+                                            intent.putExtra("imageName",imageName);
 
                                             startActivityForResult(intent, REQUEST_CODE_2);
                                         }

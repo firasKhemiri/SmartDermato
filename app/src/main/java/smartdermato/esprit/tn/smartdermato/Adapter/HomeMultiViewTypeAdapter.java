@@ -707,7 +707,7 @@ public class HomeMultiViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.
 
                             final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(mContext);
                             builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
-                            builderSingle.setTitle("Home");
+                            builderSingle.setTitle("Consultation");
                             builderSingle.setMessage("Vide");
                             builderSingle.show();
 
