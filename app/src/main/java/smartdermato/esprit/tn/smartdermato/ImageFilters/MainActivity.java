@@ -79,7 +79,6 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 import smartdermato.esprit.tn.smartdermato.Activities.MenuActivity;
 import smartdermato.esprit.tn.smartdermato.Activities.SurveyActivity;
 import smartdermato.esprit.tn.smartdermato.R;

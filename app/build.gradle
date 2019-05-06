@@ -98,6 +98,7 @@ dependencies {
     implementation 'com.hanks:htextview-typer:0.1.6'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.5.2'
     implementation project(path: ':imagefilters')
+    implementation 'com.google.android.gms:play-services-vision:17.0.2'
 
 
 }
