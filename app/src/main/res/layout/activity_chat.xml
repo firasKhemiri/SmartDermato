@@ -18,20 +18,40 @@
                 android:background="@drawable/grad_bg"
                 android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/MenuStyle">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/profile_image"
+                    android:layout_marginTop="5dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/username"
-                    android:layout_marginLeft="25dp"
                     android:text="Username"
                     android:textColor="#ffff"
                     android:textStyle="bold"
-                    android:layout_marginStart="25dp"/>
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="9dp"/>
+
+                <ImageButton
+                    android:padding="4dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:id="@+id/btn_add"
+                    android:background="@drawable/ic_photo_camera"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+
+                    android:layout_marginTop="6dp"
+                    />
+                </RelativeLayout>
+
 
             </androidx.appcompat.widget.Toolbar>
             <com.google.android.material.tabs.TabLayout
@@ -43,6 +63,8 @@
                 app:tabIndicatorColor="#fff"
                 app:tabTextColor="#fff"
                 />
+
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager

@@ -49,21 +49,24 @@
                 android:text="4 days ago"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+
             <TextView
                 android:id="@+id/pourcentage"
-                android:textColor="#574F4F"
-                android:layout_toStartOf="@+id/btn_share"
-                android:layout_below="@id/image"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginTop="7dp"
-                android:text="40%"
-                android:textStyle="bold"
-
-                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/date"
+
+                android:layout_toEndOf="@id/result"
+                android:layout_toStartOf="@+id/btn_share"
+                android:text="40%"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginStart="3dp"
+
+                android:textColor="#574F4F"
+                android:textSize="16sp"
+                android:textStyle="bold"
 
                 />
 
@@ -109,7 +112,8 @@
                 android:text="Psoriasis"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
 
 
         </RelativeLayout>

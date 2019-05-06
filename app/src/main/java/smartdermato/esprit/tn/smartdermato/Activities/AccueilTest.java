@@ -64,31 +64,23 @@ import com.hanks.htextview.base.HTextView;
 import com.hanks.htextview.typer.TyperTextView;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import smartdermato.esprit.tn.smartdermato.Adapter.AdapterAccueil;
 import smartdermato.esprit.tn.smartdermato.Adapter.AdapterHome;
 import smartdermato.esprit.tn.smartdermato.Adapter.HomeMultiViewTypeAdapter;
 import smartdermato.esprit.tn.smartdermato.Entities.Consultation;
 import smartdermato.esprit.tn.smartdermato.Entities.FeedItem;
-import smartdermato.esprit.tn.smartdermato.Entities.Model;
 import smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity;
 import smartdermato.esprit.tn.smartdermato.R;
-import smartdermato.esprit.tn.smartdermato.Service.APIClient;
-import smartdermato.esprit.tn.smartdermato.Service.UploadService;
 import smartdermato.esprit.tn.smartdermato.Util.util;
 import smartdermato.esprit.tn.smartdermato.databinding.HomeBinding;
 import smartdermato.esprit.tn.smartdermato.databinding.PopTakePhotoBinding;
@@ -100,24 +92,24 @@ public class AccueilTest extends Fragment {
     private PopTakePhotoBinding ptpBinding;
     private ViewPager viewPager;
     private Dialog myDialogSexe;
-    private ImageView btnRoateAv,headAv,bodyAv,basinAv,handLeftAv,handRightAv,LegsAv,headAr,bodyAr,basinAr,handLeftAr,handRightAr,LegsAr;
-    private ImageView btnRoateFAv,headFAv,bodyFAv,basinFAv,handLeftFAv,handRightFAv,LegsFAv,headFAr,bodyFAr,basinFAr,handLeftFAr,handRightFAr,LegsFAr;
+    private ImageView btnRoateAv, headAv, bodyAv, basinAv, handLeftAv, handRightAv, LegsAv, headAr, bodyAr, basinAr, handLeftAr, handRightAr, LegsAr;
+    private ImageView btnRoateFAv, headFAv, bodyFAv, basinFAv, handLeftFAv, handRightFAv, LegsFAv, headFAr, bodyFAr, basinFAr, handLeftFAr, handRightFAr, LegsFAr;
     private String dateP;
     private Map<String, Object> params = new HashMap<String, Object>();
-    private RelativeLayout corpHommeAv,corpHommeAr,corpFemmeAv,corpFemmeAr;
+    private RelativeLayout corpHommeAv, corpHommeAr, corpFemmeAv, corpFemmeAr;
     private String Sexe = "Homme";
     private int rotate = 0;
-    private final  int IMG_RESULT= 1;
+    private final int IMG_RESULT = 1;
     private final static int REQUEST_CODE_2 = 2;
 
     private String imageName = "vide_pic";
     private SharedPreferences mPreferences;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
-    private LottieAnimationView animationViewRes,animationView,animationViewResult,animationViewResFailed;
-    private RelativeLayout firstAnnimation,result,allCorp;
-    private TyperTextView textResult,poucentage;
-    private static final String[] PERMISSION_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private LottieAnimationView animationViewRes, animationView, animationViewResult, animationViewResFailed;
+    private RelativeLayout firstAnnimation, result, allCorp;
+    private TyperTextView textResult, poucentage;
+    private static final String[] PERMISSION_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private SharedPreferences.Editor editor;
     private List<Consultation> consultationList;
@@ -125,35 +117,35 @@ public class AccueilTest extends Fragment {
     private static final int RequestCode = 746;
     private static final int NumberOfImagesToSelect = 1;
     private static final String TAG = "Accueil";
-    
-    
+
+
+    RecyclerView recyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.home, container, false);
         final Context context = getActivity();
 
 
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        recyclerView = root.findViewById(R.id.recycler_view);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         consultationList = new ArrayList<>();
 
-        adapterAccueil = new AdapterHome(consultationList,getActivity());
+        adapterAccueil = new AdapterHome(consultationList, getActivity());
 
         recyclerView.setAdapter(adapterAccueil);
         adapterAccueil.notifyDataSetChanged();
 
 
-
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-        mPreferences= getActivity().getSharedPreferences("x", Context.MODE_PRIVATE);
+        mPreferences = getActivity().getSharedPreferences("x", Context.MODE_PRIVATE);
         editor = mPreferences.edit();
         FloatingActionButton takePicture = root.findViewById(R.id.fab);
         Toolbar toolbar = root.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 //        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         TextView username = root.findViewById(R.id.username);
@@ -171,71 +163,56 @@ public class AccueilTest extends Fragment {
 
 
                     }
-                },200);
+                }, 200);
             }
         });
 
-        username.setText(mPreferences.getString(getString(R.string.username),""));
-                if (mPreferences.getString(getString(R.string.user_pic),"").equals("vide_pic"))
-                {
-                    profileImage.setImageResource(R.drawable.userprofile);
-                }
-                else
-                {
-
-
-                        Picasso.with(getActivity())
-                                .load(util.getDomaneName()+"/Content/Images/"+mPreferences.getString(getString(R.string.user_pic),"")).into(profileImage);
-
-
-
-                }
+        username.setText(mPreferences.getString(getString(R.string.username), ""));
+        if (mPreferences.getString(getString(R.string.user_pic), "").equals("vide_pic")) {
+            profileImage.setImageResource(R.drawable.userprofile);
+        } else {
+            Picasso.with(getActivity())
+                    .load(util.getDomaneName() + "/Content/Images/" + mPreferences.getString(getString(R.string.user_pic), "")).into(profileImage);
+        }
         takePicture.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(Objects.equals(mPreferences.getString(getString(R.string.SexePop), ""), "null"))
-                {
+                if (Objects.equals(mPreferences.getString(getString(R.string.SexePop), ""), "null")) {
                     showPoP();
-                }else
-                {
+                } else {
                     ShowPopup();
                 }
 
             }
         });
 
-        Toast.makeText(getActivity(),"Test",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Test", Toast.LENGTH_LONG).show();
 
-        List<Model> models = new ArrayList<>();
-        models.add(new Model(R.drawable.brochure,"19/02/2019","12h:59"));
-        models.add(new Model(R.drawable.sticker,"15-02-2019","20h:09"));
-        models.add(new Model(R.drawable.poster,"19/01/2019","10h:50"));
-        models.add(new Model(R.drawable.namecard,"02-12-2018","00h:00"));
 
         ArrayList<FeedItem> items = new ArrayList<>();
 
-        FeedItem item1 = new FeedItem(1,"test",10,false,false,"","tester","",10,10,"23");
-        FeedItem item2 = new FeedItem(2,"test",10,true,true,"","tester","",11,10,"23");
-        FeedItem item3 = new FeedItem(3,"test",10,false,false,"","tester","",10,10,"23");
-        FeedItem item4 = new FeedItem(4,"test",10,true,true,"","tester","",12,10,"23");
+        FeedItem item1 = new FeedItem(1, "test", 10, false, false, "", "tester", "", 10, 10, "23");
+        FeedItem item2 = new FeedItem(2, "test", 10, true, true, "", "tester", "", 11, 10, "23");
+        FeedItem item3 = new FeedItem(3, "test", 10, false, false, "", "tester", "", 10, 10, "23");
+        FeedItem item4 = new FeedItem(4, "test", 10, true, true, "", "tester", "", 12, 10, "23");
 
-        items.add(item1);
+        /*items.add(item1);
         items.add(item2);
         items.add(item3);
         items.add(item4);
-
+*/
+        /*
         HomeMultiViewTypeAdapter adapterAccueil = new HomeMultiViewTypeAdapter(items, getActivity());
         recyclerView.setAdapter(adapterAccueil);
 
 
-
-        adapterAccueil.notifyDataSetChanged();
-
+        adapterAccueil.notifyDataSetChanged();*/
 
 
         return root;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void ShowPopup() {
         Dialog myDialog = new Dialog(getActivity());
@@ -312,10 +289,7 @@ public class AccueilTest extends Fragment {
     }
 
 
-
-
-    private void getPoP()
-    {
+    private void getPoP() {
         switch (Objects.requireNonNull(mPreferences.getString(getString(R.string.SexePop), ""))) {
             case "Femme":
                 Sexe = mPreferences.getString(getString(R.string.SexePop), "");
@@ -330,12 +304,12 @@ public class AccueilTest extends Fragment {
         }
     }
 
-    private void showPoP(){
+    private void showPoP() {
         myDialogSexe = new Dialog(Objects.requireNonNull(getActivity()));
 
         myDialogSexe.setContentView(R.layout.pop_sexe);
         myDialogSexe.setCanceledOnTouchOutside(false);
-        FrameLayout Homme,Femme;
+        FrameLayout Homme, Femme;
         Homme = myDialogSexe.findViewById(R.id.hommeInBtn);
         Femme = myDialogSexe.findViewById(R.id.FemmeInBtn);
         Homme.setOnClickListener(new View.OnClickListener() {
@@ -348,31 +322,30 @@ public class AccueilTest extends Fragment {
         Femme.setOnClickListener(this::sexeFemme);
 
 
-
         //  mBindingPS = DataBindingUtil.setContentView(this, R.layout.pop_sexe);
 
         Objects.requireNonNull(myDialogSexe.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogSexe.show();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void  sexeHomme(View view)
-    {
+    private void sexeHomme(View view) {
         System.out.println("sexeH");
         Sexe = "Homme";
-        editor.putString(getString(R.string.SexePop),Sexe).apply();
+        editor.putString(getString(R.string.SexePop), Sexe).apply();
 
         myDialogSexe.dismiss();
 
         ShowPopup();
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void  sexeFemme(View view)
-    {
+    private void sexeFemme(View view) {
         System.out.println("sexeF");
 
         Sexe = "Femme";
-        editor.putString(getString(R.string.SexePop),Sexe).apply();
+        editor.putString(getString(R.string.SexePop), Sexe).apply();
         myDialogSexe.dismiss();
 //       corpFemmeAv.setVisibility(View.VISIBLE);
 //       corpHommeAv.setVisibility(View.GONE);
@@ -380,9 +353,10 @@ public class AccueilTest extends Fragment {
         ShowPopup();
 
     }
-    private void rotate(View view){
-        System.out.println("------------------------------------"+rotate);
-        if(rotate == 0 && Sexe.equals("Homme")){
+
+    private void rotate(View view) {
+        System.out.println("------------------------------------" + rotate);
+        if (rotate == 0 && Sexe.equals("Homme")) {
             System.out.println("------------------------------------A");
             corpHommeAv.setVisibility(View.GONE);
             corpHommeAr.setVisibility(View.VISIBLE);
@@ -391,7 +365,7 @@ public class AccueilTest extends Fragment {
 
 
             rotate = 1;
-        }else if (rotate == 1 && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
 
             corpHommeAv.setVisibility(View.VISIBLE);
             corpHommeAr.setVisibility(View.GONE);
@@ -399,23 +373,24 @@ public class AccueilTest extends Fragment {
             System.out.println("------------------------------------B");
             // mBinding.headAr.setColorFilter(Color.parseColor("#0057717A"));
             rotate = 0;
-        }else if(rotate == 0 && Sexe.equals("Femme")){
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             corpFemmeAv.setVisibility(View.GONE);
             corpFemmeAr.setVisibility(View.VISIBLE);
             btnRoateAv.setImageResource(R.drawable.ic_rotate_right_black_24dp);
             // mBinding.headAv.setColorFilter(Color.parseColor("#0057717A"));
             rotate = 1;
-        }else if(rotate == 1 && Sexe.equals("Femme")){
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             corpFemmeAv.setVisibility(View.VISIBLE);
             corpFemmeAr.setVisibility(View.GONE);
             btnRoateAv.setImageResource(R.drawable.ic_rotate_left_black_24dp);
             rotate = 0;
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void head(View view){
+    private void head(View view) {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
-        if(rotate == 0 && Sexe.equals("Homme")){
+        if (rotate == 0 && Sexe.equals("Homme")) {
             headAv.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -423,8 +398,7 @@ public class AccueilTest extends Fragment {
             handRightAv.setColorFilter(Color.parseColor("#0057717A"));
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
-        }
-        else if(rotate == 1 && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
             headAr.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -433,7 +407,7 @@ public class AccueilTest extends Fragment {
             LegsAr.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        }else   if(rotate == 0 && Sexe.equals("Femme")){
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             headFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             basinFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -441,8 +415,7 @@ public class AccueilTest extends Fragment {
             handRightFAv.setColorFilter(Color.parseColor("#0057717A"));
             LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
-        }
-        else if(rotate == 1 && Sexe.equals("Femme")) {
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             headFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             basinFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -453,10 +426,11 @@ public class AccueilTest extends Fragment {
 
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void body(){
+    private void body() {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
-        if(rotate == 0 && Sexe.equals("Homme")){
+        if (rotate == 0 && Sexe.equals("Homme")) {
             bodyAv.setColorFilter(Color.parseColor("#90F0AF10"));
             headAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -465,8 +439,7 @@ public class AccueilTest extends Fragment {
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        }
-        else if(rotate == 1 && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
             bodyAr.setColorFilter(Color.parseColor("#90F0AF10"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -476,7 +449,7 @@ public class AccueilTest extends Fragment {
             camera();
 
 
-        }else if(rotate == 0 && Sexe.equals("Femme")){
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             bodyFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             headFAv.setColorFilter(Color.parseColor("#0057717A"));
             basinFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -485,8 +458,7 @@ public class AccueilTest extends Fragment {
             LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        }
-        else if(rotate == 1 && Sexe.equals("Femme")) {
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             bodyFAr.setColorFilter(Color.parseColor("#90F0AF10"));
             headFAr.setColorFilter(Color.parseColor("#0057717A"));
             basinFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -498,6 +470,7 @@ public class AccueilTest extends Fragment {
 
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void basin(View view) {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
@@ -510,7 +483,7 @@ public class AccueilTest extends Fragment {
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        } else  if (rotate == 1 && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#90F0AF10"));
@@ -520,7 +493,7 @@ public class AccueilTest extends Fragment {
             camera();
 
 
-        }else   if (rotate == 0 && Sexe.equals("Femme")) {
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             headFAv.setColorFilter(Color.parseColor("#0057717A"));
             basinFAv.setColorFilter(Color.parseColor("#90F0AF10"));
@@ -529,7 +502,7 @@ public class AccueilTest extends Fragment {
             LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        } else  if (rotate == 1 && Sexe.equals("Femme")) {
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             headFAr.setColorFilter(Color.parseColor("#0057717A"));
             basinFAr.setColorFilter(Color.parseColor("#90F0AF10"));
@@ -541,6 +514,7 @@ public class AccueilTest extends Fragment {
 
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void legs(View view) {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
@@ -553,7 +527,7 @@ public class AccueilTest extends Fragment {
             LegsAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
-        } else  if (rotate == 1 && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -563,7 +537,7 @@ public class AccueilTest extends Fragment {
             camera();
 
 
-        }else  if (rotate == 0 && Sexe.equals("Femme")) {
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             headFAv.setColorFilter(Color.parseColor("#0057717A"));
             basinFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -572,7 +546,7 @@ public class AccueilTest extends Fragment {
             LegsFAv.setColorFilter(Color.parseColor("#90F0AF10"));
             camera();
 
-        } else  if (rotate == 1 && Sexe.equals("Femme")) {
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             headFAr.setColorFilter(Color.parseColor("#0057717A"));
             basinFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -584,11 +558,12 @@ public class AccueilTest extends Fragment {
 
         }
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hand(View view) {
         String[] arrayName = {"Visage", "Oreille", "Cou", "Cuir chevelu"};
-        if (rotate == 0  && Sexe.equals("Homme")) {
+        if (rotate == 0 && Sexe.equals("Homme")) {
             bodyAv.setColorFilter(Color.parseColor("#0057717A"));
             headAv.setColorFilter(Color.parseColor("#0057717A"));
             basinAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -597,7 +572,7 @@ public class AccueilTest extends Fragment {
             LegsAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        } else if (rotate == 1  && Sexe.equals("Homme")) {
+        } else if (rotate == 1 && Sexe.equals("Homme")) {
             bodyAr.setColorFilter(Color.parseColor("#0057717A"));
             headAr.setColorFilter(Color.parseColor("#0057717A"));
             basinAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -607,7 +582,7 @@ public class AccueilTest extends Fragment {
             camera();
 
 
-        } else  if (rotate == 0  && Sexe.equals("Femme")) {
+        } else if (rotate == 0 && Sexe.equals("Femme")) {
             bodyFAv.setColorFilter(Color.parseColor("#0057717A"));
             headFAv.setColorFilter(Color.parseColor("#0057717A"));
             basinFAv.setColorFilter(Color.parseColor("#0057717A"));
@@ -616,7 +591,7 @@ public class AccueilTest extends Fragment {
             LegsFAv.setColorFilter(Color.parseColor("#0057717A"));
             camera();
 
-        } else if (rotate == 1  && Sexe.equals("Femme")) {
+        } else if (rotate == 1 && Sexe.equals("Femme")) {
             bodyFAr.setColorFilter(Color.parseColor("#0057717A"));
             headFAr.setColorFilter(Color.parseColor("#0057717A"));
             basinFAr.setColorFilter(Color.parseColor("#0057717A"));
@@ -628,11 +603,12 @@ public class AccueilTest extends Fragment {
 
         }
     }
+
     private Uri imageUri;
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void camera(){
+    private void camera() {
 
 
         Intent intent = new Intent();
@@ -645,7 +621,7 @@ public class AccueilTest extends Fragment {
 
 
     @SuppressLint("HandlerLeak")
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -669,7 +645,7 @@ public class AccueilTest extends Fragment {
                     ActivityCompat
                             .requestPermissions(
                                     (Activity) context,
-                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA },
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                 }
                 return false;
@@ -681,6 +657,7 @@ public class AccueilTest extends Fragment {
             return true;
         }
     }
+
     private void showDialog(final String msg, final Context context,
                             final String permission) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
@@ -691,7 +668,7 @@ public class AccueilTest extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.requestPermissions((Activity) context,
-                                new String[] { permission },
+                                new String[]{permission},
                                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                     }
                 });
@@ -700,9 +677,8 @@ public class AccueilTest extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean checkCamera()
-    {
-        if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA)
+    private boolean checkCamera() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA},
                     MY_CAMERA_REQUEST_CODE);
@@ -712,7 +688,7 @@ public class AccueilTest extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -740,10 +716,10 @@ public class AccueilTest extends Fragment {
 
         }
     }
-    public void AnalyserImages()
-    {
-        final String URL = util.getDomaneName() + "/api/Analyse/"+imageName+"/";
-        System.out.println("URLLLL:  "+ URL);
+
+    public void AnalyserImages() {
+        final String URL = util.getDomaneName() + "/api/Analyse/" + imageName + "/";
+        System.out.println("URLLLL:  " + URL);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
@@ -751,16 +727,16 @@ public class AccueilTest extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response+" responce Analyse !!!!++++");
+                        System.out.println(response + " responce Analyse !!!!++++");
 
                         try {
 
-                           animationView.pauseAnimation();
+                            animationView.pauseAnimation();
                             animationView.setVisibility(View.GONE);
                             animationViewRes.setVisibility(View.VISIBLE);
                             //mBinding.animationViewRes.loop(true);
 
-                           animationViewRes.playAnimation();
+                            animationViewRes.playAnimation();
                             //mBinding.animationViewRes.pauseAnimation();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -772,12 +748,11 @@ public class AccueilTest extends Fragment {
 
                                     //mBinding.animationViewResult.loop(true);
                                     animationViewResult.playAnimation();
-                                    toastMessage(response.substring(0,1));
-                                    System.out.println("subbbbb: "+response.substring(1,2));
-                                    System.out.println("subbbbb2: "+response.substring(14,response.length()-5));
-                                    System.out.println("subbbbb3: "+response.substring(3,12));
-                                    if(response.substring(1,2).equals("1"))
-                                    {
+                                    toastMessage(response.substring(0, 1));
+                                    System.out.println("subbbbb: " + response.substring(1, 2));
+                                    System.out.println("subbbbb2: " + response.substring(14, response.length() - 5));
+                                    System.out.println("subbbbb3: " + response.substring(3, 12));
+                                    if (response.substring(1, 2).equals("1")) {
                                         // mBinding.textResult.setOnClickListener(new  );
                                         textResult.setAnimationListener(new AnimationListener() {
                                             @Override
@@ -786,27 +761,23 @@ public class AccueilTest extends Fragment {
                                                 poucentage.setAnimationListener(new AnimationListener() {
                                                     @Override
                                                     public void onAnimationEnd(HTextView hTextView) {
-                                                       // rellay2.setVisibility(View.VISIBLE);
+                                                        // rellay2.setVisibility(View.VISIBLE);
                                                     }
                                                 });
-                                               poucentage.animateText(response.substring(14,response.length()-5));
+                                                poucentage.animateText(response.substring(14, response.length() - 5));
                                             }
                                         });
-                                        textResult.animateText(response.substring(3,12));
+                                        textResult.animateText(response.substring(3, 12));
                                         // mBinding.textResult.setText(response.substring(3,12));
 
 
-                                    }
-                                    else
-
-                                    {
-                                       textResult.animateText(response.substring(3,16));
+                                    } else {
+                                        textResult.animateText(response.substring(3, 16));
 
                                       /*  mBinding.textResult.setText(response.substring(3,16));
                                         mBinding.poucentage.setText(response.substring(18,response.length()-5));*/
 
                                     }
-
 
 
                                 }
@@ -822,12 +793,6 @@ public class AccueilTest extends Fragment {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-
-
-
-
-
 
 
                     }
@@ -859,10 +824,9 @@ public class AccueilTest extends Fragment {
                     public void run() {
                         firstAnnimation.setVisibility(View.GONE);
                         animationViewResFailed.pauseAnimation();
-                       animationViewResFailed.setVisibility(View.GONE);
+                        animationViewResFailed.setVisibility(View.GONE);
                         allCorp.setVisibility(View.VISIBLE);
                         clean();
-
 
 
                     }
@@ -890,7 +854,6 @@ public class AccueilTest extends Fragment {
 
             }
         });
-
 
 
         queue.add(stringRequest);
@@ -928,11 +891,9 @@ public class AccueilTest extends Fragment {
     }
 
 
-    private void  verifyStoragePermitions(Activity activity)
-    {
+    private void verifyStoragePermitions(Activity activity) {
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permission != PackageManager.PERMISSION_GRANTED)
-        {
+        if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     activity,
                     PERMISSION_STORAGE,
@@ -941,13 +902,14 @@ public class AccueilTest extends Fragment {
             );
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMG_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
                 Intent i = new Intent(getContext(), MainActivity.class);
-                i.setData( data.getData());
+                i.setData(data.getData());
 
                 //   i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //   i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1113,11 +1075,12 @@ public class AccueilTest extends Fragment {
             clean();
         }
 
-        }
-    private String getRealPathFromURI(Uri contentUri)
-    {
+
+    }
+
+    private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader loader = new CursorLoader(getContext().getApplicationContext(),contentUri,proj,null,null,null);
+        CursorLoader loader = new CursorLoader(getContext().getApplicationContext(), contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToNext();
@@ -1125,8 +1088,104 @@ public class AccueilTest extends Fragment {
         cursor.close();
         return result;
     }
-        public void toastMessage(String message){
-            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
-        }
+
+    public void toastMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
+
+
+
+
+    public void getPubs()
+    {
+        final String URL = util.getDomaneName() + "/api/Publications";
+        System.out.println("URLLLL:  "+ URL);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                System.out.println("Consultation: "+response );
+                try {
+
+                    if (response.length() == 0 ) {
+
+                        final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                        builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
+                        builderSingle.setTitle("Home");
+                        builderSingle.setMessage("Vide");
+                        builderSingle.show();
+
+                    } else {
+
+                        JSONArray array = new JSONArray(response);
+                        for (int i = array.length() - 1; i >= 0; i--) {
+
+                            FeedItem item1 = new FeedItem(1, "test", 10, false, false, "", "tester", "", 10, 10, "23");
+
+                            JSONObject o = array.getJSONObject(i);
+                            FeedItem pub = new FeedItem();
+                            pub.setId(o.getInt("id"));
+                            pub.setPost_name(o.getString("contenu"));
+                            pub.setIs_picture(o.getBoolean("is_image"));
+                            if (pub.is_picture())
+                                pub.setPic_url(o.getString("path_image"));
+
+                            pub.setDate(o.getString("dateCreate"));
+
+                            pub.setUser_id(o.getInt("createur"));
+                            pub.setIdme(o.getInt("createur"));
+                            pub.setPhotoprof("");
+                            pub.setUsername("tester");
+                        }
+
+
+                        ArrayList<FeedItem> items = new ArrayList<>();
+                        HomeMultiViewTypeAdapter adapterAccueil = new HomeMultiViewTypeAdapter(items, getActivity());
+                        recyclerView.setAdapter(adapterAccueil);
+
+                        adapterAccueil.notifyDataSetChanged();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                final androidx.appcompat.app.AlertDialog.Builder builderSingle = new androidx.appcompat.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                builderSingle.setIcon(R.drawable.ic_assignment_late_black_24dp);
+                builderSingle.setTitle("Login");
+                builderSingle.setMessage(message);
+                builderSingle.show();
+                return;
+
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
+        queue.add(stringRequest);
+
+
+    }
+
+
+}
 
