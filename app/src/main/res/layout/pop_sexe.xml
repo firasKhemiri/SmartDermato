@@ -60,6 +60,8 @@
                     android:src="@drawable/masculine"
                     android:id="@+id/male"
                     />
+
+
                 <TextView
                     android:layout_weight="1"
                     android:id="@+id/hommeInText"
