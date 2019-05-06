@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class Activity_Chat_PM extends AppCompatActivity{
     private TextView username;
     private CircleImageView profileImage;
     private Window window;
+    private ImageButton addPost;
     Map<String,Object> params = new HashMap<String, Object>();
     private static final String TAG = "Activity_Chat_PM";
 
@@ -93,6 +95,20 @@ public class Activity_Chat_PM extends AppCompatActivity{
 //        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         username = findViewById(R.id.username);
+        addPost = findViewById(R.id.btn_add);
+        if(mPreferences.getString(getString(R.string.role),"").equals("patient"))
+        {
+            addPost.setVisibility(View.GONE);
+        }
+        else
+        {
+            addPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
         profileImage = findViewById(R.id.profile_image);
         username.setText(mPreferences.getString(getString(R.string.username),""));
         if(mPreferences.getString(getString(R.string.user_pic),"").equals("vide_pic"))

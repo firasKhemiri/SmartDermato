@@ -58,6 +58,7 @@
         <activity android:name=".Activities.MessageActivity" />
         <activity android:name=".Activities.ShowProfile" />
         <activity android:name=".Activities.SurveyActivity" />
+        <activity android:name=".Activities.AddPost" />
 
 
         <activity android:name=".ImageFilters.MainActivity" />

@@ -1,6 +1,7 @@
 package smartdermato.esprit.tn.smartdermato.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -43,6 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import smartdermato.esprit.tn.smartdermato.ImageFilters.MainActivity;
 import smartdermato.esprit.tn.smartdermato.R;
 import smartdermato.esprit.tn.smartdermato.Util.util;
 import smartdermato.esprit.tn.smartdermato.databinding.ActivityChatBinding;
@@ -57,6 +60,7 @@ public class Fragment_Chat_PM extends Fragment {
     private TextView username;
     private CircleImageView profileImage;
     private Window window;
+    private ImageButton addPost;
     Map<String,Object> params = new HashMap<String, Object>();
     private static final String TAG = "Activity_Chat_PM";
 
@@ -82,6 +86,21 @@ public class Fragment_Chat_PM extends Fragment {
 //        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         username = root.findViewById(R.id.username);
         profileImage = root.findViewById(R.id.profile_image);
+        addPost = root.findViewById(R.id.btn_add);
+        if(mPreferences.getString(getString(R.string.role),"").equals("patient"))
+        {
+            addPost.setVisibility(View.GONE);
+        }
+        else
+        {
+            addPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), AddPost.class));
+
+                }
+            });
+        }
         username.setText(mPreferences.getString(getString(R.string.username),""));
         if(mPreferences.getString(getString(R.string.user_pic),"").equals("vide_pic"))
         {

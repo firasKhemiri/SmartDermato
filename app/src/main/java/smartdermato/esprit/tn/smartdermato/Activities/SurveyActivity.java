@@ -217,7 +217,7 @@ public class SurveyActivity extends AppCompatActivity {
     public void AnalyserQuestions()
     {
         String x = "\"[2, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 18]\"";
-        final String URL = util.getDomaneName() + "/api/AnalyseQ/"+x+"/";
+        final String URL = util.getDomaneName() + "/api/AnalyseQ/"+data+"/";
         System.out.println("URLLLL:  "+ URL);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,

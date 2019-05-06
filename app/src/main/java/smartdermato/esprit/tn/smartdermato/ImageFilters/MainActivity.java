@@ -528,7 +528,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailCallback
                                         Date date  = new Date();
                                         String pourc = response.substring(14,response.length()-6);
 
-                                        if(Math.round(Double.valueOf(pourc)) < 80)
+                                        if(Math.round(Double.valueOf(pourc)) > 80)
                                         {
                                             Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
                                             intent.putExtra("pourcentage", Math.round(Double.valueOf(pourc)));
