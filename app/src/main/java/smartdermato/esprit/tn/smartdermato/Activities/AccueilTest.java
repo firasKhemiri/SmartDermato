@@ -192,19 +192,19 @@ public class AccueilTest extends Fragment {
 
         ArrayList<FeedItem> items = new ArrayList<>();
 
-        FeedItem item1 = new FeedItem(1, "test", 10, false, false, "", "tester", "", 10, 10, "23");
-        FeedItem item2 = new FeedItem(2, "test", 10, true, true, "", "tester", "", 11, 10, "23");
-        FeedItem item3 = new FeedItem(3, "test", 10, false, false, "", "tester", "", 10, 10, "23");
-        FeedItem item4 = new FeedItem(4, "test", 10, true, true, "", "tester", "", 12, 10, "23");
+        FeedItem item1 = new FeedItem(10, "Exempe de psoriasis", 10, true, true, "", "SmartDermatoIMG-4990.png", "", 10, 10, "23");
+        FeedItem item2 = new FeedItem(12, "test", 10, true, true, "", "tester", "SmartDermatoIMG-3338.png", 11, 10, "23");
+        FeedItem item3 = new FeedItem(11, "test", 10, false, false, "", "tester", "SmartDermatoIMG-9130.png", 10, 10, "23");
+        FeedItem item4 = new FeedItem(13, "test", 10, true, true, "", "tester", "SmartDermatoIMG-541.png", 12, 10, "23");
 
 
         getPubs();
 
-        /*items.add(item1);
+        items.add(item1);
         items.add(item2);
         items.add(item3);
         items.add(item4);
-*/
+
         /*
         HomeMultiViewTypeAdapter adapterAccueil = new HomeMultiViewTypeAdapter(items, getActivity());
         recyclerView.setAdapter(adapterAccueil);
