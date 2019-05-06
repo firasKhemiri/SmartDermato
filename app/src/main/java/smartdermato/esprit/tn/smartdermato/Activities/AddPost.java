@@ -31,6 +31,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import smartdermato.esprit.tn.smartdermato.R;
@@ -90,11 +91,11 @@ public class AddPost extends AppCompatActivity {
                 nom = String.valueOf(name_post.getText());
                 if (isPicture)
                 {
-                    new Services().AddPostActual(decoded, nom);
+                    AjoutPub(decoded, nom, new Date());
                 }
                 else
                 {
-                    new Services().AddPostNoPic(nom);
+                   AjoutPubNoPic(nom, new Date());
                 }
             }
         });
